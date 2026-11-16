@@ -1,0 +1,13 @@
+[package]
+name = "platform_bridge_proto"
+version = "0.0.1"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+platform_core_proto = { path = "../core_proto" }
+# UNVERIFIED: "*" resolves to the newest gdext release. After the first successful build, pin the exact
+# version (and commit Cargo.lock). gdext docs claim support for stable Godot >= 4.0; 4.7.2 not yet tested here.
+godot = "*"

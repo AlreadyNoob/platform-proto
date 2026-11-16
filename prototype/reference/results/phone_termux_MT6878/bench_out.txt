@@ -1,0 +1,9 @@
+    Finished `release` profile [optimized] target(s) in 0.02s
+     Running `target/release/bench`
+# stored = N total particles; simulated = particles the tick loop evaluates; visible = n/a (no rendering)
+N=10000 S=4 q=1e-4 | event 34671197 ticks/s (0.25 ev/tick, simulated/tick 1.0) | brute_comp inf ticks/s | brute_particle inf ticks/s
+N=100000 S=4 q=1e-4 | event 2607823 ticks/s (2.50 ev/tick, simulated/tick 10.0) | brute_comp inf ticks/s | brute_particle 129870129870 ticks/s
+N=1000000 S=4 q=1e-4 | event 96448 ticks/s (24.98 ev/tick, simulated/tick 99.9) | brute_comp 4329004329 ticks/s | brute_particle inf ticks/s
+N=10000000 S=4 q=1e-4 | event 6041 ticks/s (249.89 ev/tick, simulated/tick 999.6) | brute_comp inf ticks/s | brute_particle 434782609 ticks/s
+N=1000000 S=4 q=1e-2 | event 1128 ticks/s (2500.04 ev/tick, simulated/tick 10000.1) | brute_comp inf ticks/s | brute_particle inf ticks/s
+N=1000000 S=16 q=1e-3 | event 85742 ticks/s (62.44 ev/tick, simulated/tick 999.1) | brute_comp inf ticks/s | brute_particle inf ticks/s

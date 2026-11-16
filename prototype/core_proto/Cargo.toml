@@ -1,0 +1,8 @@
+[package]
+name = "platform_core_proto"
+version = "0.0.1"
+edition = "2021"
+description = "Milestone 01 PROTOTYPE core: std-only, no engine dependency. Throwaway except for what it proves."
+
+[dependencies]
+# intentionally none

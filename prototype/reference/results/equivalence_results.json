@@ -1,0 +1,224 @@
+[
+ {
+  "variant": "A",
+  "bug": null,
+  "runs": 25000,
+  "seed": 1001,
+  "sec_brute": 10.5,
+  "sec_event": 1.7,
+  "tests": [
+   {
+    "stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)",
+    "bins": 18,
+    "chi2": 15.64,
+    "dof": 17,
+    "p": 0.5496492599152352,
+    "mean_brute": 2.8497,
+    "mean_event": 2.889
+   },
+   {
+    "stat": "survivors_at_tick_75",
+    "bins": 9,
+    "chi2": 16.67,
+    "dof": 8,
+    "p": 0.0337142495379978,
+    "mean_brute": 6.7305,
+    "mean_event": 6.7474
+   },
+   {
+    "stat": "survivors_at_tick_150",
+    "bins": 9,
+    "chi2": 8.12,
+    "dof": 8,
+    "p": 0.4221499066404816,
+    "mean_brute": 4.9666,
+    "mean_event": 4.9916
+   }
+  ]
+ },
+ {
+  "variant": "B",
+  "bug": null,
+  "runs": 25000,
+  "seed": 2002,
+  "sec_brute": 5.2,
+  "sec_event": 0.6,
+  "tests": [
+   {
+    "stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)",
+    "bins": 19,
+    "chi2": 27.27,
+    "dof": 18,
+    "p": 0.07401583326097225,
+    "mean_brute": 2.8566,
+    "mean_event": 2.9177
+   },
+   {
+    "stat": "survivors_at_tick_75",
+    "bins": 7,
+    "chi2": 4.25,
+    "dof": 6,
+    "p": 0.6430086014467467,
+    "mean_brute": 2.7172,
+    "mean_event": 2.7214
+   },
+   {
+    "stat": "survivors_at_tick_150",
+    "bins": 7,
+    "chi2": 7.29,
+    "dof": 6,
+    "p": 0.2946547963558823,
+    "mean_brute": 2.0293,
+    "mean_event": 2.0291
+   }
+  ]
+ },
+ {
+  "variant": "A",
+  "bug": "stale_p",
+  "runs": 25000,
+  "seed": 3003,
+  "sec_brute": 10.4,
+  "sec_event": 1.3,
+  "tests": [
+   {
+    "stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)",
+    "bins": 19,
+    "chi2": 15.88,
+    "dof": 18,
+    "p": 0.6008810846506957,
+    "mean_brute": 2.9064,
+    "mean_event": 2.8622
+   },
+   {
+    "stat": "survivors_at_tick_75",
+    "bins": 9,
+    "chi2": 2885.43,
+    "dof": 8,
+    "p": 0.0,
+    "mean_brute": 6.7379,
+    "mean_event": 7.3616
+   },
+   {
+    "stat": "survivors_at_tick_150",
+    "bins": 9,
+    "chi2": 1441.23,
+    "dof": 8,
+    "p": 6.867673800189811e-306,
+    "mean_brute": 4.9776,
+    "mean_event": 5.448
+   }
+  ]
+ },
+ {
+  "variant": "B",
+  "bug": "stale_p",
+  "runs": 25000,
+  "seed": 4004,
+  "sec_brute": 5.2,
+  "sec_event": 0.4,
+  "tests": [
+   {
+    "stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)",
+    "bins": 19,
+    "chi2": 7.93,
+    "dof": 18,
+    "p": 0.9796669183059266,
+    "mean_brute": 2.8771,
+    "mean_event": 2.8664
+   },
+   {
+    "stat": "survivors_at_tick_75",
+    "bins": 7,
+    "chi2": 1697.56,
+    "dof": 6,
+    "p": 0.0,
+    "mean_brute": 2.7214,
+    "mean_event": 3.1383
+   },
+   {
+    "stat": "survivors_at_tick_150",
+    "bins": 7,
+    "chi2": 625.12,
+    "dof": 6,
+    "p": 8.872008795864135e-132,
+    "mean_brute": 2.0232,
+    "mean_event": 2.1971
+   }
+  ]
+ },
+ {
+  "variant": "A",
+  "bug": "forget_n",
+  "runs": 25000,
+  "seed": 5005,
+  "sec_brute": 10.6,
+  "sec_event": 1.5,
+  "tests": [
+   {
+    "stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)",
+    "bins": 20,
+    "chi2": 19255.46,
+    "dof": 19,
+    "p": 0.0,
+    "mean_brute": 2.8968,
+    "mean_event": 10.864
+   },
+   {
+    "stat": "survivors_at_tick_75",
+    "bins": 9,
+    "chi2": 12371.02,
+    "dof": 8,
+    "p": 0.0,
+    "mean_brute": 6.74,
+    "mean_event": 8.1924
+   },
+   {
+    "stat": "survivors_at_tick_150",
+    "bins": 9,
+    "chi2": 8810.15,
+    "dof": 8,
+    "p": 0.0,
+    "mean_brute": 4.9936,
+    "mean_event": 6.3044
+   }
+  ]
+ },
+ {
+  "variant": "B",
+  "bug": "forget_n",
+  "runs": 25000,
+  "seed": 6006,
+  "sec_brute": 5.4,
+  "sec_event": 0.6,
+  "tests": [
+   {
+    "stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)",
+    "bins": 19,
+    "chi2": 19430.69,
+    "dof": 18,
+    "p": 0.0,
+    "mean_brute": 2.8558,
+    "mean_event": 10.842
+   },
+   {
+    "stat": "survivors_at_tick_75",
+    "bins": 7,
+    "chi2": 7839.26,
+    "dof": 6,
+    "p": 0.0,
+    "mean_brute": 2.7212,
+    "mean_event": 3.7199
+   },
+   {
+    "stat": "survivors_at_tick_150",
+    "bins": 7,
+    "chi2": 3976.57,
+    "dof": 6,
+    "p": 0.0,
+    "mean_brute": 2.0236,
+    "mean_event": 2.5011
+   }
+  ]
+ }
+]

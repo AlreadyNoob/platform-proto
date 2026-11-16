@@ -1,0 +1,5 @@
+    Finished `release` profile [optimized] target(s) in 0.01s
+     Running `target/release/bench --determinism`
+determinism seed=1 hash=8fe431764a396449
+determinism seed=2 hash=05f5d4a4d9e575cf
+determinism seed=3 hash=6f401db9752f4ec1

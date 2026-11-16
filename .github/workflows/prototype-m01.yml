@@ -1,0 +1,39 @@
+name: prototype-m01
+on: [workflow_dispatch, push]
+defaults:
+  run:
+    working-directory: prototype
+jobs:
+  core-desktop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --release -p platform_core_proto -- --nocapture
+      - run: cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt
+      - run: cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt
+      - run: python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt
+      - uses: actions/upload-artifact@v4
+        with: { name: m01-desktop-results, path: "prototype/*.txt" }
+  android-arm64-so:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with: { targets: aarch64-linux-android }
+      - name: Build bridge for Android arm64
+        run: |
+          NDK="${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}"
+          BIN="$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin"
+          # godot-rust CI used this workaround for older NDKs ("Rust bug", godot-rust PR 920). Harmless otherwise.
+          find -L "$NDK" -name libunwind.a -execdir sh -c 'echo "INPUT(-lunwind)" > libgcc.a' \; || true
+          export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$BIN/aarch64-linux-android24-clang"
+          export CC_aarch64_linux_android="$BIN/aarch64-linux-android24-clang"
+          export AR_aarch64_linux_android="$BIN/llvm-ar"
+          cargo build --release -p platform_bridge_proto --target aarch64-linux-android
+          mkdir -p godot_proto/bin/android_arm64
+          cp target/aarch64-linux-android/release/libplatform_bridge_proto.so godot_proto/bin/android_arm64/
+      - uses: actions/upload-artifact@v4
+        with: { name: m01-android-arm64-so, path: prototype/godot_proto/bin/android_arm64/libplatform_bridge_proto.so }
+  # NOT AUTOMATED YET: exporting the APK. Open godot_proto in Godot 4.7.2 (or GABE on the phone), copy the .so into
+  # godot_proto/bin/android_arm64/, add an Android export preset (arm64-v8a) and export. See prototype/README.md.

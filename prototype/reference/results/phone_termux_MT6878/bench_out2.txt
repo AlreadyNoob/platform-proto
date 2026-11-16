@@ -1,0 +1,10 @@
+   Compiling platform_core_proto v0.0.1 (/data/data/com.termux/files/home/platform/Platform_v0.0.2_milestone-01_engine-validation-partial/prototype/core_proto)
+    Finished `release` profile [optimized] target(s) in 9.01s
+     Running `target/release/bench`
+# stored = N total particles; simulated = particles the tick loop evaluates; visible = n/a (no rendering)
+N=10000 S=4 q=1e-4 | event 31142256 ticks/s (0.25 ev/tick, simulated/tick 1.0) | brute_comp 228214 ticks/s | brute_particle 51264 ticks/s
+N=100000 S=4 q=1e-4 | event 2384679 ticks/s (2.50 ev/tick, simulated/tick 10.0) | brute_comp 22923 ticks/s | brute_particle 5146 ticks/s
+N=1000000 S=4 q=1e-4 | event 101067 ticks/s (24.98 ev/tick, simulated/tick 99.9) | brute_comp 2297 ticks/s | brute_particle 515 ticks/s
+N=10000000 S=4 q=1e-4 | event 5661 ticks/s (249.89 ev/tick, simulated/tick 999.6) | brute_comp 229 ticks/s | brute_particle 51 ticks/s
+N=1000000 S=4 q=1e-2 | event 1033 ticks/s (2500.04 ev/tick, simulated/tick 10000.1) | brute_comp 2310 ticks/s | brute_particle 516 ticks/s
+N=1000000 S=16 q=1e-3 | event 78744 ticks/s (62.44 ev/tick, simulated/tick 999.1) | brute_comp 9236 ticks/s | brute_particle 527 ticks/s

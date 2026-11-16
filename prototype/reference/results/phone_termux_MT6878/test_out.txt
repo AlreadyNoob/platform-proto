@@ -1,0 +1,49 @@
+   Compiling platform_core_proto v0.0.1 (/data/data/com.termux/files/home/platform/Platform_v0.0.2_milestone-01_engine-validation-partial/prototype/core_proto)
+    Finished `release` profile [optimized] target(s) in 23.70s
+     Running unittests src/lib.rs (target/release/deps/platform_core_proto-d6387c18539ef161)
+
+running 2 tests
+test detmath::tests::ln_1m_small_q ... ok
+test detmath::tests::ln_matches_std_closely ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/bench.rs (target/release/deps/bench-652f8d8f4c35aa2f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/equivalence.rs (target/release/deps/equivalence-e47a7820996ddfba)
+
+running 3 tests
+test same_seed_same_hash ... ok
+variant=A bug=None seed=1001 chi2=23.7 dof=18 crit=42.4 ratio=0.56
+variant=A bug=None seed=1001 chi2=3.7 dof=8 crit=26.3 ratio=0.14
+variant=A bug=None seed=1001 chi2=4.8 dof=8 crit=26.3 ratio=0.18
+variant=A bug=StaleP seed=3003 chi2=8.5 dof=17 crit=40.9 ratio=0.21
+variant=A bug=StaleP seed=3003 chi2=2318.0 dof=7 crit=24.5 ratio=94.51
+variant=A bug=StaleP seed=3003 chi2=1047.4 dof=8 crit=26.3 ratio=39.80
+variant=B bug=None seed=2002 chi2=17.4 dof=18 crit=42.4 ratio=0.41
+variant=B bug=None seed=2002 chi2=3.5 dof=6 crit=22.7 ratio=0.16
+variant=B bug=None seed=2002 chi2=4.7 dof=6 crit=22.7 ratio=0.21
+test correct_scheduler_matches_brute_force ... ok
+variant=B bug=StaleP seed=4004 chi2=28.7 dof=17 crit=40.9 ratio=0.70
+variant=B bug=StaleP seed=4004 chi2=1410.4 dof=6 crit=22.7 ratio=62.20
+variant=B bug=StaleP seed=4004 chi2=561.0 dof=6 crit=22.7 ratio=24.74
+variant=A bug=ForgetN seed=5005 chi2=15342.3 dof=17 crit=40.9 ratio=374.88
+variant=A bug=ForgetN seed=5005 chi2=9873.0 dof=7 crit=24.5 ratio=402.54
+variant=A bug=ForgetN seed=5005 chi2=7232.8 dof=8 crit=26.3 ratio=274.83
+variant=B bug=ForgetN seed=6006 chi2=15342.1 dof=18 crit=42.4 ratio=361.47
+variant=B bug=ForgetN seed=6006 chi2=6212.2 dof=6 crit=22.7 ratio=273.94
+variant=B bug=ForgetN seed=6006 chi2=3110.6 dof=6 crit=22.7 ratio=137.17
+test negative_controls_are_rejected ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 11.81s
+
+   Doc-tests platform_core_proto
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

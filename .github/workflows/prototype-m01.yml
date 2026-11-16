@@ -1,5 +1,7 @@
 name: prototype-m01
 on: [workflow_dispatch, push]
+permissions:
+  contents: write
 defaults:
   run:
     working-directory: prototype
@@ -14,6 +16,7 @@ jobs:
       - run: cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt
       - run: python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt
       - uses: actions/upload-artifact@v4
+        continue-on-error: true
         with: { name: m01-desktop-results, path: "prototype/*.txt" }
   android-arm64-so:
     runs-on: ubuntu-latest
@@ -33,7 +36,11 @@ jobs:
           cargo build --release -p platform_bridge_proto --target aarch64-linux-android
           mkdir -p godot_proto/bin/android_arm64
           cp target/aarch64-linux-android/release/libplatform_bridge_proto.so godot_proto/bin/android_arm64/
-      - uses: actions/upload-artifact@v4
-        with: { name: m01-android-arm64-so, path: prototype/godot_proto/bin/android_arm64/libplatform_bridge_proto.so }
+      - name: Publish .so as a release asset (does not use artifact storage)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete m01-android-so --yes --cleanup-tag --repo "$GITHUB_REPOSITORY" || true
+          gh release create m01-android-so godot_proto/bin/android_arm64/libplatform_bridge_proto.so --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "M01 Android arm64 .so" --notes "Prototype build of the Godot bridge, run $GITHUB_RUN_ID"
   # NOT AUTOMATED YET: exporting the APK. Open godot_proto in Godot 4.7.2 (or GABE on the phone), copy the .so into
   # godot_proto/bin/android_arm64/, add an Android export preset (arm64-v8a) and export. See prototype/README.md.

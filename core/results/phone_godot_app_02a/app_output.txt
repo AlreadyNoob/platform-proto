@@ -1,0 +1,37 @@
+Platform M02a check. Godot 4.7.2-stable (official), device TECNO CM7
+PlatformCore FOUND (extension loaded)
+info: platform_core 0.1.2 arch=aarch64 os=android ptr_bits=64
+stat fields: seq,tick,requested_speed,effective_speed,paused,owed_ticks,governor_drops,governor_raises,busy_permille
+started at 1000x, no extra load; expect tick ~ 1000/s, no governor action
+after 5 s: tick=4996 req=1000 eff=1000 paused=0 owed=0 drops=0 raises=0 busy=1.0%
+paused=true
+1 s apart: tick 25253 -> 25253 (must be equal while paused)
+paused=false
+1 s apart: tick 26246 -> 27261 (must grow)
+paused=true
+OVERLOAD: request 10000x but every tick costs 1 ms (device can do <= ~1000 ticks/s). Expect effective speed to fall to ~900 and stay near it.
+1 s apart: tick 40393 -> 293 (must be equal while paused)
+t= 1s tick=997 req=10000 eff=10000 paused=0 owed=8819 drops=0 raises=0 busy=99.9%
+t= 2s tick=1965 req=10000 eff=899 paused=0 owed=0 drops=1 raises=0 busy=89.9%
+t= 3s tick=2901 req=10000 eff=1123 paused=0 owed=13 drops=1 raises=1 busy=90.2%
+t= 4s tick=3909 req=10000 eff=1123 paused=0 owed=137 drops=1 raises=1 busy=99.9%
+t= 5s tick=4845 req=10000 eff=899 paused=0 owed=0 drops=2 raises=1 busy=89.9%
+t= 6s tick=5759 req=10000 eff=899 paused=0 owed=0 drops=2 raises=1 busy=90.0%
+t= 7s tick=6673 req=10000 eff=1123 paused=0 owed=0 drops=2 raises=2 busy=90.2%
+t= 8s tick=7679 req=10000 eff=1123 paused=0 owed=112 drops=2 raises=2 busy=99.9%
+t= 9s tick=8641 req=10000 eff=899 paused=0 owed=0 drops=3 raises=2 busy=90.3%
+save ok: tick=9044 speed=10000 -> /data/data/com.example.platformm02/files/m02a_test.sav
+save ok: tick=9497 speed=10000 -> /data/data/com.example.platformm02/files/m02a_test.sav
+backup file exists: true
+load ok from Main: tick=9497 speed=10000 seed=12345 streams=3 label=m02a check 2
+t=10s tick=9551 req=10000 eff=899 paused=0 owed=0 drops=3 raises=2 busy=90.5%
+t=11s tick=10463 req=10000 eff=899 paused=0 owed=0 drops=3 raises=2 busy=90.3%
+t=12s tick=11377 req=10000 eff=899 paused=0 owed=0 drops=3 raises=2 busy=90.1%
+load removed. Expect effective speed to climb back toward 10000.
+t= 3s tick=14305 req=10000 eff=1123 paused=0 owed=0 drops=3 raises=3 busy=0.4%
+t= 6s tick=17743 req=10000 eff=1123 paused=0 owed=0 drops=3 raises=3 busy=0.0%
+t= 9s tick=21447 req=10000 eff=1403 paused=0 owed=0 drops=3 raises=4 busy=0.0%
+paused=false
+t=12s tick=25714 req=10000 eff=1403 paused=0 owed=0 drops=3 raises=4 busy=0.0%
+1 s apart: tick 26370 -> 27790 (must grow)
+t=15s tick=30346 req=10000 eff=1753 paused=0 owed=0 drops=3 raises=5 busy=0.0%

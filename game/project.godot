@@ -1,16 +1,16 @@
-; Platform game project (Milestone 02a: developer check scene only; the real game shell arrives in 02b).
+; Platform game project (Milestone 02b: game shell; developer checks open from Settings).
 config_version=5
 
 [application]
 config/name="Platform"
-run/main_scene="res://main.tscn"
+run/main_scene="res://shell.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 
 [display]
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/handheld/orientation=0
-window/stretch/mode="canvas_items"
+window/stretch/mode="disabled"
+window/handheld/orientation=4
 
 [rendering]
 renderer/rendering_method="mobile"

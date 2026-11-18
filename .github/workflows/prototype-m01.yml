@@ -15,6 +15,9 @@ jobs:
       - run: cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt
       - run: cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt
       - run: python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt
+      - run: cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt
+      - run: cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt
+      - run: python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt
       - uses: actions/upload-artifact@v4
         continue-on-error: true
         with: { name: m01-desktop-results, path: "prototype/*.txt" }

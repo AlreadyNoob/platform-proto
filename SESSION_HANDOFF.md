@@ -1,4 +1,6 @@
-# SESSION_HANDOFF (Milestone 01, 2026-11-17)
+# SESSION_HANDOFF (Milestone 01 complete for feasibility, v0.0.5, 2026-11-17)
+**01b update (v0.0.8):** Rust core verified on the phone. Scheduler: wheel below ~5% hazard per tick, hot list above (report §10.5-10.6). Remaining: CI push, re-export APK, run the app tests (buttons 1, 4, 5a, 5c, 5b) and record real numbers in §10.
+**Earlier update:** Godot 4.7.2 + Rust verified on the owner's phone (see report §8). Read §9 for what is still open. Owner works phone-only (Termux, GitHub Actions, Godot Android editor). Next: owner picks Milestone 01b or 02; do not start game mechanics.
 **Read first:** `README.md` -> `MILESTONE_01_REPORT.md` -> `DECISIONS.md` -> `prototype/README.md` -> `ARCHITECTURE.md` -> `TODO.md`.
 **Owner approval:** Godot 4.7.2 + engine-independent core, Rust leading, for investigation/prototyping only; not a final commitment. Alternatives must be evaluated if Rust-on-Android is unreliable.
 **State:** Milestone 01 is PARTIAL. Verified: equivalence (Python and Rust on the phone), determinism across arm64/x86, event-driven scaling on phone. Unverified: gdext bridge, Godot loading the .so, Android app run, rendering, binding overhead.

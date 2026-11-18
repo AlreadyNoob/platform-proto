@@ -1,0 +1,6 @@
+    Finished `release` profile [optimized] target(s) in 0.01s
+     Running `target/release/bench_hybrid --determinism-hazard`
+hazard brute events=39051 hash=c6192bc0d4e6d6e2
+hazard heap events=37637 hash=c68b73b07b025628
+hazard wheel events=37637 hash=66bfb35d93919c91
+hazard hybrid events=37274 hash=101ce1486d4693e9

@@ -1,3 +1,3 @@
-# Release notes — Platform_v0.0.4_milestone-01_phone-bench-valid.zip
-v0.0.3 + valid phone benchmark (bench_out2.txt), report §7 rewritten with F-6 crossover, D-011 amended, D-012 proposed, tracking docs updated.
-Verified by execution: Python/C references (sandbox), Rust core tests and bench on the phone. Not verified: bridge, Godot, Android app, rendering.
+# Release notes — Platform_v0.0.8_milestone-01b_hot-list-measured.zip
+v0.0.7 + bench_hybrid_hi.txt results, report section 10.6, D-012 second revision, hybrid overhead fix in hazard.rs, hazport.py updated.
+Verified by execution: Python references; Rust core tests and benchmarks on the phone (14/14; scheduler and hot-list benchmarks); the Godot app with the Rust extension (Milestone 01). Not yet run: CI for 01b, snapshot cost, soak.

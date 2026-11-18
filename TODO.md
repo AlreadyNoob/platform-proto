@@ -1,17 +1,11 @@
 # TODO
-## Milestone 01 — finish (REQUIRED, needs a machine with toolchains)
-- [x] Rust core tests on phone: 5/5 pass (v0.0.3)
-- [x] Determinism hashes phone vs x86 Python port: identical
-- [x] Bench re-run on phone with fix (valid)
-- [ ] Design + test hybrid scheduler (D-012): timing wheel vs heap, equivalence test for the hybrid, crossover re-measured
-- [ ] Optional: run `--determinism` on a PC with Rust as a third data point
-- [ ] Run CI `android-arm64-so`; load the .so in Godot 4.7.2 on desktop first, then Android (A1)
-- [ ] Export APK (manual preset), run harness buttons 1/2/3, record results (A2, A3, A7, A8)
-- [ ] Pin gdext version and NDK; commit Cargo.lock
-- [ ] Decide D-002/D-003 from evidence; if Rust-on-Android fails, evaluate alternatives (MILESTONE_01_REPORT §5)
-## Milestone 02 (planned, only after the above): Phase 1 skeleton (layout, themes, camera, settings, audio foundation)
-## Optional
-- [ ] libGDX spike (only on trigger)
-- [ ] Resolve GDD questions Q-1..Q-7 (Q-2 collapse propagation affects event model)
-## Deferred
-Everything in GDD §§6-12 until the core is validated.
+## Milestone 01 — DONE for engine feasibility (v0.0.5).
+## Milestone 01b — core part DONE on the phone (v0.0.7); app part pending
+- [x] Phone: Rust tests 14/14, scheduler benchmark, determinism hashes (matched to x86 Python port)
+- [x] `bench_hybrid --hi` on phone: hot list pays off above ~5% hazard (report §10.6)
+- [ ] (optional) re-run `sh RUN_M01B_TERMUX.sh` with v0.0.8 to see the overhead fix
+- [ ] Push v0.0.8 to GitHub; read the CI log (x86 Rust results); download the new .so (release asset)
+- [ ] Copy new main.gd + .so into Documents/platform_m01, re-export the APK; run buttons 1, 4, 5a, 5c, 5b (10 min), then Copy; note the display Hz
+- [ ] Record real results in report §10 and TESTING; note NDK version used by CI
+## Then: owner decision on D-002/D-003 final commitment; Milestone 02 (Phase 1 skeleton, real repo layout, no mechanics)
+## Pending design questions: GDD Q-1..Q-7 (Q-2 collapse propagation, Q-4 tick length first)

@@ -1,6 +1,6 @@
 # Milestone 01 report — engine validation (2026-11-17)
 
-## Verdict: PARTIAL. Two of the six asks are answered with real measurements; the Android/Godot/Rust asks are prepared but NOT verified.
+## Verdict (updated v0.0.5): engine feasibility VALIDATED on the owner's phone. Godot 4.7.2 + a Rust core loaded and ran in an Android app. Remaining gaps are listed in §9; the original sandbox-era text below is kept for history.
 The authoring sandbox had **no Rust toolchain, no Godot, no Android SDK/NDK, no network and no device** (confirmed: no `cargo`, no `godot`, outbound requests blocked). So nothing below claims Rust or Android results. Code that could not be compiled is labelled **UNCOMPILED**.
 
 | # | Your ask | Status | Evidence / what's missing |
@@ -98,3 +98,113 @@ Other conclusions from valid data: per-particle rolling is ruled out above ~10k 
 Caveats unchanged: respawn-only collapse handling (F-4), single thread, plain Termux process, no rendering, thermal state not recorded. Raw first run (`bench_out.txt`, brute columns invalid because of F-5) is kept for the record.
 
 **Status of the six asks after this run:** (1) Godot↔Rust on Android: still NOT VERIFIED (bridge/Godot not built). (2) YES, now confirmed in Rust on arm64. (3) Simulated particles: measured on phone; render/visible: not measured. (4) Harness ready; render side not run. (5) updated here. (6) unchanged.
+
+## 8. Android app results — Godot 4.7.2 + Rust on the phone (added 2026-11-17, v0.0.5)
+Build path actually used: Rust bridge (gdext **0.5.5**) cross-compiled to aarch64-linux-android by GitHub Actions and published as a release asset; project copied to shared storage; **APK exported on the phone** with the Godot Android editor 4.7.2.stable (non-Gradle export, arm64-v8a, debug); installed and run. Raw output: `prototype/reference/results/phone_godot_app_4.7.2/app_output.txt`.
+
+| Check | Result |
+|---|---|
+| Extension loads in the Android app | **YES** — `CoreProbe class FOUND`, `arch=aarch64 os=android` |
+| Determinism hashes (seeds 1-3) in the app | **identical** to Termux (arm64), GitHub CI (x86_64, Rust 1.100.0) and the Python port: `8fe431764a396449`, `05f5d4a4d9e575cf`, `6f401db9752f4ec1` |
+| Call overhead GDScript → Rust | **233 ns per call** (includes the GDScript loop). About 7,000 calls fit in 10% of a 60 fps frame; the API must be coarse-grained (batch, snapshots), not per-particle calls. |
+| Sim speed inside the app vs plain Termux | Within ~8% (event 33.0M / 2.53M / 98k ticks/s at 10k / 100k / 1M stored vs Termux 31.1M / 2.38M / 101k). The binding and Godot add no visible cost to simulation. |
+| Event vs brute at 1M stored, rare collapses (app) | 97,956 vs 2,469 (per-component) vs 552 (per-particle) ticks/s — consistent with §7 |
+
+**Rendering (all instances in view, static camera, simulation idle; 180 frames each; display is 120 Hz so ~8.33 ms = vsync):**
+| Instances drawn | Setup (GDScript loop) | Avg frame | p95 | Worst | Reading |
+|---|---|---|---|---|---|
+| 10,000 | 14 ms | 8.43 ms | 8.33 | 14.8 | at vsync (120 fps) |
+| 100,000 | 47 ms | 8.75 ms | 8.33 | 33.3 | at vsync; true cost < 8.3 ms |
+| 300,000 | 99 ms | 14.12 ms | 19.21 | 106 | ~70 fps avg, p95 ≈ 52 fps |
+| 1,000,000 | 325 ms | 29.35 ms | 33.33 | 130 | ~34 fps |
+Caveats: frame interval equals draw cost only once it exceeds vsync (so 10k/100k only show an upper bound); worst frames of 33-130 ms are probably one-off hitches after creating the MultiMesh (not separated from steady state); plain colored quads, no textures/shaders/animation; at 1M instances the quads overlap heavily on screen; no thermal data; no panning or zooming during measurement.
+Reading for design: **up to roughly 100,000 individually drawn instances is comfortably inside a 60 fps budget on this phone; 300,000 is marginal; 1,000,000 is not**. So "millions of particles" must be stored and simulated but *drawn* through LOD/aggregation (density layers when zoomed out), as ARCHITECTURE §6 already assumes.
+
+**Build complications actually met (for the record):**
+1. GitHub Actions artifact storage quota was full → .so published as a **release asset** instead.
+2. `gh` needs explicit run IDs in non-interactive use.
+3. Android editor showed a startup spinner once; it resolved by itself, cause not identified.
+4. Android Godot editor cannot see Termux's private folder → project must live in shared storage (`Documents/`).
+5. Export templates (4.7.2) are not bundled; the editor downloads them once.
+6. Non-Gradle export carried the extension `.so` correctly (no GABE/Gradle needed).
+7. NDK version used by CI was not recorded (runner default).
+
+## 9. What is still NOT validated (honest list)
+- Simulation running **while** rendering (combined load, thermal throttling over ~10 minutes).
+- Simulation on a worker thread (prototype ran it on the main thread, freezing the UI for seconds).
+- Cost of moving a snapshot Rust → Godot (`make_positions` exists but has no button).
+- Interactive pan/zoom frame times; multi-touch.
+- A8 (pause/speed correctness) — the prototype has no clock/pause.
+- Hybrid scheduler (D-012) — proposed, not built or tested.
+- Memory use of the app at 1M stored; Android lifecycle (background/kill/resume).
+- Lower-end devices (only one phone tested).
+
+## 10. Milestone 01b — hybrid scheduler, clock, worker thread, soak (2026-11-17, v0.0.6)
+Goal: close the gaps in §9 that shape the core design. **Status (v0.0.7): the Rust core part ran on the owner's phone (14/14 tests, scheduler benchmark, determinism). The Godot app part (snapshot cost, soak) is written but not yet built or run.**
+
+### 10.1 What was built (all under `prototype/`, still isolated)
+| Piece | Files | State |
+|---|---|---|
+| Hybrid scheduler: brute / heap / timing wheel / hybrid (hot slots rolled per tick, cold slots in a wheel with overflow list) | `reference/hybrid_ref.py` (ran), `core_proto/src/hazard.rs` | Python **validated**; Rust UNCOMPILED |
+| Clock with pause, speed, exact integer time accounting, lag kept (not dropped) | `core_proto/src/clock.rs`, `tests/clock.rs` | UNCOMPILED |
+| A8: results independent of frame size, speed changes, pauses, batching | `tests/hybrid.rs` (`speed_pause_and_batching_do_not_change_state_a8`) | UNCOMPILED |
+| Simulation on a worker thread driven by the clock; UI reads atomics only | `core_proto/src/worker.rs`, `bridge_proto/src/lib.rs` | UNCOMPILED |
+| Scheduler benchmark at ~1M particles with several hot/cold mixes | `core_proto/src/bin/bench_hybrid.rs` | UNCOMPILED, unrun |
+| App harness v2: snapshot cost, 1-min and 10-min soak (render 100k + camera motion + sim at 10,000× on the worker thread, windowed frame stats, sim rate, lag, busy %, RSS) | `godot_proto/main.gd` | never run |
+| Termux runner and CI steps for all of the above | `prototype/RUN_M01B_TERMUX.sh`, `.github/workflows/prototype-m01.yml` | never run |
+
+### 10.2 Validated now (Python reference, 20,000 runs per comparison)
+Model: 8 slots; hot q=0.2, cold q=0.01 (test values), a collapsed slot respawns with a freshly drawn q and rolls again from the next tick; wheel horizon 32 ticks so the overflow logic is exercised.
+- Heap vs brute force: p = 0.52 / 0.74 / 0.003*; wheel: 0.52 / 0.80 / 0.003*; **hybrid: 0.31 / 0.75 / 0.29** (three statistics: total events, slot-0 events, slot-0 first-collapse tick).
+- \*The 0.003 (first-collapse tick) is not below α = 0.001 and is a chance outlier: re-tested with 40,000 fresh-seed runs against the **exact** theoretical distribution, brute / heap / wheel / hybrid give p = 0.23 / 0.28 / 0.13 / 0.27. Raw: `reference/results/hybrid_ref_results.json`, `hybrid_ref_theory_check.txt`.
+- Negative controls: a 15% biased brute force (chi² 1526, p≈0) and a wheel with the overflow rescan removed (chi² 24,224, p≈0) are rejected. The wheel's internal invariant (every bucket entry is due now) never fired.
+- Conclusion: the heap, the wheel and the hybrid are the same stochastic process as per-tick rolling; mode switching at respawn is exact.
+
+### 10.3 Acceptance criteria for 01b (to be filled from your runs)
+| # | Check | Pass condition | Status |
+|---|---|---|---|
+| B1 | Rust tests (14: detmath 2, equivalence 3, clock 5, hybrid 4) | all pass, on phone and CI | **PASS on phone (14/14, first compile)**; CI pending |
+| B2 | `bench_hybrid` at 250k slots (≈1M particles) | hybrid within 10% of the best strategy at every mix; report ticks/s vs the 10,000 needed | **FAILED as a design test — important finding F-7/F-8 (below): the wheel alone is best; the hybrid as specified is slower** |
+| B3 | `--determinism-hazard` hashes phone vs x86 | identical | **PASS vs an independent x86 Python port (all 4 strategies match bit-for-bit: events and hash)**; CI x86 Rust pending |
+| B4 | Snapshot transfer (button 4) | 100k points per frame ≤ 1.7 ms (10% of a 60 fps frame), idle and with sim running | NOT RUN |
+| B5 | 10-minute soak (button 5b) | sim ≥ 95% of 10,000 ticks/s with lag not growing; render p95 ≤ 16.7 ms; last window within 20% of first (no throttling collapse); RSS growth < 10%; no crash/ANR | NOT RUN |
+Anything that fails is a finding, not an error: it changes D-012/D-014 and is recorded here.
+
+### 10.4 Design notes worth remembering
+- Clock arithmetic is integer microseconds × speed; splitting a second into any frame sizes yields exactly the same tick count (tested). Pause accumulates nothing, so resuming cannot burst. Lag stays owed and is reported.
+- The worker thread works in 100-tick chunks and yields after 8 ms, so Stop is responsive even with the brute strategy.
+- The hybrid wheel costs a fixed O(1) per tick plus work per event, while heap cost grows with log(slots) and cache misses (F-6). The benchmark exists to find out whether that matters on the phone.
+
+### 10.5 Results from the owner's phone (Rust core, Termux, MT6878) — added in v0.0.7
+Raw files: `prototype/reference/results/phone_termux_01b/`.
+**Tests:** 14 of 14 pass, compiled without a single error: clock (5: pause stops ticks and resume has no burst; any frame splitting gives the same tick count; exact speed changes; lag kept), A8 (a run driven through odd frame sizes, 10,000× steps, random speeds and pauses equals one direct run, for all four strategies), equivalence (heap, wheel, hybrid vs brute force: worst chi² ratio 0.58 where 1.0 would be rejection), negative controls rejected (15% biased brute force: ratio 34; wheel without overflow rescan: ratio 545).
+**Determinism:** phone hashes for all four strategies (`brute c6192bc0d4e6d6e2`, `heap c68b73b07b025628`, `wheel 66bfb35d93919c91`, `hybrid 101ce1486d4693e9`; 2000 slots, 20,000 ticks) are reproduced **exactly** by an independent Python port on x86 (`prototype/reference/hazport.py`), including the order of events inside the wheel's linked lists.
+
+**Scheduler benchmark (250,000 slots = 1M particles; single thread; ticks per second; need 10,000 at 10,000× speed):**
+| Hot/cold mix (steady hot share) | Events per tick | Heap | **Wheel** | Hybrid (q* = 0.3%) | Brute force |
+|---|---|---|---|---|---|
+| all cold (0%) | 25 | 91,134 | **215,305** | 178,383 | 1,346 (same for every mix) |
+| 0.5% hot | 50 | 49,251 | **151,685** | 84,240 | |
+| 4.3% hot | 239 | 9,800 | **30,828** | 13,334 | |
+| 33% hot | 1,672 | 1,384 | **3,764** | 943 | |
+| 83% hot | 4,172 | 560 | **1,634** | 823 | |
+(Hot slots here collapse with probability 0.02 per tick; cold 0.0001.)
+- **F-7 The timing wheel beats the binary heap by 2.4–3.1× at every mix** (about 6–7.5 million collapse events per second per core vs about 2.3–2.5 million). Capacity at 10,000 ticks/s: the wheel handles roughly 600–750 events per tick, the heap about 230. The earlier worry (F-6) that event scheduling loses to plain rolling at high event rates was mostly a cost of the heap's memory access, not of event scheduling itself.
+- **F-8 The hybrid, as specified, is slower than the wheel alone at every mix** (and 17% slower even with no hot slots, from bookkeeping on each respawn). Rolling a slot every tick costs on the order of 4–7 ns; handling one wheel event costs about 130 ns. The break-even per-slot hazard is therefore around 3–5% per tick (derived, not directly measured), about ten times higher than my threshold of 0.3%, and my hot slots (2%) are below it. A hybrid can only pay off for much hotter slots. This is a design correction: **D-012 is revised to "timing wheel for all slots"**; a hot list is kept only as an option for hazards above ~3–5%, to be tested with `bench_hybrid --hi` (q = 0.2).
+- At the stated target the wheel sustains 1M particles at 10,000× up to about 4% hot slots (239 events/tick, 30.8k ticks/s); at 33% hot slots (1,672 events/tick) it reaches 3.8k ticks/s, i.e. 0.38× real-time speed at 10,000×. Brute force reaches 1.3k ticks/s. Caveat: collapse handling here is a toy (draw a new q, schedule); real collapses cost more, so real capacity will be lower.
+- Display refresh matters for soak frame times: the phone reported 120 Hz earlier and 60 Hz in this session's system info; record it with each soak.
+
+### 10.6 High-hazard run on the phone (v0.0.8): where the hot list pays off
+`bench_hybrid --hi`: hot slots collapse with probability 0.2 per tick (about every 5 ticks), hybrid threshold 3%, 250,000 slots (1M particles). Ticks per second:
+| Steady hot share | Events per tick | Heap | Wheel | **Hybrid** | Hybrid vs wheel |
+|---|---|---|---|---|---|
+| 0% | 25 | 87,043 | 228,834 | 156,194 | 0.68x (bookkeeping overhead) |
+| 0.4% | 249 | 12,234 | 38,591 | **50,441** | 1.31x |
+| 4.7% | 2,373 | 954 | 2,852 | **3,314** | 1.16x |
+| 33% | 16,658 | 164 | 419 | **598** | 1.43x |
+| 83% | 41,679 | 81 | 176 | **453** | 2.57x |
+**F-9 The hot list pays off when slots are hot enough (q = 0.2), and not when they are not (q = 0.02, §10.5).** Cost model fitted from both runs (derived, not directly measured): rolling one slot per tick costs about **5.4 ns**; handling one collapse of a hot slot costs about **26 ns**; handling one collapse through the wheel costs about **136 ns**. Break-even per-slot hazard = 5.4 / (136 − 26) ≈ **5% per tick**: slots above it should roll every tick, slots below it belong in the wheel. Hot-event throughput reached about 19 million events per second (83% hot), against about 7 million for the wheel.
+Other observations:
+- **Run-to-run noise:** the same configuration varied by up to about 20% between two runs on the phone (wheel, all cold: 264k vs 215k ticks/s); other cases varied 2-5%. Treat differences below ~20% as noise at the fast end.
+- **Hybrid overhead with no hot slots** was 32-35% below the wheel in both runs. Cause identified by reading the code: every collapse touched the hot-list index even for cold slots. Fixed in v0.0.8 (only slots that were hot are removed); the change is behaviour-preserving (an independent Python port gives the same four hashes), but the speed gain is **not yet measured**.
+- **D-012 (second revision):** two tiers with the threshold at about 5% per tick (`q_star` = 0.05): wheel below, hot list above. Whether real Platform slots reach hazards that high in large numbers depends on the (undecided) collapse rules: a component's risk is 1-(1-p)^n, so large clusters will be far above 5% but also collapse within a few ticks.

@@ -1,6 +1,9 @@
-//! Milestone 01 prototype core. STATUS: written but NOT COMPILED in the authoring sandbox
-//! (no Rust toolchain there). First job on a machine with Rust: `cargo test --release`.
+//! Milestone 01/01b prototype core (std only, no engine dependency).
+pub mod clock;
 pub mod detmath;
+pub mod hazard;
 pub mod model;
 pub mod rng;
 pub mod scaling;
+pub mod stats;
+pub mod worker;

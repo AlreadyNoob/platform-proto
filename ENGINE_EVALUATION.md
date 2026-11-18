@@ -43,3 +43,9 @@ No claim is made about particle counts or FPS. Tiers will be defined from measur
 - Additional source read: godot-rust book — gdext supports stable Godot ≥ 4.0; Android export needs Android command-line tools, JDK 17, a per-triple linker setting (`CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER`) and a `.gdextension` entry `android.debug.arm64`; docs name an NDK version Godot relied on at the time of writing (23.2.8568313) which may not match 4.7.2.
 - Core-language question is now narrowed: the algorithmic risk (event-driven scheduling) is language-independent and validated in a reference model. What remains open is purely integration: Rust build on Android, binding overhead, rendering throughput.
 - Alternatives to evaluate if integration fails are listed in MILESTONE_01_REPORT.md §5.
+
+## Milestone 01 final update (2026-11-17, v0.0.5) — evidence from the owner's phone
+- **Godot 4.7.2 + Rust (gdext 0.5.5) works on Android** on a TECNO CAMON 40 Pro 5G: extension loaded, 233 ns per call, deterministic hashes identical across four environments, no simulation slowdown inside the app (within ~8% of native Termux).
+- Rendering one MultiMesh of plain quads: 100k instances at 120 Hz vsync; 300k ≈ 70 fps; 1M ≈ 34 fps (all in view, static camera).
+- On-device export (non-Gradle) works and carries the extension library; the Gradle/GABE path was not needed.
+- No trigger for the libGDX fallback fired. The recommendation moves from "hypothesis" to "supported by prototype evidence on one device". Not yet tested: combined sim+render, worker thread, lower-end devices, thermal behaviour.

@@ -1,0 +1,20 @@
+    Finished `release` profile [optimized] target(s) in 0.02s
+     Running `target/release/bench_hybrid`
+# comps=250000 (= 1M particles at S=4), q_hot=0.02 q_cold=1e-4 q_star=0.003, steady-state start, single thread
+# stored = 1M particles; simulated/tick = slots evaluated by the tick loop; need 10,000 ticks/s at 10,000x speed
+brute (cost independent of mix): 1346 ticks/s (49.8 ev/tick)
+p_hot=0 steady_hot=0.000 heap        91134 ticks/s      25.0 ev/tick  hot_list=0.000
+p_hot=0 steady_hot=0.000 wheel      215305 ticks/s      25.0 ev/tick  hot_list=0.000
+p_hot=0 steady_hot=0.000 hybrid     178383 ticks/s      25.0 ev/tick  hot_list=0.000
+p_hot=0.5 steady_hot=0.005 heap        49251 ticks/s      49.8 ev/tick  hot_list=0.000
+p_hot=0.5 steady_hot=0.005 wheel      151685 ticks/s      49.7 ev/tick  hot_list=0.000
+p_hot=0.5 steady_hot=0.005 hybrid      84240 ticks/s      49.7 ev/tick  hot_list=0.005
+p_hot=0.9 steady_hot=0.043 heap         9800 ticks/s     239.2 ev/tick  hot_list=0.000
+p_hot=0.9 steady_hot=0.043 wheel       30828 ticks/s     239.1 ev/tick  hot_list=0.000
+p_hot=0.9 steady_hot=0.043 hybrid      13334 ticks/s     238.6 ev/tick  hot_list=0.043
+p_hot=0.99 steady_hot=0.331 heap         1384 ticks/s    1672.2 ev/tick  hot_list=0.000
+p_hot=0.99 steady_hot=0.331 wheel        3764 ticks/s    1671.4 ev/tick  hot_list=0.000
+p_hot=0.99 steady_hot=0.331 hybrid        943 ticks/s    1673.6 ev/tick  hot_list=0.332
+p_hot=0.999 steady_hot=0.833 heap          560 ticks/s    4171.7 ev/tick  hot_list=0.000
+p_hot=0.999 steady_hot=0.833 wheel        1634 ticks/s    4171.1 ev/tick  hot_list=0.000
+p_hot=0.999 steady_hot=0.833 hybrid        823 ticks/s    4174.0 ev/tick  hot_list=0.834

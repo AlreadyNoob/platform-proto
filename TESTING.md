@@ -19,9 +19,23 @@ How to run: `prototype/README.md`.
 ## Device test matrix
 | Device | Android | Rust core tests | Bench | Godot app |
 |---|---|---|---|---|
-| TECNO CAMON 40 Pro 5G (MT6878, Android 16, Termux) | 16 | PASS 5/5 | PASS; bench valid after fix | NOT RUN |
+| TECNO CAMON 40 Pro 5G (MT6878, Android 16, Termux + Godot app) | 16 | PASS 5/5 | valid | **PASS**: extension loaded, hashes match, sim + render numbers in report §8 |
 | lower-end device | — | NOT RUN | NOT RUN | NOT RUN |
 
 ## Benchmark template (fill from the phone; stored / simulated / visible kept separate)
 | Device | Stored | Simulated/tick | Visible | Speed | Sim ticks/s (Rust) | Render avg/p95 ms | Call overhead ns | Memory | Thermal |
 |---|---|---|---|---|---|---|---|---|---|
+
+## Android app run (2026-11-17) — Godot 4.7.2 + Rust, owner's phone
+All lines in `prototype/reference/results/phone_godot_app_4.7.2/app_output.txt`; interpretation in MILESTONE_01_REPORT.md §8. Summary: loaded OK; 233 ns/call; hashes identical; sim ≈ Termux speed; render 100k at 120 Hz vsync, 300k ≈ 70 fps, 1M ≈ 34 fps.
+Not yet tested: combined sim+render, thermal soak, pan/zoom, snapshot transfer cost, memory, other devices.
+
+## Milestone 01b (v0.0.6)
+| Test | Status |
+|---|---|
+| Hybrid/wheel/heap vs brute force, Python reference, 20,000 runs + theory check | **ran** — all match; controls rejected (report §10.2) |
+| Rust tests (14), `bench_hybrid`, `--determinism-hazard` on phone (`sh RUN_M01B_TERMUX.sh`) | **ran (v0.0.7)**: 14/14 pass; wheel best; hazard hashes match x86 Python port (report §10.5) |
+| Same on GitHub CI (x86_64): log of the `core-desktop` job | NOT RUN |
+| App: button 4 (snapshot cost), 5a (1-min soak), 5b (10-min soak), then Copy | NOT RUN |
+Acceptance B1-B5: report §10.3.
+| `bench_hybrid --hi` (hot slots q=0.2, threshold 3%) on phone | **ran (v0.0.8)**: hybrid 1.2-2.6x faster than wheel at 0.4-83% hot; break-even about 5% hazard (report §10.6) |

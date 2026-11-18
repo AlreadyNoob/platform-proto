@@ -36,6 +36,11 @@ Simulation Core (no engine dependency)  ── Save System ── Diagnostics
 - **Catch-up:** each frame the Core is given a bounded work budget; leftover ticks stay owed (shown as "falling behind"), never dropped.
 - **Pause / background:** no offline progress. On app close, state is saved; resume restores the same tick.
 
+### 3a. Scheduler design (D-012 revised: wheel for all slots; hot list only above ~3-5% hazard per tick — see report §10.5)
+Per component (slot) hazard q per tick. **Cold** slots (q below a threshold `q_star`) live in a hashed timing wheel (power-of-two ring of buckets as intrusive linked lists, plus an overflow list rescanned once per revolution); their next collapse tick is drawn geometrically. **Hot** slots (q >= q_star) sit in a flat list and are rolled every tick with an integer threshold. A slot changes mode only when it is respawned or its q changes, at which point its pending sample is discarded and redrawn (memoryless, so exact). All strategies must agree with per-tick rolling (tests). Expected benefit: O(1) schedule/pop instead of O(log N) heap cost and cache misses; per-tick overhead is constant. Unmeasured on the phone until B2 is run.
+### 3b. Clock and worker thread
+`Clock` (integer microseconds x speed) decides how many ticks are owed; the simulation runs on a worker thread in small chunks and publishes counters through atomics. The renderer never touches simulation state; it will read snapshots (not yet built, cost measured by button 4).
+
 ## 4. Collapse and chains (semantics to be fixed before implementing — see open question Q-2)
 Whatever rule is chosen must: process each particle at most once per event, use a deterministic order (sorted by stable key), terminate, update occupancy/components/formations/entropy consistently, and write a log entry.
 

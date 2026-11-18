@@ -1,6 +1,9 @@
 # prototype/ — Milestone 01 validation code (ISOLATED, throwaway)
 Nothing here is the game. Do not import it from future game code; if an idea survives, re-implement it under the real architecture.
 
+## Milestone 01b (v0.0.6)
+Run `sh RUN_M01B_TERMUX.sh` from this folder in Termux (core-only workspace in ~/platform/m01b_work; your repo is not touched). Then see `../TODO.md` for the CI/APK/soak steps.
+
 ## Status
 | Part | Status |
 |---|---|

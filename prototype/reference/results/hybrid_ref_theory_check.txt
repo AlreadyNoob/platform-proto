@@ -1,0 +1,6 @@
+Slot-0 first-collapse distribution vs exact theory (mixture of geometric(0.2) and geometric(0.01)), 40,000 runs each, fresh seeds:
+brute  chi2=12.8 dof=10 p=0.234
+heap   chi2=12.0 dof=10 p=0.283
+wheel  chi2=15.2 dof=10 p=0.127
+hybrid chi2=12.2 dof=10 p=0.270
+(Run to resolve an isolated p=0.003 for heap and wheel in the 20,000-run comparison against brute force; with fresh seeds all four match theory.)

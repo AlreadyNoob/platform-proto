@@ -1,0 +1,18 @@
+Platform M01 prototype. Godot 4.7.2-stable (official), renderer Mali-G615 MC2, device TECNO CM7
+CoreProbe class FOUND (extension loaded)
+info: platform_core_proto 0.0.1 arch=aarch64 os=android ptr_bits=64
+call overhead: 233 ns/call (200000 calls, includes GDScript loop)
+determinism seed=1 hash=8fe431764a396449
+determinism seed=2 hash=05f5d4a4d9e575cf
+determinism seed=3 hash=6f401db9752f4ec1
+sim stored=10000 simulated/tick(event)=1.0 event=33001310 ticks/s (0.25 ev/tick) brute_comp=241572 ticks/s brute_particle=55374 ticks/s
+sim stored=100000 simulated/tick(event)=10.0 event=2534232 ticks/s (2.50 ev/tick) brute_comp=24767 ticks/s brute_particle=5497 ticks/s
+sim stored=1000000 simulated/tick(event)=99.9 event=97956 ticks/s (24.98 ev/tick) brute_comp=2469 ticks/s brute_particle=552 ticks/s
+render n=10000 (all in view) setup=14 ms; measuring 180 frames...
+render n=10000: avg 8.43 ms, p95 8.33 ms, worst 14.79 ms (VISIBLE=instances in view; sim NOT running)
+render n=100000 (all in view) setup=47 ms; measuring 180 frames...
+render n=100000: avg 8.75 ms, p95 8.33 ms, worst 33.33 ms (VISIBLE=instances in view; sim NOT running)
+render n=300000 (all in view) setup=99 ms; measuring 180 frames...
+render n=300000: avg 14.12 ms, p95 19.21 ms, worst 106.06 ms (VISIBLE=instances in view; sim NOT running)
+render n=1000000 (all in view) setup=325 ms; measuring 180 frames...
+render n=1000000: avg 29.35 ms, p95 33.33 ms, worst 129.87 ms (VISIBLE=instances in view; sim NOT running)

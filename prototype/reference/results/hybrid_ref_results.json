@@ -1,0 +1,132 @@
+[
+ {
+  "strategy": "heap",
+  "bias": 1.0,
+  "bug": null,
+  "runs": 20000,
+  "tests": [
+   {
+    "stat": "total_events",
+    "chi2": 18.0,
+    "dof": 19,
+    "p": 0.5211655338379477
+   },
+   {
+    "stat": "slot0_events",
+    "chi2": 6.0,
+    "dof": 9,
+    "p": 0.7442161180539238
+   },
+   {
+    "stat": "slot0_first_tick",
+    "chi2": 34.3,
+    "dof": 15,
+    "p": 0.0030417237292494157
+   }
+  ]
+ },
+ {
+  "strategy": "wheel",
+  "bias": 1.0,
+  "bug": null,
+  "runs": 20000,
+  "tests": [
+   {
+    "stat": "total_events",
+    "chi2": 18.0,
+    "dof": 19,
+    "p": 0.5211655338379477
+   },
+   {
+    "stat": "slot0_events",
+    "chi2": 5.3,
+    "dof": 9,
+    "p": 0.8043604237083347
+   },
+   {
+    "stat": "slot0_first_tick",
+    "chi2": 34.3,
+    "dof": 15,
+    "p": 0.0030417237292494157
+   }
+  ]
+ },
+ {
+  "strategy": "hybrid",
+  "bias": 1.0,
+  "bug": null,
+  "runs": 20000,
+  "tests": [
+   {
+    "stat": "total_events",
+    "chi2": 21.5,
+    "dof": 19,
+    "p": 0.31236998162951357
+   },
+   {
+    "stat": "slot0_events",
+    "chi2": 5.9,
+    "dof": 9,
+    "p": 0.7452569110480186
+   },
+   {
+    "stat": "slot0_first_tick",
+    "chi2": 17.5,
+    "dof": 15,
+    "p": 0.28841588534761525
+   }
+  ]
+ },
+ {
+  "strategy": "brute",
+  "bias": 1.15,
+  "bug": null,
+  "runs": 20000,
+  "tests": [
+   {
+    "stat": "total_events",
+    "chi2": 1525.6,
+    "dof": 19,
+    "p": 0.0
+   },
+   {
+    "stat": "slot0_events",
+    "chi2": 189.6,
+    "dof": 9,
+    "p": 4.9751696066015934e-36
+   },
+   {
+    "stat": "slot0_first_tick",
+    "chi2": 177.5,
+    "dof": 15,
+    "p": 7.539472470191484e-30
+   }
+  ]
+ },
+ {
+  "strategy": "wheel",
+  "bias": 1.0,
+  "bug": "no_rescan",
+  "runs": 20000,
+  "tests": [
+   {
+    "stat": "total_events",
+    "chi2": 24224.3,
+    "dof": 19,
+    "p": 0.0
+   },
+   {
+    "stat": "slot0_events",
+    "chi2": 6109.1,
+    "dof": 9,
+    "p": 0.0
+   },
+   {
+    "stat": "slot0_first_tick",
+    "chi2": 6252.0,
+    "dof": 10,
+    "p": 0.0
+   }
+  ]
+ }
+]

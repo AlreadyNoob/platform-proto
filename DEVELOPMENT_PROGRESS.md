@@ -1,17 +1,12 @@
 # DEVELOPMENT_PROGRESS
-**Current milestone:** 01 — engine validation, PARTIAL (2026-11-17)
-**Last known build status:** nothing compiled; no engine project exported.
-
-## Completed and verified (real runs)
-- Event-driven collapse scheduling vs per-tick rolls: statistically equivalent in the Python reference model, incl. changing p, merge and split; negative controls detected.
-- Strategy scaling measured with a C reference on an x86 server core.
-- Rust core compiled and all 5 tests pass on the creator's phone (MT6878, Termux); determinism hashes identical to an independent x86 Python port.
-- Event-driven AND brute-force scaling measured on the phone (valid after fix); crossover finding F-6 (report §7).
+**Current milestone:** 01b (v0.0.7) — scheduler, clock, worker thread, soak. Core Rust verified on the phone (14/14 tests, benchmark, determinism). App-side snapshot/soak runs pending.
+**Last verified on device:** Milestone 01 results (Godot 4.7.2 + Rust on the phone, report §8).
+## Verified by execution in 01b
+Python reference: heap, timing wheel and hybrid scheduler match per-tick rolling and exact theory; negative controls detected.
 ## Written, not verified
-gdext bridge, Godot harness, CI workflow (in `prototype/`); brute-force bench columns need a re-run after a fix.
-## Not done
-Godot-to-Rust loading, Android run, rendering benchmarks, determinism across devices, binding overhead.
+Rust hazard/clock/worker/bench/tests, bridge additions, GDScript harness v2, Termux runner, CI steps.
 ## Blockers
-Authoring sandbox had no Rust/Godot/Android toolchain or network. Needs the creator's phone/PC/CI.
-## Next exact steps
-See `TODO.md` (Milestone 01 — finish) and `prototype/README.md`.
+None. Needs the owner to run the steps in TODO.
+
+## Verified on the phone in 01b (v0.0.7)
+14/14 Rust tests; hazard hashes identical to an independent x86 Python port; timing wheel 2.4-3.1x faster than heap; hybrid (threshold 0.3%) slower than wheel (decision D-012 revised).

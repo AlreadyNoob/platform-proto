@@ -1,0 +1,32 @@
+Godot 4.7.2 app v3 on TECNO CAMON 40 Pro 5G (120 Hz display), Rust core 0.0.2, 2026-11-18. Excerpts of the pasted log (full 10-minute log was 20 windows of 30 s).
+info: platform_core_proto 0.0.2 arch=aarch64 os=android ptr_bits=64 | call overhead 255 ns/call | determinism hashes 8fe431764a396449 / 05f5d4a4d9e575cf / 6f401db9752f4ec1
+snapshot n=10000 idle 0.049 ms, running 0.098 ms | n=100000 idle 0.513 ms, running 0.645 ms (per call)
+sim (during snapshot test): achieved=9875 ticks/s target=10000 owed(lag)=0 busy=61%
+
+5a SOAK 60 s, p_hot 0.90:  [30 s] render avg 8.39 p95 8.33 worst 25.0 (3581 frames) | sim achieved=9977 lag=0 busy=65% | rss 501 MB static 49 MB
+                           [60 s] render avg 8.41 p95 9.09 worst 13.5 (3569 frames) | sim achieved=9983 lag=0 busy=66% | rss 502 MB
+5c OVERLOAD 60 s, p_hot 0.99 (33% hot):
+                           [30 s] render avg 8.38 p95 8.33 worst 38.9 (3584 frames) | sim achieved=2707 ticks/s lag=218013 busy=100% | rss 502 MB
+                           [60 s] render avg 8.38 p95 9.09 worst 16.6 (3579 frames) | sim achieved=2710 ticks/s lag=436978 busy=100%
+
+5b SOAK 600 s, p_hot 0.90 (20 windows; render avg / p95 / worst; sim achieved ticks/s, lag, busy; rss MB):
+ 30s 8.40/8.33/36.1 | 9976, 0, 65% | 503
+ 60s 8.38/8.33/16.7 | 9983, 0, 65% | 503
+ 90s 8.39/8.33/16.1 | 9983, 0, 65% | 503
+120s 8.39/9.09/16.7 | 9983, 0, 64% | 504
+150s 8.39/9.09/14.1 | 9983, 0, 65% | 504
+180s 8.41/9.09/11.6 | 9983, 0, 66% | 504
+210s 8.40/9.09/12.5 | 9983, 0, 65% | 504
+240s 8.41/9.09/13.8 | 9982, 0, 65% | 504
+270s 8.39/8.33/14.9 | 9984, 0, 66% | 506
+300s 8.40/8.33/16.7 | 9983, 0, 66% | 506
+330s 8.41/9.09/16.7 | 9983, 0, 65% | 506
+360s 8.41/9.09/13.0 | 9983, 0, 66% | 506
+390s 8.37/8.33/12.8 | 9983, 0, 66% | 507
+420s 8.40/8.33/14.4 | 9983, 0, 66% | 507
+450s 8.40/8.33/16.6 | 9983, 0, 65% | 507
+480s 8.38/8.33/16.4 | 9983, 0, 66% | 507
+510s 8.37/8.33/9.7  | 9983, 0, 65% | 502
+540s 8.37/8.33/10.5 | 9983, 0, 67% | 498
+570s 8.38/9.02/12.1 | 9983, 0, 66% | 498
+End: tick=5,691,106; events=1,361,311,080 (239 per tick, as benchmarked); godot static memory 49 MB throughout.

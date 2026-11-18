@@ -1,0 +1,9 @@
+wheel selftest ok, 214126 events checked
+all reference checks passed; fixtures written to /data/data/com.termux/files/home/platform/m02a_out/fixtures_check
+s1_const_1000_req10000 min/max/last effective: 900 10000 900
+s2_unlimited_req10000 min/max/last effective: 10000 10000 10000
+s3_step_5000_500_8000_req10000 min/max/last effective: 450 10000 8158
+s4_req100_cap50_then_1000 min/max/last effective: 43 100 100
+fixture identical: rng_vectors.txt
+fixture identical: governor_traces.txt
+fixture identical: save_v1_golden.hex

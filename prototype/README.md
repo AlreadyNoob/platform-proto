@@ -1,37 +1,24 @@
-# prototype/ — Milestone 01 validation code (ISOLATED, throwaway)
-Nothing here is the game. Do not import it from future game code; if an idea survives, re-implement it under the real architecture.
+# prototype/ — Milestone 01/01b validation code (ISOLATED, throwaway)
+Nothing here is the game. Do not import it from future game code; re-implement surviving ideas under the real architecture.
 
-## Milestone 01b (v0.0.6)
-Run `sh RUN_M01B_TERMUX.sh` from this folder in Termux (core-only workspace in ~/platform/m01b_work; your repo is not touched). Then see `../TODO.md` for the CI/APK/soak steps.
-
-## Status
+## Status (all verified unless stated; see ../MILESTONE_01_REPORT.md section 11)
 | Part | Status |
 |---|---|
-| `reference/equivalence_test.py` | **ran** (Python 3, numpy, scipy) — results in `reference/results/` |
-| `reference/bench_scaling.c` | **ran** on the authoring sandbox (x86) — `reference/results/bench_scaling_x86_sandbox.txt` |
-| `core_proto/` (Rust, std only) | **written, UNCOMPILED, tests not run** |
-| `bridge_proto/` (gdext) | **written, UNCOMPILED**; gdext version unpinned |
-| `godot_proto/` (Godot 4.7.2 harness) | **written, never opened in Godot** |
-| `../.github/workflows/prototype-m01.yml` | **never executed** |
+| `reference/equivalence_test.py`, `hybrid_ref.py`, `bench_scaling.c`, `detport.py`-style ports (`hazport.py`) | ran (Claude sandbox); raw results in `reference/results/` |
+| `core_proto/` (Rust, std only): rng, detmath, model, scaling, hazard (brute/heap/wheel/hybrid), clock, worker, stats | **compiled and tested on the owner's phone (14/14) and in CI** |
+| `bridge_proto/` (gdext 0.5.5) | **built in CI; loaded and ran in the Android app** |
+| `godot_proto/` (Godot 4.7.2 harness v3) | **exported and run on the phone** |
+| `../.github/workflows/prototype-m01.yml` | **runs green** |
+| `patches/` | historical patch scripts, already applied; kept for the record |
 
-## Run the Rust core (no Godot needed; works in Termux)
+## Run the Rust core tests/benchmarks (Termux, no Godot needed)
 ```
 cd prototype
-cargo test --release -p platform_core_proto -- --nocapture   # equivalence + negative controls + detmath
-cargo run --release -p platform_core_proto --bin bench        # scaling table (compare with the C numbers)
-cargo run --release -p platform_core_proto --bin bench -- --determinism   # run on PC and phone; hashes must match
+sh RUN_M01B_TERMUX.sh     # builds a core-only workspace in ~/platform/m01b_work; results copied to Download
 ```
-If the tests fail to compile, send the compiler output back; the code was never compiled.
-
-## Run the Python/C reference
+## Run the references (any machine with Python; numpy+scipy for the first two)
 ```
-cd prototype/reference && python3 equivalence_test.py 25000
-gcc -O2 -o bench_scaling bench_scaling.c -lm && ./bench_scaling 1000000 4 1e-4 120000 1000
+cd prototype/reference && python3 equivalence_test.py 25000 && python3 hybrid_ref.py 20000
 ```
-
-## Godot ↔ Rust on Android
-1. Build the arm64 library: run the CI job `android-arm64-so` (or build locally with the NDK, see CI file) → `libplatform_bridge_proto.so`.
-2. Put it at `godot_proto/bin/android_arm64/`.
-3. Open `godot_proto` in Godot 4.7.2 (or GABE on the phone), add an Android export preset (arm64-v8a, `gdextension` libs included), export a debug APK.
-4. In the app press: **1 Integration** (core loaded? call overhead, determinism hash), **2 Sim bench**, **3 Render N** buttons, then **Copy** and paste results into `TESTING.md`. `adb logcat -s godot` shows the same lines.
-Pass criteria are in `../PROTOTYPE_PLAN.md`.
+## Android app
+See `../ENVIRONMENT_AND_REPO.md` sections 3-4 (CI builds the library; copy library + `godot_proto/*` to `Documents/platform_m01`; export from the Godot Android editor).

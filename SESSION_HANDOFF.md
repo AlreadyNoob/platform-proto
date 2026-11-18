@@ -1,9 +1,14 @@
-# SESSION_HANDOFF (Milestone 01 complete for feasibility, v0.0.5, 2026-11-17)
-**01b update (v0.0.8):** Rust core verified on the phone. Scheduler: wheel below ~5% hazard per tick, hot list above (report §10.5-10.6). Remaining: CI push, re-export APK, run the app tests (buttons 1, 4, 5a, 5c, 5b) and record real numbers in §10.
-**Earlier update:** Godot 4.7.2 + Rust verified on the owner's phone (see report §8). Read §9 for what is still open. Owner works phone-only (Termux, GitHub Actions, Godot Android editor). Next: owner picks Milestone 01b or 02; do not start game mechanics.
-**Read first:** `README.md` -> `MILESTONE_01_REPORT.md` -> `DECISIONS.md` -> `prototype/README.md` -> `ARCHITECTURE.md` -> `TODO.md`.
-**Owner approval:** Godot 4.7.2 + engine-independent core, Rust leading, for investigation/prototyping only; not a final commitment. Alternatives must be evaluated if Rust-on-Android is unreliable.
-**State:** Milestone 01 is PARTIAL. Verified: equivalence (Python and Rust on the phone), determinism across arm64/x86, event-driven scaling on phone. Unverified: gdext bridge, Godot loading the .so, Android app run, rendering, binding overhead.
-**First thing to do next session:** (1) bench already re-run (valid; F-6 crossover found) — decide whether to prototype the hybrid scheduler (D-012) before or after integration; (2) build the bridge: CI job `android-arm64-so` or Termux if feasible, then the Godot harness; fix compile errors in `bridge_proto` (never compiled). Fill `TESTING.md` only with real numbers.
-**Do not:** start game mechanics, quote performance numbers that were not measured on the named device, or treat the C/Python numbers as Android results.
-**Key risks:** F-2/F-6 (event-driven gain depends on sparsity; phone crossover ~0.25-0.45% collapse/tick), F-4 (collapse handling cost unmodelled), K-6 (Android integration), Q-2 (collapse propagation rule).
+# SESSION_HANDOFF (v0.1.3, 2026-11-19) — rewritten at every milestone/checkpoint, never appended
+**Start with `START_HERE.md`.** Short "what now".
+
+**State:** Engine/language committed. Milestone 02a core (rng, clock, governor, wheel, snapshot/command, save v1, host) TESTED on the phone: compiled first time, 27/27 tests, identical to the Python references. `bridge/`, `game/` check scene and `ci.yml` never built. No game rules.
+
+**Waiting for:** the owner to overlay the project into the git working copy, push, and report the CI result (then the check APK results).
+
+**Next action:** read CI log; fix bridge/CI compile errors (K-26); download `m02-android-so`; guide building the check APK (new Godot folder `Documents/platform_m02`); record governor overload + save/load results on the phone; ship v0.1.4 checkpoint. Then 02b Godot shell.
+
+**Do not:** start mechanics; claim bridge/game work before output says so; copy prototype code blindly; assume Rust/network in the sandbox.
+
+**Unconfirmed:** whether M02 files are in the repo yet; NDK version used by CI.
+
+**Owner's working loop:** Claude gives exact commands -> owner runs them on the phone -> pastes outputs -> Claude records real results and ships the next ZIP. The owner answers briefly ("whatever you think is good"): decide sensibly, state the decision, move on.

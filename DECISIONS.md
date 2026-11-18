@@ -4,8 +4,8 @@ Format: ID · date · decision · alternatives · rationale · consequences · r
 | ID | Date | Status |
 |---|---|---|
 | D-001 | 2026-11-16 | ACCEPTED (process) |
-| D-002 | 2026-11-16 | APPROVED for investigation (owner); **supported by Milestone 01 evidence (v0.0.5)**; final commitment awaits owner decision after the gaps in report §9 |
-| D-003 | 2026-11-16 | APPROVED for investigation (owner); **supported by evidence**: Rust core built and ran on Android arm64 via gdext 0.5.5; alternatives stay documented, none triggered |
+| D-002 | 2026-11-16 | APPROVED for investigation (owner); **VALIDATED by Milestone 01/01b on one phone (v0.1.0)**; final commitment is the owner's decision (see TODO) |
+| D-003 | 2026-11-16 | APPROVED for investigation (owner); **VALIDATED (v0.1.0)**: Rust core ran 10 minutes inside the app with rendering; alternatives stay documented, none triggered |
 | D-009..D-011 | 2026-11-17 | ACCEPTED (Milestone 01) |
 | D-004..D-008 | 2026-11-16 | ACCEPTED as design rules (follow GDD/master prompt) |
 | A-1 | 2026-11-16 | PROVISIONAL assumption |
@@ -34,3 +34,13 @@ Format: ID · date · decision · alternatives · rationale · consequences · r
 **D-017 Simulation runs on a worker thread; the UI reads atomic counters.** Prototype only; the real snapshot interface is a later milestone. Soak test (B5) decides whether this is sufficient.
 **D-018 Capacity planning number.** On this phone one core handles about 6-7.5 million toy collapse events per second with the wheel (about 2.4 million with the heap) and up to about 19 million for hot slots on the hot list. Treat as an upper bound; re-measure with real collapse handling. Reversible: yes.
 **D-012 (second revision, v0.0.8):** two tiers — timing wheel for slots with hazard below about 5% per tick, per-tick hot list at or above it (`q_star` = 0.05). Evidence: report §10.5-10.6 (hybrid loses at q=0.02, wins 1.2-2.6x at q=0.2). Validated statistically (Python, Rust); speed gain of the overhead fix not yet measured. Reversible: yes.
+**D-017 (confirmed v0.1.0):** worker thread + atomics + snapshot copies: 10-minute soak at 10,000x with 100k instances drawn at 120 Hz, no frame-time interference, 0.5-0.65 ms per 100k-point snapshot.
+**D-019 PROPOSED — speed governor.** When owed lag exceeds a threshold, reduce the effective speed and tell the player; never change rules. Evidence: overload test (lag grew without bound, report §11.3). To be designed in the core milestone.
+
+## Milestone 02a decisions (2026-11-19)
+**D-002 / D-003 COMMITTED.** The owner answered "Whatever you think is good? We'll go with that." to Claude's recommendation: commit to Godot 4.7.x for presentation and an engine-independent Rust core. Still reversible in principle (D-004 keeps the core engine-free), but no further evidence is being sought.
+**D-019 IMPLEMENTED in core (numbers PROVISIONAL; not run on a device).** Governor runs every 250 ms of running time. Lag = owed ticks / effective speed. Lag > 1 s: effective speed := 90% of the achieved rate (never above 90% of current), owed ticks are forgiven (no tick is skipped or changed; game time just runs slower than the wall clock). Lag <= 0.1 s for 6 consecutive intervals (waiting time doubles after each failed probe, max 80, resets after 40 intervals of a successful probe): probe upward by x1.25. A probe that makes lag exceed 0.1 s is reverted immediately and counts as failed. Python device model: settles at 90% of capacity, spends about 5% of intervals above capacity while probing (16 of 340 in scenario 1), reaches 7000 of a restored 8000 ticks/s capacity about 36 s after the capacity returns (model, backoff at its maximum). Evidence is a Python model only (`tools/ref/platform_ref.py`); the Rust replays the same traces in `core/tests/governor.rs`.
+**D-020 Repo layout.** `core/ bridge/ game/ tools/ docs/` at the root; workspace members core and bridge; `prototype/` excluded (own workspace). Godot class name `PlatformCore`, library `libplatform_bridge.so`, release tag `m02-android-so`.
+**D-021 Save container v1 (PROVISIONAL).** `PLTF | schema u32 | payload_len u32 | payload | FNV-1a64`, little endian; payload = seed, tick, requested speed, RNG stream states, label. Atomic write: `.tmp` -> fsync -> old file to `.bak` -> rename; load order main, `.tmp`, `.bak`. Newer schemas are refused, never guessed. Real world state (chunks, timelines) will extend the payload with a schema bump and a migration.
+**D-022 Snapshot header field order is append-only** (`Snapshot::FIELDS`); the bridge returns it as a PackedInt64Array. Larger data (viewport chunks) will use a different, batched call (D-013).
+**D-023 Real time lost while the sim thread is suspended is not owed** (frame delta capped at 250 ms): no offline progress.

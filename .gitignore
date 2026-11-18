@@ -1,1 +1,10 @@
-libplatform_bridge_proto.so
+# build outputs and local binaries (never commit these)
+target/
+*.so
+*.apk
+*.aab
+*.zip
+__pycache__/
+.godot/
+.import/
+export_presets.cfg.bak

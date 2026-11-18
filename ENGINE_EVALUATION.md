@@ -44,7 +44,7 @@ No claim is made about particle counts or FPS. Tiers will be defined from measur
 - Core-language question is now narrowed: the algorithmic risk (event-driven scheduling) is language-independent and validated in a reference model. What remains open is purely integration: Rust build on Android, binding overhead, rendering throughput.
 - Alternatives to evaluate if integration fails are listed in MILESTONE_01_REPORT.md §5.
 
-## Milestone 01 final update (2026-11-17, v0.0.5) — evidence from the owner's phone
+## Milestone 01 final update (2026-11-17, v0.0.5; extended v0.1.0 — see report §11: 10-minute combined soak passed) — evidence from the owner's phone
 - **Godot 4.7.2 + Rust (gdext 0.5.5) works on Android** on a TECNO CAMON 40 Pro 5G: extension loaded, 233 ns per call, deterministic hashes identical across four environments, no simulation slowdown inside the app (within ~8% of native Termux).
 - Rendering one MultiMesh of plain quads: 100k instances at 120 Hz vsync; 300k ≈ 70 fps; 1M ≈ 34 fps (all in view, static camera).
 - On-device export (non-Gradle) works and carries the extension library; the Gradle/GABE path was not needed.

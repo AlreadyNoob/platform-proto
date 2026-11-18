@@ -1,0 +1,132 @@
+{
+  "project": "Platform",
+  "kind": "Android 2D top-down particle/universe simulation game",
+  "handoff_package_version": "0.1.3",
+  "date": "2026-11-19",
+  "latest_zip": "Platform_v0.1.3_milestone-02a_core-tested.zip",
+  "original_proposal_zip": "Platform_Design_and_Claude_Prompt_v0_1.zip",
+  "original_sha256": {
+    "PLATFORM_GDD.md": "abba819d92f444d12960ca401884c45c6aeaf485480e158863b0ea944b09621e",
+    "CLAUDE_MASTER_PROMPT.md": "7c64dae7f68090e45911062593753d22befda2623830c0412c13298d1f8a490a",
+    "README.md": "69871316c504277467a43b00b5f438faae0b207b25fbc73aff0344321f96f7df"
+  },
+  "owner_stance": "Slow, impressive, maintainable; 6-12 months is fine; architecture and engine validation first; no particle mechanics until approved.",
+  "milestones": {
+    "00": {
+      "status": "complete",
+      "zip": "v0.0.1",
+      "what": "planning, engine evaluation, architecture, decisions, prototype plan"
+    },
+    "01": {
+      "status": "complete",
+      "zip": "v0.0.5 / v0.1.0",
+      "what": "Godot 4.7.2 + Rust core validated on the owner's phone"
+    },
+    "01b": {
+      "status": "complete",
+      "zip": "v0.0.6-v0.1.0",
+      "what": "scheduler (wheel + hot list), clock, worker thread, 10-minute soak, overload test"
+    },
+    "02": {
+      "status": "in progress",
+      "what": "Phase 1 skeleton, NO mechanics. 02a core skeleton (this ZIP), 02b Godot game shell, 02c save/lifecycle wiring + speed-governor UI"
+    },
+    "02a": {
+      "status": "core TESTED on the phone (27/27 Rust tests, first compile); bridge, game scene and ci.yml still unbuilt",
+      "zip": "v0.1.2-v0.1.3",
+      "what": "repo layout core/ bridge/ game/ tools/, clock+governor (D-019), timing wheel, snapshot/command interface, save container v1, simulation host, bridge, dev check scene, CI"
+    }
+  },
+  "game_code_exists": false,
+  "technology": {
+    "engine": "Godot 4.7.2 (official)",
+    "core": "engine-independent Rust (std only)",
+    "binding": "GDExtension via gdext godot crate =0.5.5",
+    "scheduler": "hashed timing wheel for hazard < ~5%/tick, per-tick hot list at or above (D-012)",
+    "owner_final_commitment": "COMMITTED 2026-11-19: owner said 'Whatever you think is good? We'll go with that.' to the recommendation (commit to Godot 4.7.x + Rust core, start Milestone 02)"
+  },
+  "decisions": {
+    "D-001": "ACCEPTED architecture and validation first",
+    "D-002": "VALIDATED Godot 4.7.x for presentation; owner final commitment pending",
+    "D-003": "VALIDATED engine-independent Rust core; alternatives documented, none triggered",
+    "D-004..D-008": "ACCEPTED design rules (core independent of engine; per-tick probabilities; stable timeline ids; orthogonal adjacency; versioned atomic saves)",
+    "D-009": "ACCEPTED deterministic math (integer RNG, no libm in scheduling)",
+    "D-011": "AMENDED event-driven baseline",
+    "D-012": "REVISED twice: wheel below ~5%/tick, hot list at or above",
+    "D-013": "ACCEPTED coarse-grained binding API (255 ns per call)",
+    "D-014": "ACCEPTED provisional draw budget ~100k individually drawn instances (300k marginal, 1M no); LOD beyond",
+    "D-016": "ACCEPTED integer clock",
+    "D-017": "CONFIRMED worker thread + atomics + snapshot copies",
+    "D-018": "ACCEPTED capacity planning numbers (upper bounds)",
+    "D-019": "IMPLEMENTED in core (PROVISIONAL numbers; unrun on device): governor drops effective speed on lag > 1 s, probes up x1.25, reverts failed probes, backoff",
+    "D-002/D-003": "COMMITTED by the owner 2026-11-19 (delegated to Claude's recommendation)",
+    "D-020": "ACCEPTED repo layout core/ bridge/ game/ tools/ docs/ (prototype/ kept, excluded from the workspace)",
+    "D-021": "PROPOSED save container v1 (PLTF, schema u32, FNV-1a64, .tmp/.bak atomic) - PROVISIONAL until real world state exists"
+  },
+  "open_owner_decisions": [
+    "GDD Q-4 tick length at 1x (before core rules)",
+    "GDD Q-2 collapse propagation (before core rules)",
+    "GDD Q-1, Q-3, Q-5, Q-6, Q-7 (see PROJECT_UNDERSTANDING.md)"
+  ],
+  "provisional_assumptions": {
+    "A-1": "1 tick = 1 sim-second at 1x speed (so 10,000x = 10,000 ticks/s)"
+  },
+  "validated": [
+    "event-driven scheduling equals per-tick rolling (Python and Rust)",
+    "bit-identical results on arm64 phone, x86_64 CI, Python ports, Android app",
+    "Godot 4.7.2 loads the Rust core on Android",
+    "10-minute combined soak at 10,000x with 1M simulated particles and 100k drawn instances",
+    "wheel 2.3-3.1x faster than heap",
+    "hot list break-even ~5% hazard per tick"
+  ],
+  "not_validated": [
+    "real game rules and collapse handling cost",
+    "real visuals, shaders, touch input",
+    "thermal behaviour on a hot day",
+    "other or low-end devices",
+    "Android lifecycle",
+    "audio",
+    "speed governor on real hardware (only a Python device model so far)",
+    "save container on Android storage",
+    "pause inside the app",
+    "M02a bridge crate, game/ check scene and ci.yml never built"
+  ],
+  "environment": {
+    "owner_workflow": "phone only (no PC): Termux + GitHub Actions + Godot Android editor",
+    "phone": "TECNO CAMON 40 Pro 5G, Android 16, MT6878, Mali-G615 MC2, ~7.3 GiB RAM, display 120 Hz (sometimes reported 60)",
+    "termux_rust": "1.99.1",
+    "ci_rust": "1.100.0",
+    "godot": "4.7.2.stable (Play Store 'Godot Engine 4', org.godotengine.editor.v4)",
+    "gdext": "0.5.5",
+    "github_repo": "https://github.com/AlreadyNoob/platform-proto (private)",
+    "release_tag_for_android_so": "m01-android-so (prototype); m02-android-so (M02 bridge, workflow ci.yml)",
+    "actions_artifact_storage": "FULL - use release assets",
+    "paths": {
+      "git_working_copy": "~/platform/Platform_v0.0.4_milestone-01_phone-bench-valid",
+      "godot_project": "/storage/emulated/0/Documents/platform_m01",
+      "exchange_folder": "/storage/emulated/0/Download"
+    },
+    "claude_sandbox_last_session": "bash, python3, gcc; NO Rust; NO network from bash (confirmed again 2026-11-19)"
+  },
+  "unconfirmed": [
+    "whether v0.1.x/M02 files were copied into the repo (the owner's log shows .gitignore added and libplatform_bridge_proto.so untracked)",
+    "NDK version used by CI (ci.yml prints it)"
+  ],
+  "next_step": "Owner overlays the project into the git working copy, pushes, CI builds core + Android .so (release m02-android-so); then build the check APK from game/ and run buttons 1-5 (governor overload, save/load). Fix whatever CI finds. Then 02b.",
+  "files_to_read_in_order": [
+    "START_HERE.md",
+    "PROJECT_STATE.json",
+    "ENVIRONMENT_AND_REPO.md",
+    "PROJECT_LOG.md",
+    "SESSION_HANDOFF.md",
+    "CLAUDE.md",
+    "docs/CLAUDE_MASTER_PROMPT.md",
+    "PLATFORM_GDD.md",
+    "DECISIONS.md",
+    "MILESTONE_01_REPORT.md",
+    "ARCHITECTURE.md",
+    "TODO.md",
+    "KNOWN_ISSUES.md",
+    "TESTING.md"
+  ]
+}

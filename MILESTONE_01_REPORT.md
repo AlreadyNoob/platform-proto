@@ -1,6 +1,8 @@
-# Milestone 01 report — engine validation (2026-11-17)
+# Milestone 01 report — engine validation (2026-11-17, closed 2026-11-18)
 
-## Verdict (updated v0.0.5): engine feasibility VALIDATED on the owner's phone. Godot 4.7.2 + a Rust core loaded and ran in an Android app. Remaining gaps are listed in §9; the original sandbox-era text below is kept for history.
+> **How to read this report:** sections 1-10 are the chronological history written while the work was in progress (several early statements about "NOT verified" were superseded later). **Section 11 is the final, authoritative result**; section 10.5-10.6 hold the scheduler findings. Raw data: `prototype/reference/results/`.
+
+## FINAL VERDICT (v0.1.0): Milestones 01 and 01b are COMPLETE. Godot 4.7.2 + an engine-independent Rust core is validated on the owner's phone for the prototype's questions (report §11). Earlier verdict (v0.0.5): engine feasibility VALIDATED on the owner's phone. Godot 4.7.2 + a Rust core loaded and ran in an Android app. Remaining gaps are listed in §9; the original sandbox-era text below is kept for history.
 The authoring sandbox had **no Rust toolchain, no Godot, no Android SDK/NDK, no network and no device** (confirmed: no `cargo`, no `godot`, outbound requests blocked). So nothing below claims Rust or Android results. Code that could not be compiled is labelled **UNCOMPILED**.
 
 | # | Your ask | Status | Evidence / what's missing |
@@ -208,3 +210,51 @@ Other observations:
 - **Run-to-run noise:** the same configuration varied by up to about 20% between two runs on the phone (wheel, all cold: 264k vs 215k ticks/s); other cases varied 2-5%. Treat differences below ~20% as noise at the fast end.
 - **Hybrid overhead with no hot slots** was 32-35% below the wheel in both runs. Cause identified by reading the code: every collapse touched the hot-list index even for cold slots. Fixed in v0.0.8 (only slots that were hot are removed); the change is behaviour-preserving (an independent Python port gives the same four hashes), but the speed gain is **not yet measured**.
 - **D-012 (second revision):** two tiers with the threshold at about 5% per tick (`q_star` = 0.05): wheel below, hot list above. Whether real Platform slots reach hazards that high in large numbers depends on the (undecided) collapse rules: a component's risk is 1-(1-p)^n, so large clusters will be far above 5% but also collapse within a few ticks.
+
+## 11. Final 01b results — snapshot, combined load, 10-minute soak, overload (v0.1.0)
+Device: TECNO CAMON 40 Pro 5G (MT6878), Godot 4.7.2 app v3, Rust core 0.0.2 (gdext 0.5.5), display 120 Hz, phone plugged in. Raw: `prototype/reference/results/phone_godot_app_01b/soak_log_summary.txt`; CI: `ci_log2_01b_x86_android_build.txt`.
+
+### 11.1 Acceptance criteria B1-B5
+| # | Result | Evidence |
+|---|---|---|
+| B1 Rust tests | **PASS** 14/14 on the phone and on the CI x86 runner (Rust 1.100.0) | §10.5, CI log |
+| B2 scheduler benchmark | **Done; changed the design**: wheel for hazards below ~5%/tick, per-tick hot list at or above (cost model 5.4 ns roll, 26 ns hot collapse, 136 ns wheel collapse) | §10.5-10.6; x86 CI run shows the same wheel/heap ratio (2.3-2.8x) and no hybrid overhead when nothing is hot (516k vs 518k ticks/s) |
+| B3 determinism | **PASS**: scheduler hashes for all four strategies identical on phone (arm64), CI (x86_64, Rust 1.100.0) and an independent Python port; the Android app prints the same model hashes | §10.5, CI log |
+| B4 snapshot cost | **PASS**: 100,000 points per call = 0.513 ms idle, 0.645 ms with the simulation running (target <= 1.7 ms); 10,000 points = 0.049 / 0.098 ms | app log |
+| B5 10-minute soak | **PASS** (table below) | app log |
+
+### 11.2 The 10-minute soak (rendering 100,000 instances with an automatic camera pan/zoom; simulation of ~1M particles at 10,000x speed on a worker thread; timing wheel; 4.3% hot slots, 239 collapses per tick)
+| Quantity | Range over 20 windows of 30 s | First vs last window |
+|---|---|---|
+| Simulation speed achieved | 9,976-9,984 ticks/s (99.8% of 10,000) | 9,976 vs 9,983 |
+| Simulation lag (owed ticks) | 0 in every window | no growth |
+| Sim thread busy | 64-67% | 65% vs 66% |
+| Frame time average | 8.37-8.41 ms (about 119 fps, i.e. vsync at 120 Hz) | 8.40 vs 8.38 |
+| Frame time p95 | 8.33-9.09 ms | same |
+| Worst frame | 36 ms in the first window (startup), 9.7-16.7 ms afterwards | |
+| Process memory (RSS) | 498-507 MB (Godot static 49 MB) | 503 vs 498; no growth, no leak |
+Totals: 5.69 million ticks, 1.36 billion collapse events. No crash, no throttling visible in speed or frame times (no temperature data).
+
+### 11.3 Overload test (33% hot slots, 1,672 collapses per tick, 10,000x requested)
+The simulation achieved 2,707-2,710 ticks/s (27% of the request) with the worker thread 100% busy; lag grew linearly (218,013 ticks at 30 s, 436,978 at 60 s). **Rendering was unaffected**: 8.38 ms average, p95 8.33-9.09 ms, 119 fps. In the app the thread reached 2,710 ticks/s versus 3,788 in the Termux benchmark (0.72x).
+
+### 11.4 Observations and what they mean
+- **Combined load works.** One phone core can simulate ~1M particles at 10,000x for 10 minutes while the GPU draws 100,000 instances at 120 Hz, with no interaction between them visible in frame times. Snapshot copies cost about 3% of a frame.
+- **The simulation can fall behind silently and without limit** (lag grows forever). The architecture promised an honest speed cap (ARCHITECTURE §3) but nothing implements it. Proposed D-019: a speed governor that lowers the effective speed when lag exceeds a threshold (for example 2 seconds of sim-time), shows it to the player, and never changes rules.
+- **Per-tick cost in the app was higher than in the benchmark**: at 4.3% hot slots, 65% busy at 9,983 ticks/s implies about 65 microseconds per tick versus 33 in the Termux benchmark (about 2x), while the overloaded case was 1.4x. Plausible cause (not tested): the CPU clock stays lower when the thread is not saturated, plus competition with the render threads. So the in-app capacity at that mix is about 15,000 ticks/s (extrapolated), still above the 10,000 target.
+- **Draw budget** (D-014) holds: 100,000 drawn instances plus a concurrent 1M-particle simulation at 120 Hz.
+- **Call overhead** 255 ns per GDScript-to-Rust call (233 earlier), consistent.
+
+### 11.5 What this validated and what it did not
+Validated for the prototype's questions: Godot 4.7.2 loads and runs a Rust core on Android; the core design (event-driven wheel scheduler, integer clock, worker thread, snapshot copies) is correct, deterministic across architectures and fast enough at the measured mixes; sim and render do not interfere on this phone.
+Not validated: real game rules (collapse handling cost, chains, formations, timelines); real visuals (shaders, animation, text, touch input); thermal behaviour measured with a thermometer or on a hot day; other devices (especially low-end); Android lifecycle (background, kill, resume); saving/loading; audio; the speed governor (does not exist yet); pause/resume inside the app (the clock is tested in Rust only).
+
+### 11.6 The six original asks, final status
+| # | Ask | Final |
+|---|---|---|
+| 1 | Godot-to-Rust on Android | **Done**: loaded and ran in an app built on the phone (§8, §11) |
+| 2 | Event-driven vs per-tick probabilities incl. changing p and connected particles | **Done**: equivalent in Python and Rust; controls detected (§1, §7, §10) |
+| 3 | Progressively larger counts and speeds; stored vs simulated vs visible | **Done**: stored up to 10M in the benchmark, 1M in the app; simulated per tick reported; visible 10k-1M (§2, §7, §8, §11) |
+| 4 | Sim vs render separately | **Done**, and then together (§8, §11) |
+| 5 | Limitations, build complications, alternatives | **Done** (§4, §5, §8, §9, §11.5) |
+| 6 | Prototype isolated | **Done** (`prototype/` only) |

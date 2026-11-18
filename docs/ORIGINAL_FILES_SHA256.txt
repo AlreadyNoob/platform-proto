@@ -1,0 +1,5 @@
+# SHA-256 of the three files inside the owner's ORIGINAL proposal ZIP (Platform_Design_and_Claude_Prompt_v0_1.zip).
+# Used by tools/check_handoff.py. The copies in this project (PLATFORM_GDD.md at the root, docs/CLAUDE_MASTER_PROMPT.md, docs/original/*) must be byte-identical.
+7c64dae7f68090e45911062593753d22befda2623830c0412c13298d1f8a490a  CLAUDE_MASTER_PROMPT.md
+abba819d92f444d12960ca401884c45c6aeaf485480e158863b0ea944b09621e  PLATFORM_GDD.md
+69871316c504277467a43b00b5f438faae0b207b25fbc73aff0344321f96f7df  README.md

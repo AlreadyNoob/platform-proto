@@ -1,0 +1,38 @@
+name: ci
+on: [workflow_dispatch, push]
+permissions:
+  contents: write
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --release -p platform_core -- --nocapture
+      - run: python3 tools/ref/platform_ref.py
+      - name: Fixtures must equal what the independent Python reference produces
+        run: git diff --exit-code core/tests/fixtures
+  android-arm64-so:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with: { targets: aarch64-linux-android }
+      - name: Build bridge for Android arm64
+        run: |
+          NDK="${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}"
+          echo "NDK path: $NDK"
+          BIN="$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin"
+          find -L "$NDK" -name libunwind.a -execdir sh -c 'echo "INPUT(-lunwind)" > libgcc.a' \; || true
+          export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$BIN/aarch64-linux-android24-clang"
+          export CC_aarch64_linux_android="$BIN/aarch64-linux-android24-clang"
+          export AR_aarch64_linux_android="$BIN/llvm-ar"
+          cargo build --release -p platform_bridge --target aarch64-linux-android
+          mkdir -p game/bin/android_arm64
+          cp target/aarch64-linux-android/release/libplatform_bridge.so game/bin/android_arm64/
+      - name: Publish .so as a release asset (does not use artifact storage)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete m02-android-so --yes --cleanup-tag --repo "$GITHUB_REPOSITORY" || true
+          gh release create m02-android-so game/bin/android_arm64/libplatform_bridge.so --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "M02 Android arm64 .so" --notes "Bridge build, run $GITHUB_RUN_ID"

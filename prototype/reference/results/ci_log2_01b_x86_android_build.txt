@@ -1,0 +1,929 @@
+android-arm64-so	Set up job	﻿2026-11-18T10:00:00.6816859Z Current runner version: '2.338.2'
+android-arm64-so	Set up job	2026-11-18T10:00:00.6851849Z ##[group]Runner Image Provisioner
+android-arm64-so	Set up job	2026-11-18T10:00:00.6853059Z Hosted Compute Agent
+android-arm64-so	Set up job	2026-11-18T10:00:00.6853993Z Version: 20261103.629
+android-arm64-so	Set up job	2026-11-18T10:00:00.6854843Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+android-arm64-so	Set up job	2026-11-18T10:00:00.6855872Z Build Date: 2026-11-03T17:26:59Z
+android-arm64-so	Set up job	2026-11-18T10:00:00.6857070Z Worker ID: {097927c8-34ec-4619-bb9b-6bc3ed4b0dd2}
+android-arm64-so	Set up job	2026-11-18T10:00:00.6857926Z Region: eastus3
+android-arm64-so	Set up job	2026-11-18T10:00:00.6858646Z Cloud: Azure
+android-arm64-so	Set up job	2026-11-18T10:00:00.6859272Z ##[endgroup]
+android-arm64-so	Set up job	2026-11-18T10:00:00.6861297Z ##[group]Operating System
+android-arm64-so	Set up job	2026-11-18T10:00:00.6862090Z Ubuntu
+android-arm64-so	Set up job	2026-11-18T10:00:00.6862804Z 26.04.1
+android-arm64-so	Set up job	2026-11-18T10:00:00.6863508Z LTS
+android-arm64-so	Set up job	2026-11-18T10:00:00.6864185Z ##[endgroup]
+android-arm64-so	Set up job	2026-11-18T10:00:00.6864879Z ##[group]Runner Image
+android-arm64-so	Set up job	2026-11-18T10:00:00.6865659Z Image: ubuntu-26.04
+android-arm64-so	Set up job	2026-11-18T10:00:00.6866791Z Version: 20261111.196.1
+android-arm64-so	Set up job	2026-11-18T10:00:00.6868245Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.196/images/ubuntu/Ubuntu2604-Readme.md
+android-arm64-so	Set up job	2026-11-18T10:00:00.6870447Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.196
+android-arm64-so	Set up job	2026-11-18T10:00:00.6871636Z ##[endgroup]
+android-arm64-so	Set up job	2026-11-18T10:00:00.6873665Z ##[group]GITHUB_TOKEN Permissions
+android-arm64-so	Set up job	2026-11-18T10:00:00.6877193Z Contents: write
+android-arm64-so	Set up job	2026-11-18T10:00:00.6878055Z Metadata: read
+android-arm64-so	Set up job	2026-11-18T10:00:00.6878787Z ##[endgroup]
+android-arm64-so	Set up job	2026-11-18T10:00:00.6881852Z Secret source: Actions
+android-arm64-so	Set up job	2026-11-18T10:00:00.6883239Z Cache mode: write
+android-arm64-so	Set up job	2026-11-18T10:00:00.6884549Z Prepare workflow directory
+android-arm64-so	Set up job	2026-11-18T10:00:00.7453216Z Prepare all required actions
+android-arm64-so	Set up job	2026-11-18T10:00:00.7525530Z Getting action download info
+android-arm64-so	Set up job	2026-11-18T10:00:00.9791359Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+android-arm64-so	Set up job	2026-11-18T10:00:01.0959367Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:39008827e6b4319a349e9a42dfc90579dd25f1ca)
+android-arm64-so	Set up job	2026-11-18T10:00:01.3478514Z Complete job name: android-arm64-so
+android-arm64-so	Run actions/checkout@v4	﻿2026-11-18T10:00:01.4258766Z ##[group]Run actions/checkout@v4
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4259653Z with:
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4260273Z   repository: AlreadyNoob/platform-proto
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4264032Z   token: ***
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4264579Z   ssh-strict: true
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4265089Z   ssh-user: git
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4265599Z   persist-credentials: true
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4266165Z   clean: true
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4266824Z   sparse-checkout-cone-mode: true
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4267474Z   fetch-depth: 1
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4267981Z   fetch-tags: false
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4268483Z   show-progress: true
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4269375Z   lfs: false
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4269868Z   submodules: false
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4270381Z   set-safe-directory: true
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4270975Z   allow-unsafe-pr-checkout: false
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.4271860Z ##[endgroup]
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7381147Z Syncing repository: AlreadyNoob/platform-proto
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7384476Z ##[group]Getting Git version info
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7386141Z Working directory is '/home/runner/work/platform-proto/platform-proto'
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7389631Z [command]/usr/bin/git version
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7390593Z git version 2.56.1
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7393951Z ##[endgroup]
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7401554Z Temporarily overriding HOME='/home/runner/work/_temp/159775b1-339a-41d1-b2d4-43eec75acd9b' before making global git config changes
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7403883Z Adding repository directory to the temporary git global config as a safe directory
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.7405833Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/platform-proto/platform-proto
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8686185Z Deleting the contents of '/home/runner/work/platform-proto/platform-proto'
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8689421Z ##[group]Initializing the repository
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8690418Z [command]/usr/bin/git init /home/runner/work/platform-proto/platform-proto
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8691614Z hint: Using 'master' as the name for the initial branch. This default branch name
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8692741Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8694268Z hint: to use in all of your new repositories, which will suppress this warning,
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8695193Z hint: call:
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8695715Z hint:
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8696511Z hint: 	git config --global init.defaultBranch <name>
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8697377Z hint:
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8698105Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8699181Z hint: 'development'. The just-created branch can be renamed via this command:
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8700125Z hint:
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8700647Z hint: 	git branch -m <name>
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8701270Z hint:
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8702045Z hint: Disable this message with "git config set advice.defaultBranchName false"
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8703267Z Initialized empty Git repository in /home/runner/work/platform-proto/platform-proto/.git/
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8705302Z [command]/usr/bin/git remote add origin https://github.com/AlreadyNoob/platform-proto
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8708295Z ##[endgroup]
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8709658Z ##[group]Disabling automatic garbage collection
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8710840Z [command]/usr/bin/git config --local gc.auto 0
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8713252Z ##[endgroup]
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8714230Z ##[group]Setting up auth
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8715077Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8718681Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8808676Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.8843438Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.9154144Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.9166031Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.9448728Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.9524770Z ##[endgroup]
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.9526848Z ##[group]Fetching the repository
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:01.9529532Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d0fb713dda1b11459c4fca5067e2dbaeb0421ea0:refs/remotes/origin/main
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4553123Z From https://github.com/AlreadyNoob/platform-proto
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4556065Z  * [new ref]         d0fb713dda1b11459c4fca5067e2dbaeb0421ea0 -> origin/main
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4572733Z ##[endgroup]
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4575108Z ##[group]Determining the checkout info
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4578441Z ##[endgroup]
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4580206Z [command]/usr/bin/git sparse-checkout disable
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4630110Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4664889Z ##[group]Checking out the ref
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4668561Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4927842Z Switched to a new branch 'main'
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4945498Z branch 'main' set up to track 'origin/main'.
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4951695Z ##[endgroup]
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.4995917Z [command]/usr/bin/git log -1 --format=%H
+android-arm64-so	Run actions/checkout@v4	2026-11-18T10:00:02.5019683Z d0fb713dda1b11459c4fca5067e2dbaeb0421ea0
+android-arm64-so	Run dtolnay/rust-toolchain@stable	﻿2026-11-18T10:00:02.5703639Z ##[group]Run dtolnay/rust-toolchain@stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5705121Z with:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5706177Z   targets: aarch64-linux-android
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5707731Z   toolchain: stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5708878Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5810699Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5901752Z ##[group]Run if [[ -z $toolchain ]]; then
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5903387Z ^[[36;1mif [[ -z $toolchain ]]; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5905460Z ^[[36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5908080Z ^[[36;1m  echo "'toolchain' is a required input" >&2^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5909521Z ^[[36;1m  exit 1^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5911011Z ^[[36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5912777Z ^[[36;1m  if [[ Linux == macOS ]]; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5914885Z ^[[36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5917403Z ^[[36;1m  else^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5919361Z ^[[36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5921313Z ^[[36;1m  fi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5922678Z ^[[36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5924797Z ^[[36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5926970Z ^[[36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5929120Z ^[[36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5931163Z ^[[36;1melse^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5932220Z ^[[36;1m  delimiter=EOF^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5933576Z ^[[36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5935705Z ^[[36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5937739Z ^[[36;1mfi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5979517Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5981255Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5982387Z   toolchain: stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.5983492Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6131993Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=31]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6141816Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6204869Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6207111Z ^[[36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6241741Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6243722Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6331415Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=18]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6339152Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6399379Z ##[group]Run if ! command -v rustup &>/dev/null; then
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6400950Z ^[[36;1mif ! command -v rustup &>/dev/null; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6403829Z ^[[36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6406934Z ^[[36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6408217Z ^[[36;1mfi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6441970Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6444028Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6445188Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6446732Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6530404Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=success;conclusion=success;duration_ms=18]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6538530Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6557684Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6579894Z ##[start-action display=rustup toolchain install stable;id=__dtolnay_rust-toolchain.__run_4]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6627473Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6630056Z ^[[36;1mset -f  # split targets and components on commas and whitespace, without glob expansion^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6631961Z ^[[36;1mflags=()^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6633204Z ^[[36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6634962Z ^[[36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6637266Z ^[[36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6639079Z ^[[36;1mlog=$(mktemp)^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6640151Z ^[[36;1mtrap 'rm -f "$log"' EXIT^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6641346Z ^[[36;1mfor attempt in 1 2 3 4 5; do^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6644030Z ^[[36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6646326Z ^[[36;1m    break^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6647536Z ^[[36;1m  else^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6648546Z ^[[36;1m    status=$?^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6649544Z ^[[36;1m  fi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6650848Z ^[[36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6653031Z ^[[36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6655266Z ^[[36;1m    exit "$status"^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6656491Z ^[[36;1m  fi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6658149Z ^[[36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6659943Z ^[[36;1m  sleep 30^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6660942Z ^[[36;1mdone^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6694652Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6696207Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6697412Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6698667Z   toolchain: stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6699790Z   targets: aarch64-linux-android
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6701040Z   components: 
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6702114Z   RUSTUP_PERMIT_COPY_RENAME: 1
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.6703203Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:02.9581866Z info: syncing channel updates for stable-x86_64-unknown-linux-gnu
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.3092919Z info: latest update on 2026-11-12 for version 1.100.0 (0ef1bc386 2026-11-09)
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.3343205Z info: removing previous version of component rustfmt
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.3402183Z info: removing previous version of component clippy
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.3420027Z info: removing previous version of component cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.3499791Z info: removing previous version of component rust-std
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.3577165Z info: removing previous version of component rustc
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.3627977Z info: downloading 6 components
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.1936118Z 
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2002572Z   stable-x86_64-unknown-linux-gnu updated - rustc 1.100.0 (0ef1bc386 2026-11-09) (from rustc 1.99.1 (58cf8f9c3 2026-10-13))
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2037479Z 
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2111555Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=13552]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2121853Z ##[start-action display=rustup default stable;id=__dtolnay_rust-toolchain.__run_5]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2148926Z ##[group]Run rustup default "$toolchain" --force-non-host
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2149441Z ^[[36;1mrustup default "$toolchain" --force-non-host^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2185964Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2186884Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2187337Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2187972Z   toolchain: stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2188291Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2287859Z info: using existing install for stable-x86_64-unknown-linux-gnu
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2298671Z info: default toolchain set to stable-x86_64-unknown-linux-gnu
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2300612Z 
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2362181Z   stable-x86_64-unknown-linux-gnu unchanged - rustc 1.100.0 (0ef1bc386 2026-11-09)
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2363103Z 
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2381017Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=25]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2385828Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2412532Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2413483Z ^[[36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2414296Z ^[[36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2414932Z ^[[36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2449232Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2449695Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2450102Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2450542Z   toolchain: stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2450915Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2764341Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=37]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2767844Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2793210Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2793710Z ^[[36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2794108Z ^[[36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2794548Z ^[[36;1mfi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2829277Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2829744Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2830102Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2830488Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2893862Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=12]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2897036Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2920608Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2921086Z ^[[36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2921525Z ^[[36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2921925Z ^[[36;1mfi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2953733Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2954179Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2954555Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2954954Z   CARGO_INCREMENTAL: 0
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.2955314Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3016305Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=11]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3021325Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3047108Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3047769Z ^[[36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3048487Z ^[[36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3049276Z ^[[36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3049898Z ^[[36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3050545Z ^[[36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3051248Z ^[[36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3051844Z ^[[36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3052538Z ^[[36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3052944Z ^[[36;1m  fi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3053261Z ^[[36;1mfi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3083152Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3083678Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3083988Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3084430Z   CARGO_INCREMENTAL: 0
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3084746Z   CARGO_TERM_COLOR: always
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3085047Z   toolchain: stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3085380Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3352258Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=33]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3357512Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3382562Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3383369Z ^[[36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3384043Z ^[[36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3384586Z ^[[36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3385004Z ^[[36;1mfi^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3419434Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3419893Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3420277Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3420641Z   CARGO_INCREMENTAL: 0
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3420957Z   CARGO_TERM_COLOR: always
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3421287Z   toolchain: stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3421623Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3589750Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=23]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3595444Z ##[start-action display=rustc +stable --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3619989Z ##[group]Run rustc +"$toolchain" --version --verbose
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3620489Z ^[[36;1mrustc +"$toolchain" --version --verbose^[[0m
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3656338Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3657243Z env:
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3657705Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3658182Z   CARGO_INCREMENTAL: 0
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3658597Z   CARGO_TERM_COLOR: always
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3659118Z   toolchain: stable
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3659559Z ##[endgroup]
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3819443Z rustc 1.100.0 (0ef1bc386 2026-11-09)
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3820355Z binary: rustc
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3821191Z commit-hash: 0ef1bc386059596dada8fb65b50425aab2ea637a
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3821885Z commit-date: 2026-11-09
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3822422Z host: x86_64-unknown-linux-gnu
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3822925Z release: 1.100.0
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3823364Z LLVM version: 23.1.5
+android-arm64-so	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:16.3829941Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=23]
+android-arm64-so	Build bridge for Android arm64	﻿2026-11-18T10:00:16.3891398Z ##[group]Run NDK="${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}"
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3891984Z ^[[36;1mNDK="${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}"^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3892455Z ^[[36;1mBIN="$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin"^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3893109Z ^[[36;1m# godot-rust CI used this workaround for older NDKs ("Rust bug", godot-rust PR 920). Harmless otherwise.^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3893825Z ^[[36;1mfind -L "$NDK" -name libunwind.a -execdir sh -c 'echo "INPUT(-lunwind)" > libgcc.a' \; || true^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3894486Z ^[[36;1mexport CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$BIN/aarch64-linux-android24-clang"^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3895112Z ^[[36;1mexport CC_aarch64_linux_android="$BIN/aarch64-linux-android24-clang"^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3895636Z ^[[36;1mexport AR_aarch64_linux_android="$BIN/llvm-ar"^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3896143Z ^[[36;1mcargo build --release -p platform_bridge_proto --target aarch64-linux-android^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3897207Z ^[[36;1mmkdir -p godot_proto/bin/android_arm64^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3897900Z ^[[36;1mcp target/aarch64-linux-android/release/libplatform_bridge_proto.so godot_proto/bin/android_arm64/^[[0m
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3932477Z shell: /usr/bin/bash -e {0}
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3932977Z env:
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3933294Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3933658Z   CARGO_INCREMENTAL: 0
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3934017Z   CARGO_TERM_COLOR: always
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.3934336Z ##[endgroup]
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:16.6260515Z ^[[1m^[[92m    Updating^[[0m crates.io index
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.4239396Z ^[[1m^[[92m     Locking^[[0m 17 packages to highest compatible versions
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.4247569Z ^[[1m^[[92m Downloading^[[0m crates ...
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.4984660Z ^[[1m^[[92m  Downloaded^[[0m godot-bindings v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5008209Z ^[[1m^[[92m  Downloaded^[[0m godot v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5104239Z ^[[1m^[[92m  Downloaded^[[0m godot-cell v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5372942Z ^[[1m^[[92m  Downloaded^[[0m nanoserde-derive v0.2.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5467872Z ^[[1m^[[92m  Downloaded^[[0m heck v0.5.0
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5528400Z ^[[1m^[[92m  Downloaded^[[0m quote v1.0.47
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5598049Z ^[[1m^[[92m  Downloaded^[[0m unicode-ident v1.0.27
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5623086Z ^[[1m^[[92m  Downloaded^[[0m godot-ffi v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5656804Z ^[[1m^[[92m  Downloaded^[[0m nanoserde v0.2.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5667628Z ^[[1m^[[92m  Downloaded^[[0m proc-macro2 v1.0.107
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5685824Z ^[[1m^[[92m  Downloaded^[[0m venial v0.6.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5710216Z ^[[1m^[[92m  Downloaded^[[0m godot-macros v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5768817Z ^[[1m^[[92m  Downloaded^[[0m godot-codegen v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.5861458Z ^[[1m^[[92m  Downloaded^[[0m godot-core v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.6038665Z ^[[1m^[[92m  Downloaded^[[0m glam v0.32.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.6294753Z ^[[1m^[[92m  Downloaded^[[0m libc v0.2.191
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:17.6546617Z ^[[1m^[[92m  Downloaded^[[0m gdextension-api v0.5.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:18.6924219Z ^[[1m^[[92m   Compiling^[[0m godot-bindings v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:18.6932769Z ^[[1m^[[92m   Compiling^[[0m gdextension-api v0.5.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:18.8119235Z ^[[1m^[[92m   Compiling^[[0m proc-macro2 v1.0.107
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:19.0028994Z ^[[1m^[[92m   Compiling^[[0m unicode-ident v1.0.27
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:19.0518257Z ^[[1m^[[92m   Compiling^[[0m quote v1.0.47
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:19.8328601Z ^[[1m^[[92m   Compiling^[[0m nanoserde-derive v0.2.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:20.3705388Z ^[[1m^[[92m   Compiling^[[0m godot-codegen v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:20.4318094Z ^[[1m^[[92m   Compiling^[[0m heck v0.5.0
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:20.5482531Z ^[[1m^[[92m   Compiling^[[0m godot-macros v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:20.6068668Z ^[[1m^[[92m   Compiling^[[0m venial v0.6.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:20.6910159Z ^[[1m^[[92m   Compiling^[[0m nanoserde v0.2.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:21.3978105Z ^[[1m^[[92m   Compiling^[[0m glam v0.32.1
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:24.6347136Z ^[[1m^[[92m   Compiling^[[0m godot-ffi v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:25.6528195Z ^[[1m^[[92m   Compiling^[[0m godot-core v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:32.1537080Z ^[[1m^[[92m   Compiling^[[0m godot-cell v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:00:57.6928666Z ^[[1m^[[92m   Compiling^[[0m platform_core_proto v0.0.1 (/home/runner/work/platform-proto/platform-proto/prototype/core_proto)
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:01:14.2579912Z ^[[1m^[[92m   Compiling^[[0m godot v0.5.5
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:01:54.7155723Z ^[[1m^[[92m   Compiling^[[0m platform_bridge_proto v0.0.2 (/home/runner/work/platform-proto/platform-proto/prototype/bridge_proto)
+android-arm64-so	Build bridge for Android arm64	2026-11-18T10:03:44.8442715Z ^[[1m^[[92m    Finished^[[0m `release` profile [optimized] target(s) in 3m 28s
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	﻿2026-11-18T10:03:44.8600566Z ##[group]Run gh release delete m01-android-so --yes --cleanup-tag --repo "$GITHUB_REPOSITORY" || true
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8601324Z ^[[36;1mgh release delete m01-android-so --yes --cleanup-tag --repo "$GITHUB_REPOSITORY" || true^[[0m
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8602514Z ^[[36;1mgh release create m01-android-so godot_proto/bin/android_arm64/libplatform_bridge_proto.so --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "M01 Android arm64 .so" --notes "Prototype build of the Godot bridge, run $GITHUB_RUN_ID"^[[0m
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8642615Z shell: /usr/bin/bash -e {0}
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8643015Z env:
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8643318Z   CARGO_HOME: /home/runner/.cargo
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8643747Z   CARGO_INCREMENTAL: 0
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8644062Z   CARGO_TERM_COLOR: always
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8647314Z   GH_TOKEN: ***
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:44.8647630Z ##[endgroup]
+android-arm64-so	Publish .so as a release asset (does not use artifact storage)	2026-11-18T10:03:49.2026863Z https://github.com/AlreadyNoob/platform-proto/releases/tag/m01-android-so
+android-arm64-so	Post Run actions/checkout@v4	﻿2026-11-18T10:03:49.2187426Z Post job cleanup.
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3138426Z [command]/usr/bin/git version
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3209240Z git version 2.56.1
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3287478Z Temporarily overriding HOME='/home/runner/work/_temp/322127bf-a5d4-43ff-8c3d-941112e1586e' before making global git config changes
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3288691Z Adding repository directory to the temporary git global config as a safe directory
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3289915Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/platform-proto/platform-proto
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3344822Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3413746Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3832623Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3861854Z http.https://github.com/.extraheader
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3911074Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.3976131Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.4589899Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+android-arm64-so	Post Run actions/checkout@v4	2026-11-18T10:03:49.4649274Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+android-arm64-so	Complete job	﻿2026-11-18T10:03:49.5253728Z Cleaning up orphan processes
+android-arm64-so	Complete job	2026-11-18T10:03:49.5564583Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+core-desktop	Set up job	﻿2026-11-18T10:00:01.0483472Z Current runner version: '2.338.2'
+core-desktop	Set up job	2026-11-18T10:00:01.0520460Z ##[group]Runner Image Provisioner
+core-desktop	Set up job	2026-11-18T10:00:01.0521973Z Hosted Compute Agent
+core-desktop	Set up job	2026-11-18T10:00:01.0523014Z Version: 20261103.629
+core-desktop	Set up job	2026-11-18T10:00:01.0524281Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+core-desktop	Set up job	2026-11-18T10:00:01.0525570Z Build Date: 2026-11-03T17:26:59Z
+core-desktop	Set up job	2026-11-18T10:00:01.0526900Z Worker ID: {a313e6e4-b1e9-49a2-8453-ea1e77209437}
+core-desktop	Set up job	2026-11-18T10:00:01.0528438Z Region: westus
+core-desktop	Set up job	2026-11-18T10:00:01.0529343Z Cloud: Azure
+core-desktop	Set up job	2026-11-18T10:00:01.0530296Z ##[endgroup]
+core-desktop	Set up job	2026-11-18T10:00:01.0532699Z ##[group]Operating System
+core-desktop	Set up job	2026-11-18T10:00:01.0533720Z Ubuntu
+core-desktop	Set up job	2026-11-18T10:00:01.0534744Z 26.04.1
+core-desktop	Set up job	2026-11-18T10:00:01.0535579Z LTS
+core-desktop	Set up job	2026-11-18T10:00:01.0536774Z ##[endgroup]
+core-desktop	Set up job	2026-11-18T10:00:01.0537701Z ##[group]Runner Image
+core-desktop	Set up job	2026-11-18T10:00:01.0538744Z Image: ubuntu-26.04
+core-desktop	Set up job	2026-11-18T10:00:01.0539807Z Version: 20261111.196.1
+core-desktop	Set up job	2026-11-18T10:00:01.0541683Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.196/images/ubuntu/Ubuntu2604-Readme.md
+core-desktop	Set up job	2026-11-18T10:00:01.0544938Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.196
+core-desktop	Set up job	2026-11-18T10:00:01.0547109Z ##[endgroup]
+core-desktop	Set up job	2026-11-18T10:00:01.0549719Z ##[group]GITHUB_TOKEN Permissions
+core-desktop	Set up job	2026-11-18T10:00:01.0552416Z Contents: write
+core-desktop	Set up job	2026-11-18T10:00:01.0553548Z Metadata: read
+core-desktop	Set up job	2026-11-18T10:00:01.0554558Z ##[endgroup]
+core-desktop	Set up job	2026-11-18T10:00:01.0558586Z Secret source: Actions
+core-desktop	Set up job	2026-11-18T10:00:01.0560220Z Cache mode: write
+core-desktop	Set up job	2026-11-18T10:00:01.0561699Z Prepare workflow directory
+core-desktop	Set up job	2026-11-18T10:00:01.1288430Z Prepare all required actions
+core-desktop	Set up job	2026-11-18T10:00:01.1365417Z Getting action download info
+core-desktop	Set up job	2026-11-18T10:00:01.5043751Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+core-desktop	Set up job	2026-11-18T10:00:01.6287501Z Download action repository 'dtolnay/rust-toolchain@stable' (SHA:39008827e6b4319a349e9a42dfc90579dd25f1ca)
+core-desktop	Set up job	2026-11-18T10:00:01.8491812Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+core-desktop	Set up job	2026-11-18T10:00:02.1001142Z Complete job name: core-desktop
+core-desktop	Run actions/checkout@v4	﻿2026-11-18T10:00:02.1890776Z ##[group]Run actions/checkout@v4
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1891682Z with:
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1892167Z   repository: AlreadyNoob/platform-proto
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1896378Z   token: ***
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1896841Z   ssh-strict: true
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1897284Z   ssh-user: git
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1897740Z   persist-credentials: true
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1898231Z   clean: true
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1898687Z   sparse-checkout-cone-mode: true
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1899221Z   fetch-depth: 1
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1899664Z   fetch-tags: false
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1900121Z   show-progress: true
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1900586Z   lfs: false
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1901010Z   submodules: false
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1901470Z   set-safe-directory: true
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1901988Z   allow-unsafe-pr-checkout: false
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.1902808Z ##[endgroup]
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5266873Z Syncing repository: AlreadyNoob/platform-proto
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5269759Z ##[group]Getting Git version info
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5271092Z Working directory is '/home/runner/work/platform-proto/platform-proto'
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5272909Z [command]/usr/bin/git version
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5286744Z git version 2.56.1
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5344221Z ##[endgroup]
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5351797Z Temporarily overriding HOME='/home/runner/work/_temp/8c2274ff-ae26-48be-a37b-fcf23abbd0da' before making global git config changes
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5356673Z Adding repository directory to the temporary git global config as a safe directory
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5377337Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/platform-proto/platform-proto
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5501759Z Deleting the contents of '/home/runner/work/platform-proto/platform-proto'
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5503886Z ##[group]Initializing the repository
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5505621Z [command]/usr/bin/git init /home/runner/work/platform-proto/platform-proto
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5647869Z hint: Using 'master' as the name for the initial branch. This default branch name
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5650239Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5652569Z hint: to use in all of your new repositories, which will suppress this warning,
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5654196Z hint: call:
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5655297Z hint:
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5656420Z hint: 	git config --global init.defaultBranch <name>
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5674182Z hint:
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5675537Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5678920Z hint: 'development'. The just-created branch can be renamed via this command:
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5680419Z hint:
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5681208Z hint: 	git branch -m <name>
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5682094Z hint:
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5683294Z hint: Disable this message with "git config set advice.defaultBranchName false"
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5685343Z Initialized empty Git repository in /home/runner/work/platform-proto/platform-proto/.git/
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5697702Z [command]/usr/bin/git remote add origin https://github.com/AlreadyNoob/platform-proto
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5777781Z ##[endgroup]
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5780676Z ##[group]Disabling automatic garbage collection
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5782088Z [command]/usr/bin/git config --local gc.auto 0
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5843350Z ##[endgroup]
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5844711Z ##[group]Setting up auth
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5867085Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.5902067Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.6579874Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.6610017Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.6909965Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.6947995Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.7238949Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.7283389Z ##[endgroup]
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.7285495Z ##[group]Fetching the repository
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:02.7295618Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d0fb713dda1b11459c4fca5067e2dbaeb0421ea0:refs/remotes/origin/main
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3001939Z From https://github.com/AlreadyNoob/platform-proto
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3125009Z  * [new ref]         d0fb713dda1b11459c4fca5067e2dbaeb0421ea0 -> origin/main
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3129121Z ##[endgroup]
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3130717Z ##[group]Determining the checkout info
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3132444Z ##[endgroup]
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3133394Z [command]/usr/bin/git sparse-checkout disable
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3136298Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3158581Z ##[group]Checking out the ref
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3160594Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3423558Z Switched to a new branch 'main'
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3439464Z branch 'main' set up to track 'origin/main'.
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3450156Z ##[endgroup]
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3493564Z [command]/usr/bin/git log -1 --format=%H
+core-desktop	Run actions/checkout@v4	2026-11-18T10:00:03.3522877Z d0fb713dda1b11459c4fca5067e2dbaeb0421ea0
+core-desktop	Run dtolnay/rust-toolchain@stable	﻿2026-11-18T10:00:03.4092885Z ##[group]Run dtolnay/rust-toolchain@stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4094188Z with:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4095096Z   toolchain: stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4096285Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4223092Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4332047Z ##[group]Run if [[ -z $toolchain ]]; then
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4333385Z ^[[36;1mif [[ -z $toolchain ]]; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4335444Z ^[[36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4337890Z ^[[36;1m  echo "'toolchain' is a required input" >&2^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4339198Z ^[[36;1m  exit 1^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4340601Z ^[[36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4342245Z ^[[36;1m  if [[ Linux == macOS ]]; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4344202Z ^[[36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4346455Z ^[[36;1m  else^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4348135Z ^[[36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4350101Z ^[[36;1m  fi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4351406Z ^[[36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4353561Z ^[[36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4355460Z ^[[36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4357769Z ^[[36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4359790Z ^[[36;1melse^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4360866Z ^[[36;1m  delimiter=EOF^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4362159Z ^[[36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4364235Z ^[[36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4366174Z ^[[36;1mfi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4447671Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4449046Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4449884Z   toolchain: stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4450795Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4690830Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=46]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4700919Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4770846Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4772735Z ^[[36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4845268Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4850756Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4952222Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=24]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4956685Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4993392Z ##[group]Run if ! command -v rustup &>/dev/null; then
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4994162Z ^[[36;1mif ! command -v rustup &>/dev/null; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4995577Z ^[[36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4997352Z ^[[36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.4997990Z ^[[36;1mfi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5042311Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5043024Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5043479Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5044021Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5121952Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=success;conclusion=success;duration_ms=16]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5126512Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5136502Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5154086Z ##[start-action display=rustup toolchain install stable;id=__dtolnay_rust-toolchain.__run_4]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5181860Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5183225Z ^[[36;1mset -f  # split targets and components on commas and whitespace, without glob expansion^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5184113Z ^[[36;1mflags=()^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5184696Z ^[[36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5185547Z ^[[36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5186879Z ^[[36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5187773Z ^[[36;1mlog=$(mktemp)^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5188322Z ^[[36;1mtrap 'rm -f "$log"' EXIT^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5188919Z ^[[36;1mfor attempt in 1 2 3 4 5; do^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5190057Z ^[[36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5191191Z ^[[36;1m    break^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5191670Z ^[[36;1m  else^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5192131Z ^[[36;1m    status=$?^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5192625Z ^[[36;1m  fi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5193306Z ^[[36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5194403Z ^[[36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5195331Z ^[[36;1m    exit "$status"^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5195843Z ^[[36;1m  fi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5196797Z ^[[36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5197691Z ^[[36;1m  sleep 30^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5198154Z ^[[36;1mdone^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5242078Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5242814Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5243272Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5243837Z   toolchain: stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5244296Z   targets: 
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5244736Z   components: 
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5245200Z   RUSTUP_PERMIT_COPY_RENAME: 1
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:03.5245726Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:04.0112356Z info: syncing channel updates for stable-x86_64-unknown-linux-gnu
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:04.3272820Z info: latest update on 2026-11-12 for version 1.100.0 (0ef1bc386 2026-11-09)
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:04.3780082Z info: removing previous version of component rustfmt
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:04.4203598Z info: removing previous version of component clippy
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:04.4205139Z info: removing previous version of component cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:04.4273299Z info: removing previous version of component rust-std
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:04.4373867Z info: removing previous version of component rustc
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:04.4430844Z info: downloading 5 components
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7087050Z 
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7193822Z   stable-x86_64-unknown-linux-gnu updated - rustc 1.100.0 (0ef1bc386 2026-11-09) (from rustc 1.99.1 (58cf8f9c3 2026-10-13))
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7226591Z 
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7481506Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=10232]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7494362Z ##[start-action display=rustup default stable;id=__dtolnay_rust-toolchain.__run_5]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7524731Z ##[group]Run rustup default "$toolchain" --force-non-host
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7525422Z ^[[36;1mrustup default "$toolchain" --force-non-host^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7597153Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7597729Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7598052Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7598473Z   toolchain: stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7599088Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7757359Z info: using existing install for stable-x86_64-unknown-linux-gnu
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7761070Z info: default toolchain set to stable-x86_64-unknown-linux-gnu
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7766522Z 
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7852105Z   stable-x86_64-unknown-linux-gnu unchanged - rustc 1.100.0 (0ef1bc386 2026-11-09)
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7857060Z 
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7908246Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=41]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7912843Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7939729Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7941231Z ^[[36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7942435Z ^[[36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.7943349Z ^[[36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8007112Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8007674Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8007998Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8008456Z   toolchain: stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8008793Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8462896Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=54]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8465368Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8485602Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8486243Z ^[[36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8486612Z ^[[36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8487139Z ^[[36;1mfi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8536808Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8537189Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8537402Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8537656Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8613700Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=14]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8639477Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8669857Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8670243Z ^[[36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8670600Z ^[[36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8670898Z ^[[36;1mfi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8719208Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8719562Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8719764Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8720017Z   CARGO_INCREMENTAL: 0
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8720230Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8796320Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=15]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8799959Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8820814Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8821361Z ^[[36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8822083Z ^[[36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8822842Z ^[[36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8823436Z ^[[36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8823979Z ^[[36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8824671Z ^[[36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8825261Z ^[[36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8825921Z ^[[36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8826748Z ^[[36;1m  fi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8826952Z ^[[36;1mfi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8874513Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8874877Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8875086Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8875341Z   CARGO_INCREMENTAL: 0
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8875568Z   CARGO_TERM_COLOR: always
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8875831Z   toolchain: stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.8876303Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9200462Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=39]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9206362Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9234193Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9235431Z ^[[36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9237057Z ^[[36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9237897Z ^[[36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9238428Z ^[[36;1mfi^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9290829Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9291185Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9291408Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9291667Z   CARGO_INCREMENTAL: 0
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9291895Z   CARGO_TERM_COLOR: always
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9292118Z   toolchain: stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9292322Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9484011Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=27]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9489139Z ##[start-action display=rustc +stable --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9508612Z ##[group]Run rustc +"$toolchain" --version --verbose
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9508987Z ^[[36;1mrustc +"$toolchain" --version --verbose^[[0m
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9558213Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9558570Z env:
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9558773Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9559031Z   CARGO_INCREMENTAL: 0
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9559266Z   CARGO_TERM_COLOR: always
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9559489Z   toolchain: stable
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9559691Z ##[endgroup]
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9725343Z rustc 1.100.0 (0ef1bc386 2026-11-09)
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9729287Z binary: rustc
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9730103Z commit-hash: 0ef1bc386059596dada8fb65b50425aab2ea637a
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9730890Z commit-date: 2026-11-09
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9731515Z host: x86_64-unknown-linux-gnu
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9732177Z release: 1.100.0
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9732831Z LLVM version: 23.1.5
+core-desktop	Run dtolnay/rust-toolchain@stable	2026-11-18T10:00:13.9745378Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=25]
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	﻿2026-11-18T10:00:13.9796530Z ##[group]Run cargo test --release -p platform_core_proto -- --nocapture
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:13.9797102Z ^[[36;1mcargo test --release -p platform_core_proto -- --nocapture^[[0m
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:13.9845506Z shell: /usr/bin/bash -e {0}
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:13.9845769Z env:
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:13.9846169Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:13.9846469Z   CARGO_INCREMENTAL: 0
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:13.9846694Z   CARGO_TERM_COLOR: always
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:13.9846923Z ##[endgroup]
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:14.0230480Z ^[[1m^[[92m    Updating^[[0m crates.io index
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:14.1478022Z ^[[1m^[[92m     Locking^[[0m 17 packages to highest compatible versions
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:14.1607613Z ^[[1m^[[92m   Compiling^[[0m platform_core_proto v0.0.1 (/home/runner/work/platform-proto/platform-proto/prototype/core_proto)
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9909391Z ^[[1m^[[92m    Finished^[[0m `release` profile [optimized] target(s) in 29.98s
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9927529Z ^[[1m^[[92m     Running^[[0m unittests src/lib.rs (target/release/build/platform_core_proto/2e405b7ecc39631e/out/platform_core_proto-2e405b7ecc39631e)
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9929091Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9966699Z ^[[1m^[[92m     Running^[[0m unittests src/bin/bench.rs (target/release/build/platform_core_proto/72e8c06b5a81e06f/out/bench-72e8c06b5a81e06f)
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9967845Z running 2 tests
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9970822Z ^[[1m^[[92m     Running^[[0m unittests src/bin/bench_hybrid.rs (target/release/build/platform_core_proto/c345d0280bab1b6f/out/bench_hybrid-c345d0280bab1b6f)
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9976623Z test detmath::tests::ln_1m_small_q ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9978876Z ^[[1m^[[92m     Running^[[0m tests/clock.rs (target/release/build/platform_core_proto/06d886c1d1033f14/out/clock-06d886c1d1033f14)
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:43.9981277Z ^[[1m^[[92m     Running^[[0m tests/equivalence.rs (target/release/build/platform_core_proto/3a667ae029c1ee46/out/equivalence-3a667ae029c1ee46)
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0166758Z test detmath::tests::ln_matches_std_closely ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0186166Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0376949Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0378049Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0396214Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0408132Z running 0 tests
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0416351Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0436665Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0446267Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0466099Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0476337Z running 0 tests
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0496142Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0506554Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0516352Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0536141Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0546256Z running 5 tests
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0566305Z test frame_splitting_does_not_change_total ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0576362Z test lag_is_kept_not_dropped ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0596391Z test pause_stops_ticks_and_resume_has_no_burst ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0606295Z test speed_change_is_exact ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0616392Z test remainder_is_never_lost ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0636142Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0656578Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0666098Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0676190Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:44.0696285Z running 3 tests
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.0117252Z variant=A bug=StaleP seed=3003 chi2=8.5 dof=17 crit=40.9 ratio=0.21
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.0126572Z variant=A bug=StaleP seed=3003 chi2=2318.0 dof=7 crit=24.5 ratio=94.51
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.0146828Z variant=A bug=StaleP seed=3003 chi2=1047.4 dof=8 crit=26.3 ratio=39.80
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.0315625Z variant=A bug=None seed=1001 chi2=23.7 dof=18 crit=42.4 ratio=0.56
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.0326600Z variant=A bug=None seed=1001 chi2=3.7 dof=8 crit=26.3 ratio=0.14
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.0346444Z variant=A bug=None seed=1001 chi2=4.8 dof=8 crit=26.3 ratio=0.18
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.9006951Z variant=B bug=StaleP seed=4004 chi2=28.7 dof=17 crit=40.9 ratio=0.70
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.9026582Z variant=B bug=StaleP seed=4004 chi2=1410.4 dof=6 crit=22.7 ratio=62.20
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.9046477Z variant=B bug=StaleP seed=4004 chi2=561.0 dof=6 crit=22.7 ratio=24.74
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.9366583Z variant=B bug=None seed=2002 chi2=17.4 dof=18 crit=42.4 ratio=0.41
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.9377104Z variant=B bug=None seed=2002 chi2=3.5 dof=6 crit=22.7 ratio=0.16
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.9377959Z variant=B bug=None seed=2002 chi2=4.7 dof=6 crit=22.7 ratio=0.21
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.9378777Z test correct_scheduler_matches_brute_force ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:46.9379398Z test same_seed_same_hash ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:47.9923774Z variant=A bug=ForgetN seed=5005 chi2=15342.3 dof=17 crit=40.9 ratio=374.88
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:47.9924988Z variant=A bug=ForgetN seed=5005 chi2=9873.0 dof=7 crit=24.5 ratio=402.54
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:47.9926187Z variant=A bug=ForgetN seed=5005 chi2=7232.8 dof=8 crit=26.3 ratio=274.83
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4553226Z variant=B bug=ForgetN seed=6006 chi2=15342.1 dof=18 crit=42.4 ratio=361.47
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4557076Z variant=B bug=ForgetN seed=6006 chi2=6212.2 dof=6 crit=22.7 ratio=273.94
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4558148Z variant=B bug=ForgetN seed=6006 chi2=3110.6 dof=6 crit=22.7 ratio=137.17
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4558928Z test negative_controls_are_rejected ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4559349Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4559925Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.46s
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4597258Z ^[[1m^[[92m     Running^[[0m tests/hybrid.rs (target/release/build/platform_core_proto/8c30310ff59e93d6/out/hybrid-8c30310ff59e93d6)
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4598111Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4598439Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.4601540Z running 4 tests
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.6466982Z heap stat=0 chi2=13.7 dof=19 crit=43.9 ratio=0.31
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.6494289Z heap stat=1 chi2=5.9 dof=9 crit=28.1 ratio=0.21
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.6516282Z heap stat=2 chi2=8.8 dof=15 crit=37.8 ratio=0.23
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.6596425Z brute bias 1.15 stat=0 chi2=1481.5 dof=19 crit=43.9 ratio=33.71
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.6616364Z brute bias 1.15 stat=1 chi2=200.6 dof=9 crit=28.1 ratio=7.15
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.6617034Z brute bias 1.15 stat=2 chi2=131.8 dof=15 crit=37.8 ratio=3.48
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7316451Z wheel no_rescan stat=0 chi2=23972.3 dof=19 crit=43.9 ratio=545.46
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7331176Z wheel no_rescan stat=1 chi2=6077.4 dof=9 crit=28.1 ratio=216.58
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7332102Z wheel no_rescan stat=2 chi2=7506.6 dof=11 crit=31.4 ratio=238.83
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7333076Z test negative_controls_are_rejected ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7382109Z test same_seed_same_hash_every_strategy ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7708446Z wheel stat=0 chi2=18.9 dof=19 crit=43.9 ratio=0.43
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7716672Z wheel stat=1 chi2=7.8 dof=9 crit=28.1 ratio=0.28
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7717689Z wheel stat=2 chi2=6.2 dof=15 crit=37.8 ratio=0.16
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.7720079Z test speed_pause_and_batching_do_not_change_state_a8 ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8382887Z hybrid stat=0 chi2=25.3 dof=19 crit=43.9 ratio=0.58
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8388456Z hybrid stat=1 chi2=6.3 dof=9 crit=28.1 ratio=0.22
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8394740Z hybrid stat=2 chi2=6.8 dof=15 crit=37.8 ratio=0.18
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8399899Z test event_strategies_match_brute_force ... ok
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8400894Z ^[[1m^[[92m   Doc-tests^[[0m platform_core_proto
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8401221Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8401824Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8402513Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8642979Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8645072Z running 0 tests
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8645572Z 
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8646753Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+core-desktop	Run cargo test --release -p platform_core_proto -- --nocapture	2026-11-18T10:00:48.8647655Z 
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	﻿2026-11-18T10:00:48.8714669Z ##[group]Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.8715373Z ^[[36;1mcargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt^[[0m
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.8764762Z shell: /usr/bin/bash -e {0}
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.8765024Z env:
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.8765223Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.8765495Z   CARGO_INCREMENTAL: 0
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.8765716Z   CARGO_TERM_COLOR: always
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.8766158Z ##[endgroup]
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.9019161Z ^[[1m^[[92m    Finished^[[0m `release` profile [optimized] target(s) in 0.00s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.9020426Z ^[[1m^[[92m     Running^[[0m `target/release/bench`
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:48.9034485Z # stored = N total particles; simulated = particles the tick loop evaluates; visible = n/a (no rendering)
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:49.4944776Z N=10000 S=4 q=1e-4 | event 43164685 ticks/s (0.25 ev/tick, simulated/tick 1.0) | brute_comp 321007 ticks/s | brute_particle 80073 ticks/s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:51.4432789Z N=100000 S=4 q=1e-4 | event 3343604 ticks/s (2.50 ev/tick, simulated/tick 10.0) | brute_comp 31864 ticks/s | brute_particle 7848 ticks/s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:53.6127513Z N=1000000 S=4 q=1e-4 | event 204340 ticks/s (24.98 ev/tick, simulated/tick 99.9) | brute_comp 3208 ticks/s | brute_particle 800 ticks/s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:00:57.7703237Z N=10000000 S=4 q=1e-4 | event 8410 ticks/s (249.89 ev/tick, simulated/tick 999.6) | brute_comp 321 ticks/s | brute_particle 80 ticks/s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:01:09.1752723Z N=1000000 S=4 q=1e-2 | event 2037 ticks/s (2500.04 ev/tick, simulated/tick 10000.1) | brute_comp 3173 ticks/s | brute_particle 799 ticks/s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench | tee bench_desktop.txt	2026-11-18T10:01:10.8774772Z N=1000000 S=16 q=1e-3 | event 108312 ticks/s (62.44 ev/tick, simulated/tick 999.1) | brute_comp 12850 ticks/s | brute_particle 851 ticks/s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	﻿2026-11-18T10:01:10.8834857Z ##[group]Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.8835775Z ^[[36;1mcargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt^[[0m
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.8884543Z shell: /usr/bin/bash -e {0}
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.8884800Z env:
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.8884999Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.8885280Z   CARGO_INCREMENTAL: 0
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.8885511Z   CARGO_TERM_COLOR: always
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.8885737Z ##[endgroup]
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.9137748Z ^[[1m^[[92m    Finished^[[0m `release` profile [optimized] target(s) in 0.00s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.9139150Z ^[[1m^[[92m     Running^[[0m `target/release/bench --determinism`
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.9187142Z determinism seed=1 hash=8fe431764a396449
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.9187958Z determinism seed=2 hash=05f5d4a4d9e575cf
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench -- --determinism | tee determinism_x86_64.txt	2026-11-18T10:01:10.9195818Z determinism seed=3 hash=6f401db9752f4ec1
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	﻿2026-11-18T10:01:10.9289578Z ##[group]Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:10.9290430Z ^[[36;1mpython3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt^[[0m
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:10.9337198Z shell: /usr/bin/bash -e {0}
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:10.9337449Z env:
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:10.9337647Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:10.9337925Z   CARGO_INCREMENTAL: 0
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:10.9338143Z   CARGO_TERM_COLOR: always
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:10.9338366Z ##[endgroup]
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:12.0810306Z Defaulting to user installation because normal site-packages is not writeable
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:12.6613946Z Collecting numpy
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:12.7241291Z   Downloading numpy-2.5.5-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:12.9214926Z Collecting scipy
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:12.9427194Z   Downloading scipy-1.18.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:13.0110411Z Downloading numpy-2.5.5-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (15.7 MB)
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:13.1937868Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.7/15.7 MB 98.7 MB/s eta 0:00:00
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:13.2128863Z Downloading scipy-1.18.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:13.3687308Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 232.2 MB/s eta 0:00:00
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:14.0786329Z Installing collected packages: numpy, scipy
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:19.1286774Z 
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:19.1287650Z Successfully installed numpy-2.5.5 scipy-1.18.1
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:28.8022882Z {"variant": "A", "bug": null, "runs": 20000, "seed": 1001, "sec_brute": 7.4, "sec_event": 1.4, "tests": [{"stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)", "bins": 18, "chi2": 18.63, "dof": 17, "p": 0.35008778976711313, "mean_brute": 2.838, "mean_event": 2.8945}, {"stat": "survivors_at_tick_75", "bins": 9, "chi2": 15.53, "dof": 8, "p": 0.0496615009599936, "mean_brute": 6.7322, "mean_event": 6.7448}, {"stat": "survivors_at_tick_150", "bins": 9, "chi2": 9.0, "dof": 8, "p": 0.34258374671048153, "mean_brute": 4.9612, "mean_event": 4.997}]}
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:32.9339560Z {"variant": "B", "bug": null, "runs": 20000, "seed": 2002, "sec_brute": 3.6, "sec_event": 0.5, "tests": [{"stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)", "bins": 18, "chi2": 29.34, "dof": 17, "p": 0.031515183349362326, "mean_brute": 2.8457, "mean_event": 2.9204}, {"stat": "survivors_at_tick_75", "bins": 7, "chi2": 2.17, "dof": 6, "p": 0.9032436862260496, "mean_brute": 2.7188, "mean_event": 2.7185}, {"stat": "survivors_at_tick_150", "bins": 7, "chi2": 4.0, "dof": 6, "p": 0.6766861591418832, "mean_brute": 2.033, "mean_event": 2.0269}]}
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:41.0914813Z {"variant": "A", "bug": "stale_p", "runs": 20000, "seed": 3003, "sec_brute": 7.2, "sec_event": 1.0, "tests": [{"stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)", "bins": 19, "chi2": 19.15, "dof": 18, "p": 0.3825775686384641, "mean_brute": 2.9114, "mean_event": 2.8556}, {"stat": "survivors_at_tick_75", "bins": 8, "chi2": 2259.18, "dof": 7, "p": 0.0, "mean_brute": 6.7432, "mean_event": 7.3598}, {"stat": "survivors_at_tick_150", "bins": 9, "chi2": 1096.72, "dof": 8, "p": 1.9578241541167167e-231, "mean_brute": 4.9882, "mean_event": 5.4478}]}
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:45.1735401Z {"variant": "B", "bug": "stale_p", "runs": 20000, "seed": 4004, "sec_brute": 3.7, "sec_event": 0.4, "tests": [{"stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)", "bins": 19, "chi2": 8.47, "dof": 18, "p": 0.9708413324043996, "mean_brute": 2.8914, "mean_event": 2.8627}, {"stat": "survivors_at_tick_75", "bins": 7, "chi2": 1371.7, "dof": 6, "p": 3.248612613111518e-293, "mean_brute": 2.7188, "mean_event": 3.1374}, {"stat": "survivors_at_tick_150", "bins": 7, "chi2": 525.84, "dof": 6, "p": 2.2796102230607185e-110, "mean_brute": 2.0183, "mean_event": 2.1965}]}
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:53.5771777Z {"variant": "A", "bug": "forget_n", "runs": 20000, "seed": 5005, "sec_brute": 7.3, "sec_event": 1.1, "tests": [{"stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)", "bins": 19, "chi2": 15454.11, "dof": 18, "p": 0.0, "mean_brute": 2.8847, "mean_event": 10.853}, {"stat": "survivors_at_tick_75", "bins": 9, "chi2": 10048.17, "dof": 8, "p": 0.0, "mean_brute": 6.7402, "mean_event": 8.2022}, {"stat": "survivors_at_tick_150", "bins": 9, "chi2": 7071.53, "dof": 8, "p": 0.0, "mean_brute": 4.9962, "mean_event": 6.3063}]}
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:57.7591199Z {"variant": "B", "bug": "forget_n", "runs": 20000, "seed": 6006, "sec_brute": 3.7, "sec_event": 0.5, "tests": [{"stat": "first_collapse_tick(1-tick bins to 20 then 10-tick bins; -1=none)", "bins": 18, "chi2": 15635.84, "dof": 17, "p": 0.0, "mean_brute": 2.8548, "mean_event": 10.8904}, {"stat": "survivors_at_tick_75", "bins": 7, "chi2": 6266.8, "dof": 6, "p": 0.0, "mean_brute": 2.7165, "mean_event": 3.7182}, {"stat": "survivors_at_tick_150", "bins": 7, "chi2": 3205.88, "dof": 6, "p": 0.0, "mean_brute": 2.0198, "mean_event": 2.5063}]}
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:57.7975512Z Traceback (most recent call last):
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:57.7977679Z   File "/home/runner/work/platform-proto/platform-proto/prototype/reference/equivalence_test.py", line 160, in <module>
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:57.7978995Z     json.dump(out, open("results/equivalence_results.json", "w"), indent=1)
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:57.7980031Z                    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+core-desktop	Run python3 -m pip install numpy scipy && python3 reference/equivalence_test.py 20000 | tee equivalence_py.txt	2026-11-18T10:01:57.7981042Z FileNotFoundError: [Errno 2] No such file or directory: 'results/equivalence_results.json'
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	﻿2026-11-18T10:01:57.8694811Z ##[group]Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.8696439Z ^[[36;1mcargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt^[[0m
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.8748375Z shell: /usr/bin/bash -e {0}
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.8748636Z env:
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.8748841Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.8749110Z   CARGO_INCREMENTAL: 0
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.8749340Z   CARGO_TERM_COLOR: always
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.8749562Z ##[endgroup]
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.8999143Z ^[[1m^[[92m    Finished^[[0m `release` profile [optimized] target(s) in 0.00s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.9003622Z ^[[1m^[[92m     Running^[[0m `target/release/bench_hybrid`
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.9016644Z # comps=250000 (= 1M particles at S=4), q_hot=0.02 q_cold=1e-4 q_star=0.003, steady-state start, single thread
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:57.9018106Z # stored = 1M particles; need 10,000 ticks/s at 10,000x speed
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:01:59.9308796Z brute (cost independent of mix): 2764 ticks/s (50.0 ev/tick)
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:01.4524450Z p_hot=0 steady_hot=0.000 heap       187178 ticks/s      25.0 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:02.9674006Z p_hot=0 steady_hot=0.000 wheel      517750 ticks/s      25.0 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:04.4798844Z p_hot=0 steady_hot=0.000 hybrid     516325 ticks/s      25.0 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:06.0015272Z p_hot=0.5 steady_hot=0.005 heap        86988 ticks/s      49.8 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:07.5124085Z p_hot=0.5 steady_hot=0.005 wheel      241960 ticks/s      49.7 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:09.0231649Z p_hot=0.5 steady_hot=0.005 hybrid     177703 ticks/s      49.7 ev/tick  hot_list=0.005
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:10.5437980Z p_hot=0.9 steady_hot=0.043 heap        17293 ticks/s     238.9 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:12.0565638Z p_hot=0.9 steady_hot=0.043 wheel       47138 ticks/s     239.1 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:13.5756344Z p_hot=0.9 steady_hot=0.043 hybrid      15421 ticks/s     238.7 ev/tick  hot_list=0.043
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:15.1505478Z p_hot=0.99 steady_hot=0.331 heap         2567 ticks/s    1671.7 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:16.6867666Z p_hot=0.99 steady_hot=0.331 wheel        6693 ticks/s    1672.2 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:18.2186641Z p_hot=0.99 steady_hot=0.331 hybrid       3545 ticks/s    1671.2 ev/tick  hot_list=0.331
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:19.8328621Z p_hot=0.999 steady_hot=0.833 heap         1129 ticks/s    4171.9 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:21.3621183Z p_hot=0.999 steady_hot=0.833 wheel        2640 ticks/s    4171.4 ev/tick  hot_list=0.000
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid | tee bench_hybrid_desktop.txt	2026-11-18T10:02:22.9870740Z p_hot=0.999 steady_hot=0.833 hybrid       1728 ticks/s    4172.9 ev/tick  hot_list=0.834
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	﻿2026-11-18T10:02:22.9934162Z ##[group]Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:22.9935158Z ^[[36;1mcargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt^[[0m
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:22.9984179Z shell: /usr/bin/bash -e {0}
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:22.9984432Z env:
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:22.9984630Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:22.9984900Z   CARGO_INCREMENTAL: 0
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:22.9985132Z   CARGO_TERM_COLOR: always
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:22.9985350Z ##[endgroup]
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:23.0243338Z ^[[1m^[[92m    Finished^[[0m `release` profile [optimized] target(s) in 0.00s
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:23.0248186Z ^[[1m^[[92m     Running^[[0m `target/release/bench_hybrid --determinism-hazard`
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:23.0857736Z hazard brute events=39051 hash=c6192bc0d4e6d6e2
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:23.0908370Z hazard heap events=37637 hash=c68b73b07b025628
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:23.0941272Z hazard wheel events=37637 hash=66bfb35d93919c91
+core-desktop	Run cargo run --release -p platform_core_proto --bin bench_hybrid -- --determinism-hazard | tee determinism_hazard_x86_64.txt	2026-11-18T10:02:23.0989225Z hazard hybrid events=37274 hash=101ce1486d4693e9
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	﻿2026-11-18T10:02:23.1040919Z ##[group]Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:23.1041872Z ^[[36;1mpython3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt^[[0m
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:23.1098376Z shell: /usr/bin/bash -e {0}
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:23.1098646Z env:
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:23.1098849Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:23.1099118Z   CARGO_INCREMENTAL: 0
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:23.1099343Z   CARGO_TERM_COLOR: always
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:23.1099571Z ##[endgroup]
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:26.5779868Z {"strategy": "heap", "bias": 1.0, "bug": null, "runs": 20000, "tests": [{"stat": "total_events", "chi2": 18.0, "dof": 19, "p": 0.5211655338379477}, {"stat": "slot0_events", "chi2": 6.0, "dof": 9, "p": 0.7442161180539238}, {"stat": "slot0_first_tick", "chi2": 34.3, "dof": 15, "p": 0.0030417237292494157}]}
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:28.9572459Z {"strategy": "wheel", "bias": 1.0, "bug": null, "runs": 20000, "tests": [{"stat": "total_events", "chi2": 18.0, "dof": 19, "p": 0.5211655338379477}, {"stat": "slot0_events", "chi2": 5.3, "dof": 9, "p": 0.8043604237083347}, {"stat": "slot0_first_tick", "chi2": 34.3, "dof": 15, "p": 0.0030417237292494157}]}
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:31.8892062Z {"strategy": "hybrid", "bias": 1.0, "bug": null, "runs": 20000, "tests": [{"stat": "total_events", "chi2": 21.5, "dof": 19, "p": 0.31236998162951357}, {"stat": "slot0_events", "chi2": 5.9, "dof": 9, "p": 0.7452569110480186}, {"stat": "slot0_first_tick", "chi2": 17.5, "dof": 15, "p": 0.28841588534761525}]}
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:34.1332804Z {"strategy": "brute", "bias": 1.15, "bug": null, "runs": 20000, "tests": [{"stat": "total_events", "chi2": 1525.6, "dof": 19, "p": 0.0}, {"stat": "slot0_events", "chi2": 189.6, "dof": 9, "p": 4.9751696066015934e-36}, {"stat": "slot0_first_tick", "chi2": 177.5, "dof": 15, "p": 7.539472470191484e-30}]}
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:36.0751012Z {"strategy": "wheel", "bias": 1.0, "bug": "no_rescan", "runs": 20000, "tests": [{"stat": "total_events", "chi2": 24224.3, "dof": 19, "p": 0.0}, {"stat": "slot0_events", "chi2": 6109.1, "dof": 9, "p": 0.0}, {"stat": "slot0_first_tick", "chi2": 6252.0, "dof": 10, "p": 0.0}]}
+core-desktop	Run python3 reference/hybrid_ref.py 20000 | tee hybrid_ref_py.txt	2026-11-18T10:02:36.0754819Z seconds 12
+core-desktop	Run actions/upload-artifact@v4	﻿2026-11-18T10:02:36.1635019Z ##[group]Run actions/upload-artifact@v4
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1635599Z with:
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1636225Z   name: m01-desktop-results
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1636720Z   path: prototype/*.txt
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1637154Z   if-no-files-found: warn
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1637628Z   compression-level: 6
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1638033Z   overwrite: false
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1638434Z   include-hidden-files: false
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1638877Z env:
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1639234Z   CARGO_HOME: /home/runner/.cargo
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1639707Z   CARGO_INCREMENTAL: 0
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1640107Z   CARGO_TERM_COLOR: always
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.1640498Z ##[endgroup]
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.3863596Z (node:2516) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.3865152Z (Use `node --trace-deprecation ...` to show where the warning was created)
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.4030673Z With the provided path, there will be 6 files uploaded
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.4058039Z Artifact name is valid!
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.4082827Z Root directory input is valid!
+core-desktop	Run actions/upload-artifact@v4	2026-11-18T10:02:36.6710131Z ##[error]Failed to CreateArtifact: Artifact storage quota has been hit. Unable to upload any new artifacts. Usage is recalculated every 6-12 hours.
+core-desktop	Run actions/upload-artifact@v4	More info on storage limits: https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#calculating-minute-and-storage-spending
+core-desktop	Post Run actions/checkout@v4	﻿2026-11-18T10:02:36.6933134Z Post job cleanup.
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.7936811Z [command]/usr/bin/git version
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8016976Z git version 2.56.1
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8100669Z Temporarily overriding HOME='/home/runner/work/_temp/7d8a4111-19aa-4129-a569-216a729d5782' before making global git config changes
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8117195Z Adding repository directory to the temporary git global config as a safe directory
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8118513Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/platform-proto/platform-proto
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8140215Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8217629Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8671464Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8704428Z http.https://github.com/.extraheader
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8777439Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.8857163Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.9618817Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+core-desktop	Post Run actions/checkout@v4	2026-11-18T10:02:36.9709028Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+core-desktop	Complete job	﻿2026-11-18T10:02:37.0188813Z Cleaning up orphan processes
+core-desktop	Complete job	2026-11-18T10:02:37.0520285Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

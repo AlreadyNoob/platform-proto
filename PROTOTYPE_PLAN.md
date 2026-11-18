@@ -5,12 +5,12 @@ Progress against acceptance criteria (updated v0.0.5, owner's phone):
 |---|---|
 | A1 APK builds and installs on device | **PASS** (exported on-device with Godot Android editor 4.7.2; library built in CI) |
 | A2 smooth with 100k visible instances | **PASS for static camera**: avg 8.75 ms, p95 8.33 ms at 120 Hz; pan/zoom under interaction not measured |
-| A3 1M stored loads and idles | **Partial**: 1M stored ran inside the app; memory/load time not recorded |
+| A3 1M stored loads and idles | **PASS**: 1M particles simulated in the app, RSS 498-507 MB stable over 10 minutes (§11) |
 | A4 core tick throughput | **PASS (measured)** in app and Termux |
 | A5 sampling equivalence | **PASS** (Python, Rust on phone, CI) |
 | A6 determinism desktop vs device | **PASS** (x86 CI + Python vs arm64 Termux + Android app) |
-| A7 binding overhead | **Partial**: 233 ns/call measured; snapshot transfer cost not measured |
-| A8 pause/speed correctness | **NOT RUN** (no clock in prototype) |
+| A7 binding overhead | **PASS**: 255 ns/call; snapshot 0.5-0.65 ms per 100k points (§11) |
+| A8 pause/speed correctness | **PASS** in Rust tests (phone and CI): pause, speed changes, frame splitting, batching (§10.5); not exercised through the app UI |
 Decision gate result: A1 and A2 pass, A7 call overhead is small -> no libGDX spike triggered. Prototype code: `prototype/`.
 
 Purpose: confirm or reject D-002/D-003 with evidence. It is throwaway-quality *presentation* code plus the real seed of the engine-independent core. **No Platform particle rules** (no collapse, formations, entropy, timelines).

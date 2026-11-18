@@ -1,0 +1,72 @@
+   Compiling platform_core v0.1.2 (/data/data/com.termux/files/home/platform/m02a_work/core)
+    Finished `release` profile [optimized] target(s) in 6.22s
+     Running unittests src/lib.rs (target/release/deps/platform_core-e6ddbd52e5f23bb4)
+
+running 5 tests
+test clock::tests::frame_splitting_does_not_change_total ... ok
+test clock::tests::lag_is_kept_until_forgiven ... ok
+test clock::tests::pause_stops_ticks_and_resume_has_no_burst ... ok
+test clock::tests::requested_and_effective_interact_correctly ... ok
+test clock::tests::restore_keeps_tick_and_owes_nothing ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/governor.rs (target/release/deps/governor-a83dd5a4d9706dd2)
+
+running 3 tests
+test does_not_engage_when_device_keeps_up ... ok
+test never_exceeds_request_and_never_drops_below_one ... ok
+test matches_python_reference_traces ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/host.rs (target/release/deps/host-dc9e91f75fff8a5a)
+
+running 3 tests
+test restore_continues_from_the_saved_tick ... ok
+test runs_pauses_and_resumes_without_a_burst ... ok
+test governor_lowers_speed_when_the_device_cannot_keep_up ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.32s
+
+     Running tests/rng.rs (target/release/deps/rng-6f5383d5521c4888)
+
+running 4 tests
+test below_stays_in_range_and_hits_all_values ... ok
+test state_roundtrip_continues_the_same_sequence ... ok
+test matches_python_reference_vectors ... ok
+test streams_are_independent ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/save.rs (target/release/deps/save-68b0bb885635045d)
+
+running 10 tests
+test bad_magic_is_refused ... ok
+test newer_schema_is_refused_with_a_clear_error ... ok
+test encoder_matches_independent_python_bytes ... ok
+test golden_bytes_decode_to_the_expected_data ... ok
+test every_truncation_is_rejected ... ok
+test every_single_byte_flip_is_rejected ... ok
+test nothing_to_load_is_an_error ... ok
+test crash_between_renames_is_recovered_from_the_temp_file ... ok
+test corrupt_main_falls_back_to_backup ... ok
+test save_then_load_roundtrip_and_backup_generation ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/wheel.rs (target/release/deps/wheel-14a4f23ae4ab0f75)
+
+running 2 tests
+test past_ticks_run_now_and_len_tracks ... ok
+test matches_a_simple_model_exactly ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+   Doc-tests platform_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+cargo exit code: 0

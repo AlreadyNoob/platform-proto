@@ -1,0 +1,12 @@
+[package]
+name = "platform_bridge"
+version = "0.1.2"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+platform_core = { path = "../core" }
+# Pinned to 0.5.5: the version that built in CI and loaded in Godot 4.7.2 on Android (Milestone 01).
+godot = "=0.5.5"

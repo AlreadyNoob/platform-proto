@@ -26,9 +26,9 @@ var soak_side := 1.0
 func _ready() -> void:
     cam = Camera2D.new(); add_child(cam)
     var ui := CanvasLayer.new(); add_child(ui)
-    var box := VBoxContainer.new(); box.position = Vector2(8, 8); ui.add_child(box)
-    label = Label.new(); label.custom_minimum_size = Vector2(1100, 300); box.add_child(label)
-    var row := HFlowContainer.new(); box.add_child(row)
+    var box := VBoxContainer.new(); box.position = Vector2(8, 8); box.custom_minimum_size = Vector2(1260, 0); ui.add_child(box)
+    # buttons FIRST (always reachable), log below; long lines wrap instead of widening the screen
+    var row := HFlowContainer.new(); row.custom_minimum_size = Vector2(1260, 0); box.add_child(row)
     _btn(row, "1 Integration", _test_integration)
     _btn(row, "2 Sim bench", _test_sim)
     for n in [10000, 100000, 300000, 1000000]:
@@ -39,19 +39,27 @@ func _ready() -> void:
     _btn(row, "5c Overload 1 min", _start_soak.bind(60.0, 0.99))
     _btn(row, "Stop", _stop_soak)
     _btn(row, "Copy", func(): DisplayServer.clipboard_set("\n".join(log_lines)))
-    _log("Platform M01b prototype. Godot %s, renderer %s, device %s" % [Engine.get_version_info().string, RenderingServer.get_video_adapter_name(), OS.get_model_name()])
+    label = Label.new()
+    label.custom_minimum_size = Vector2(1260, 0)
+    label.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+    label.add_theme_font_size_override("font_size", 16)
+    box.add_child(label)
+    _log("Platform M01b prototype v3. Godot %s, renderer %s, device %s" % [Engine.get_version_info().string, RenderingServer.get_video_adapter_name(), OS.get_model_name()])
     if ClassDB.class_exists("CoreProbe"):
         core = ClassDB.instantiate("CoreProbe")
         add_child(core)
         _log("CoreProbe class FOUND (extension loaded)")
     else:
         _log("CoreProbe class MISSING: Rust library not loaded. Check bin/ path and .gdextension.")
+    _log("The whole log is copied to the clipboard automatically after every line; paste it into any notes app.")
 
 func _btn(parent: Node, text: String, cb: Callable) -> void:
     var b := Button.new(); b.text = text; b.pressed.connect(cb); parent.add_child(b)
 
 func _log(s: String) -> void:
-    print(s); log_lines.append(s); label.text = "\n".join(log_lines.slice(maxi(0, log_lines.size() - 14)))
+    print(s); log_lines.append(s)
+    label.text = "\n".join(log_lines.slice(maxi(0, log_lines.size() - 12)))
+    DisplayServer.clipboard_set("\n".join(log_lines))
 
 func _test_integration() -> void:
     if core == null: _log("no core"); return
@@ -136,7 +144,9 @@ func _log_soak_window(elapsed_s: int) -> void:
     avg /= maxf(1.0, a.size())
     var p95 = a[int(a.size() * 0.95)] if a.size() > 0 else 0.0
     var worst = a[-1] if a.size() > 0 else 0.0
-    _log("[%4d s] render avg %.2f ms p95 %.2f worst %.1f (%d frames) | %s | rss %d MB, godot static %d MB" % [elapsed_s, avg, p95, worst, a.size(), core.sim_stats(), core.rss_kb() / 1024, OS.get_static_memory_usage() / 1048576])
+    _log("[%4d s] render avg %.2f ms, p95 %.2f, worst %.1f (%d frames)" % [elapsed_s, avg, p95, worst, a.size()])
+    _log("        sim: %s" % core.sim_stats())
+    _log("        memory: process rss %d MB, godot static %d MB" % [core.rss_kb() / 1024, OS.get_static_memory_usage() / 1048576])
 
 func _process(delta: float) -> void:
     if soak_on:

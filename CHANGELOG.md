@@ -1,4 +1,10 @@
 # CHANGELOG
+## v0.1.3 — 2026-11-19 — Milestone 02a core tested on the phone
+Owner ran `tools/RUN_M02A_TERMUX.sh`: first compile succeeded; 27/27 tests passed (clock 5, governor 3, host 3, rng 4, save 10, wheel 2); Python references pass and all three fixtures are identical. Raw outputs in `core/results/phone_termux_02a/`. No code changes. Docs updated (K-26 narrowed, K-29 first pass).
+
+## v0.1.2 — 2026-11-19 — Milestone 02a: core skeleton (WRITTEN, NOT COMPILED)
+Owner committed to Godot 4.7.x + Rust core and said go for Milestone 02. Added `core/` (rng with named streams, clock with requested/effective speed, speed governor D-019, timing wheel, snapshot/command interface, save container v1 with atomic write and backup, simulation host on a worker thread, test worlds), `bridge/` (gdext class `PlatformCore`), `game/` (developer check scene, not the game shell), `tools/ref/platform_ref.py` (independent Python references + golden fixtures), `tools/RUN_M02A_TERMUX.sh`, CI `ci.yml`. Prototype workflow now manual only. Python references pass; Rust is uncompiled.
+
 ## Milestone 00 — 2026-11-16 (v0.0.1)
 Added project documentation set, engine evaluation, proposed architecture, decision log, prototype plan. No code.
 
@@ -22,3 +28,9 @@ Phone results recorded: 14/14 tests, wheel 2.4-3.1x faster than heap, hybrid slo
 
 ## v0.0.8 — 2026-11-17 — hot-list break-even measured
 `bench_hybrid --hi` results: hybrid 1.2-2.6x faster than wheel for slots with hazard 0.2/tick; cost model gives break-even about 5%/tick; D-012 revised again (q_star = 0.05); hybrid no-hot overhead fix (behaviour-preserving, hashes unchanged in the Python port).
+
+## v0.1.0 — 2026-11-18 — Milestones 01 and 01b complete
+Final app results: snapshot 0.5-0.65 ms per 100k points; 10-minute combined soak at 10,000x with 100k drawn instances passed (sim 99.8%, lag 0, render 119 fps, RSS stable); overload test (lag grows without bound -> D-019 proposed); CI x86 results (14/14, identical hashes); harness v3 (buttons first, wrapped log, automatic clipboard); CLAUDE.md build commands filled in; D-002/D-003 validated.
+
+## v0.1.1 — 2026-11-18 — handoff-ready package
+No technical change. Added START_HERE.md, PROMPT_TO_PASTE.txt, PROJECT_STATE.json, PROJECT_LOG.md, CONTINUITY_PROTOCOL.md, ENVIRONMENT_AND_REPO.md, tools/check_handoff.py, docs/original/ (byte-identical copies + SHA-256), .gitignore; rewrote README, SESSION_HANDOFF, prototype/README; updated CLAUDE.md with the continuity protocol.

@@ -56,7 +56,7 @@ Versioned container: header (schema version, seed, tick, RNG states, metadata su
 ## 8. Diagnostics
 Structured log, tick/throughput metrics, debug overlay, seed + command-log replay tool. Every randomized test prints its seed.
 
-## 9. Proposed repository layout (if Decision D-003 is approved)
+## 9. Repository layout (IMPLEMENTED in v0.1.2; D-003 committed)
 ```
 core/    engine-independent library + tests (headless, runs in CI)
 bridge/  thin engine binding (no game rules)
@@ -64,5 +64,8 @@ game/    engine project: scenes, scripts (presentation only), themes, audio
 tools/   benchmark harness, replay, save inspector
 docs/
 ```
+### 9a. Milestone 02a modules (written, not yet compiled)
+`core/src`: rng (xoshiro256** + named streams), clock (requested vs effective speed), governor (D-019), wheel (timing wheel), command, snapshot (header; field order append-only), world (World trait, NullWorld, BurnWorld test world), host (worker thread, command channel, snapshot under a short lock), save (container v1). `bridge/src/lib.rs`: Godot class `PlatformCore`, coarse API only. `game/`: developer check scene (not the game shell).
+
 ## 10. Known architectural risks
 R1 events-vs-ticks equivalence must be proven; R2 millions-of-particles on mid/low Android devices unproven; R3 binding overhead between Core and engine unmeasured; R4 collapse/timeline rules still ambiguous in the GDD.

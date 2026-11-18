@@ -22,3 +22,14 @@
 | K-19 | Low | Phone display refresh varied (120 Hz earlier, 60 Hz later); soak frame times must record it | Open |
 | K-20 | Low | Phone benchmark noise up to ~20% between runs in the fastest cases; need repeated runs for small differences | Open |
 | K-21 | Low | Hybrid no-hot-slot overhead fix (v0.0.8) is behaviour-preserving but its speed effect is unmeasured | Open |
+| K-22 | Medium | Simulation lag grows without bound when the device cannot keep up (no speed governor yet) — D-019 | Open |
+| K-23 | Low | In-app simulation cost per tick was ~1.4-2x the Termux benchmark (cause untested; CPU clock scaling suspected) | Open |
+| K-24 | Low | NDK version used by CI not recorded in the log | Open |
+| K-25 | Info | K-15, K-6, K-5, K-16 (fixed seeds passed) resolved: the 01b Rust code compiled and passed on the phone and in CI; the harness v3 ran | Closed |
+| K-26 | Medium | M02a `core/` compiled and passed 27/27 tests on the phone (v0.1.3). STILL never built: `bridge/` (gdext), `game/` scene, `ci.yml`, Android `.so` | Partly closed |
+| K-27 | Medium | Governor numbers (1 s / 0.1 s lag, 90%, x1.25, backoff) are PROVISIONAL and validated only against a Python device model; real devices have noise and thermal throttling | Open (host test showed the governor reacts on a real thread; steady-state not measured on hardware) |
+| K-28 | Low | Save v1: RNG states are placeholders until a real world exists; no directory fsync; no migration yet (schema 1 only); not tested on Android storage | Open |
+| K-29 | Medium | `core/tests/host.rs` is timing based; passed once on the phone (3/3 in 1.32 s). A failure needs a re-run before blaming the code | Open |
+| K-30 | Low | Under overload the governor makes game time run slower than the wall clock; the UI must show a clear "limited speed / falling behind" indicator (planned 02b) | Open |
+| K-31 | Info | The bridge uses `BurnWorld` (a CPU-burning test world) because no real world exists | Open until Milestone 03 |
+

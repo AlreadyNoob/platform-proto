@@ -1,3 +1,3 @@
-# Release notes — Platform_v0.0.8_milestone-01b_hot-list-measured.zip
-v0.0.7 + bench_hybrid_hi.txt results, report section 10.6, D-012 second revision, hybrid overhead fix in hazard.rs, hazport.py updated.
-Verified by execution: Python references; Rust core tests and benchmarks on the phone (14/14; scheduler and hot-list benchmarks); the Godot app with the Rust extension (Milestone 01). Not yet run: CI for 01b, snapshot cost, soak.
+# Release notes — Platform_v0.1.3_milestone-02a_core-tested.zip
+Complete project snapshot (v0.1.3) = v0.1.2 code (unchanged) + the owner's phone test results for the core. Drop this ZIP together with the owner's original `Platform_Design_and_Claude_Prompt_v0_1.zip` into a new Claude session and paste `PROMPT_TO_PASTE.txt`; Claude starts at `START_HERE.md`.
+No `.so`, `.apk` or `target/` included. Integrity check: `python3 tools/check_handoff.py <folder or zip>`.

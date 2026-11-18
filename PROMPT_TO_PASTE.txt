@@ -1,0 +1,5 @@
+(Attach BOTH files to a new Claude session: the latest Platform milestone ZIP and your original Platform_Design_and_Claude_Prompt_v0_1.zip. Then paste this message.)
+
+I'm continuing my Android game project "Platform". I attached two ZIPs: (1) the latest Platform milestone ZIP, and (2) my original proposal ZIP (design document + master prompt). You have no memory of earlier sessions, so everything is in these files.
+
+Unzip both, open START_HERE.md in the milestone ZIP, and follow it exactly: run tools/check_handoff.py, read the files in the order it lists, do not redo finished work, and do not start particle mechanics. Then send the first reply that START_HERE.md section 9 describes (short summary, check result, open decisions, a proposed next step) and wait for my go. I'm on a phone only (Termux, GitHub Actions, Godot Android editor), so keep replies short and give exact copy-paste commands. At the end of every milestone or checkpoint, follow CONTINUITY_PROTOCOL.md and tell me which ZIP to drop next time.

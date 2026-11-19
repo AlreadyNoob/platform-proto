@@ -47,3 +47,16 @@ Acceptance B1-B5: report §10.3 and §11.1 — all addressed (B1, B3, B4, B5 pas
 ## Final 01b app runs (2026-11-18, v0.1.0)
 Snapshot cost, 1-minute soak, overload and a 10-minute soak on the owner's phone: see report §11 and `prototype/reference/results/phone_godot_app_01b/soak_log_summary.txt`. 10-minute soak: sim 99.8% of 10,000 ticks/s, lag 0, render 119 fps with p95 <= 9.09 ms, RSS stable 498-507 MB, no crash.
 CI (x86_64 runner, Rust 1.100.0): 14/14 tests, hazard hashes identical to the phone, Android .so built with godot 0.5.5.
+
+## Milestone 02a check app (v0.1.4) — owner's phone, Godot 4.7.2, 2026-11-19 — VERIFIED ON DEVICE
+CI run 44406424568: core job (cargo test + Python fixtures equal) and android-arm64-so job green. App log: `core/results/phone_godot_app_02a/app_output.txt`.
+- Extension loads; `platform_core 0.1.2 arch=aarch64 os=android`.
+- 1000x, no load: 4996 ticks in 5 s, no governor action, busy 1.0%.
+- Pause: tick equal over 1 s while paused; grows ~1015/s after resume.
+- Overload (1 ms/tick, request 10000x): effective speed fell to 899 within 2 s, then oscillated 899/1123 (drops 3, raises 2 in 12 s), owed ticks 0-137, no unbounded lag. Load removed: eff 1123 -> 1403 -> 1753 over 15 s (rising, slowly).
+- Save/load: two saves ok, backup exists, load ok (tick, speed, seed, 3 streams, label restored).
+- Not tested: app lifecycle (background/kill), long-run steady state, thermal behaviour, a real world.
+
+## Milestone 02b shell (v0.1.5) — NOT RUN. Owner checklist: app starts; top bar fits portrait and landscape; speed buttons change "Running at"; Pause/Play works; one-finger pan, two-finger pinch zoom; Menu > Dark theme and Debug overlay persist after restart; Developer checks opens and Close returns; Android Back closes Menu then quits.
+
+## Milestone 02c (v0.2.0) — NOT RUN. Owner checklist: CI green (new .so); Menu > Saves shows 4 rows; Save slot 1 then Load slot 1 returns to the saved tick (paused); Home button/other app then return: simulation was paused in background and resumes (unless you had paused); Autosave row shows a tick after backgrounding; Back closes Saves first.

@@ -65,7 +65,7 @@ tools/   benchmark harness, replay, save inspector
 docs/
 ```
 ### 9a. Milestone 02a modules (written, not yet compiled)
-`core/src`: rng (xoshiro256** + named streams), clock (requested vs effective speed), governor (D-019), wheel (timing wheel), command, snapshot (header; field order append-only), world (World trait, NullWorld, BurnWorld test world), host (worker thread, command channel, snapshot under a short lock), save (container v1). `bridge/src/lib.rs`: Godot class `PlatformCore`, coarse API only. `game/`: developer check scene (not the game shell).
+`core/src`: rng (xoshiro256** + named streams), clock (requested vs effective speed), governor (D-019), wheel (timing wheel), command, snapshot (header; field order append-only), world (World trait, NullWorld, BurnWorld test world), host (worker thread, command channel, snapshot under a short lock), save (container v1). `bridge/src/lib.rs`: Godot class `PlatformCore`, coarse API only. `game/`: 02b shell (`shell.gd`, `world_view.gd`, written not run) and developer checks (`dev_check.gd`).
 
 ## 10. Known architectural risks
 R1 events-vs-ticks equivalence must be proven; R2 millions-of-particles on mid/low Android devices unproven; R3 binding overhead between Core and engine unmeasured; R4 collapse/timeline rules still ambiguous in the GDD.

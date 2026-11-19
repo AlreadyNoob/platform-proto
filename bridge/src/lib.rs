@@ -149,44 +149,6 @@ impl PlatformCore {
         }
     }
 
-    /// Real save (v0.2.0): same container as save_check. Saved state is tick, requested speed and seed only
-    /// (RNG states are placeholders until a real world exists, K-28).
-    #[func]
-    fn save_game(&self, path: GString, label: GString) -> GString {
-        self.save_check(path, label)
-    }
-
-    /// Real load (v0.2.0): replaces the running simulation with one that continues from the saved tick and
-    /// requested speed. It starts PAUSED so the player decides when to continue.
-    #[func]
-    fn load_game(&mut self, path: GString) -> GString {
-        let p = path.to_string();
-        match load_slot(Path::new(&p)) {
-            Ok((d, src)) => {
-                if let Some(mut h) = self.host.take() {
-                    h.stop();
-                }
-                self.seed = d.seed;
-                let world = BurnWorld::new(Arc::clone(&self.burn_ns));
-                let host = SimHost::start(world, d.tick, d.requested_speed.max(1));
-                host.send(Command::SetPaused(true));
-                self.host = Some(host);
-                gs(format!("loaded from {:?}: tick={} speed={} (paused)", src, d.tick, d.requested_speed))
-            }
-            Err(e) => gs(format!("load FAILED: {}", e)),
-        }
-    }
-
-    /// One-line description of a slot for the UI, or "empty" when nothing readable is there.
-    #[func]
-    fn slot_summary(&self, path: GString) -> GString {
-        let p = path.to_string();
-        match load_slot(Path::new(&p)) {
-            Ok((d, _)) => gs(format!("tick {}, speed {}x", d.tick, d.requested_speed)),
-            Err(_) => gs("empty".to_string()),
-        }
-    }
-
     /// Resident memory of the whole app process in KB (Linux/Android), -1 if unavailable.
     #[func]
     fn rss_kb(&self) -> i64 {

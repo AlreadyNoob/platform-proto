@@ -1,5 +1,5 @@
 # DEVELOPMENT_PROGRESS
-**Current state (v0.2.0, 2026-11-19):** Milestones 01/01b COMPLETE. Milestone 02a core is TESTED on the phone (27/27). CI is green and the Android check app ran on the phone (governor tuning open). No game rules exist.
+**Current state (v0.1.3, 2026-11-19):** Milestones 01/01b COMPLETE. Milestone 02a core is TESTED on the phone (27/27). Bridge, game check scene and CI for M02 are not yet built. No game rules exist.
 **Last verified build:** Rust `core/` v0.1.2 on the phone (Termux, 27/27 tests); Godot 4.7.2 prototype app from Milestone 01b.
 ## Verified by execution
 - Event-driven collapse scheduling equals per-tick rolling (Python, Rust on phone and CI); controls detected.

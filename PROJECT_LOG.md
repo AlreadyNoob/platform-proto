@@ -51,25 +51,3 @@
 
 ## Key numbers to remember (all measured; details and conditions in `MILESTONE_01_REPORT.md`)
 Determinism hashes (model, seeds 1/2/3): `8fe431764a396449`, `05f5d4a4d9e575cf`, `6f401db9752f4ec1`. Hazard hashes (2000 slots, 20,000 ticks, seed 1, bench(0.9)): brute `c6192bc0d4e6d6e2`, heap `c68b73b07b025628`, wheel `66bfb35d93919c91`, hybrid `101ce1486d4693e9`. Call overhead 233-255 ns. Snapshot 0.51-0.65 ms per 100k points. Soak: 5,691,106 ticks, 1.36 billion events in 10 minutes.
-
-## 2026-11-19 — Milestone 02a verification (v0.1.4), session 4
-- Owner dropped v0.1.3 + original ZIP; check_handoff ALL PASS; hashes identical. Owner approved the next step, overlaid the project into the repo and pushed (f7e2f85). CI run 44406424568: both jobs green on first run (bridge/gdext 0.5.5, ci.yml, release `m02-android-so`).
-- Owner built the check APK and ran it. Results in `TESTING.md`; raw log in `core/results/phone_godot_app_02a/`. Findings K-32/K-33/K-34. No code changes in v0.1.4.
-
-## 2026-11-19 — Milestone 02b shell written (v0.1.5), session 4
-- Owner said "Continue" (= go for 02b). Claude wrote the shell in GDScript (no Godot in the sandbox, so only static checks) and moved the 02a check scene behind Settings. Decisions: orientation sensor; UI scale from DPI; no placeholder buttons (audio = buses only); touch handled via ScreenTouch/ScreenDrag in `_input`, mouse only on desktop.
-
-## 2026-11-19 — 02b first device run (v0.1.5) and display fix (v0.1.6)
-- Owner confirmed the shell works from the installed APK; reported side space, 60 fps, letterbox. Claude wrongly guessed first that the owner used the editor Play button (it was the APK). Debug overlay: window (1080,2436), vp (1280,720). Mistake: edited project.godot on disk while the editor may keep settings in memory; v0.1.6 sets the scale mode in code instead.
-
-## 2026-11-19 — v0.1.6 verified, v0.1.7
-- Owner: 120 Hz and full-size window now work. Remaining visual problems: Menu cut off in portrait, grey strips at the insets, app should be landscape (the owner's phone has rotation lock on). Fixed in v0.1.7 (not yet run).
-
-## 2026-11-19 — v0.1.7 verified, v0.1.8
-- Owner: landscape works; space on the right remained (inset margin, my earlier fix only recoloured it); Back from Developer checks also quit the app (SceneTree quit_on_go_back). Fixed in v0.1.8 (not yet run).
-
-## 2026-11-19 — v0.1.8 verified, v0.1.9
-- Owner: Back works. Left space remained (91 px inset from the camera cutout) and asked for a portrait/landscape switch in the Menu. v0.1.9 (not yet run).
-
-## 2026-11-19 — 02b closed, 02c written (v0.2.0)
-- Owner confirmed v0.1.9 works (left gap and orientation switch). Claude closed 02b and wrote 02c: bridge save_game/load_game/slot_summary, Saves panel, lifecycle pause + autosave. Not run. Governor recovery (K-32) analysed on paper only.

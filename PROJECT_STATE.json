@@ -1,9 +1,9 @@
 {
   "project": "Platform",
   "kind": "Android 2D top-down particle/universe simulation game",
-  "handoff_package_version": "0.2.0",
+  "handoff_package_version": "0.1.3",
   "date": "2026-11-19",
-  "latest_zip": "Platform_v0.2.0_milestone-02c_saves-lifecycle-written.zip",
+  "latest_zip": "Platform_v0.1.3_milestone-02a_core-tested.zip",
   "original_proposal_zip": "Platform_Design_and_Claude_Prompt_v0_1.zip",
   "original_sha256": {
     "PLATFORM_GDD.md": "abba819d92f444d12960ca401884c45c6aeaf485480e158863b0ea944b09621e",
@@ -32,17 +32,9 @@
       "what": "Phase 1 skeleton, NO mechanics. 02a core skeleton (this ZIP), 02b Godot game shell, 02c save/lifecycle wiring + speed-governor UI"
     },
     "02a": {
-      "status": "VERIFIED ON DEVICE: core 27/27; CI green (core + Android .so); check APK ran on the phone: extension loads, run/pause/overload-governor/save-load work. Governor tuning (hunting, slow recovery) open.",
-      "zip": "v0.1.2-v0.1.4",
+      "status": "core TESTED on the phone (27/27 Rust tests, first compile); bridge, game scene and ci.yml still unbuilt",
+      "zip": "v0.1.2-v0.1.3",
       "what": "repo layout core/ bridge/ game/ tools/, clock+governor (D-019), timing wheel, snapshot/command interface, save container v1, simulation host, bridge, dev check scene, CI"
-    },
-    "02b": {
-      "status": "VERIFIED ON DEVICE by the owner (v0.1.9): shell, themes, speed/pause, pan/zoom, debug overlay, landscape/portrait switch, Back handling, 120 fps at 120 Hz, edge-to-edge layout",
-      "what": "game/shell.gd, world_view.gd: top bar (pause, 1x-10k), smoothed limited-speed indicator, pan/zoom grid, white/dark theme, settings, debug overlay, safe area, back button, audio buses; dev checks moved to dev_check.gd"
-    },
-    "02c": {
-      "status": "WRITTEN, NOT RUN (v0.2.0)",
-      "what": "bridge save_game/load_game/slot_summary (Rust, never compiled; CI will), Saves panel with Autosave + 3 slots, Android lifecycle (background -> autosave + pause; resume -> continue unless the player had paused), autosave on quit"
     }
   },
   "game_code_exists": false,

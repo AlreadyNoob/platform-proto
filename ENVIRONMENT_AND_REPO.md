@@ -61,7 +61,7 @@ Then in the Godot Android editor: quit to the project list, reopen `platform_m01
 ## 6. Claude-side environment seen in the previous session (may differ in yours — check)
 Linux sandbox with bash, Python 3 (numpy, scipy), gcc, no Rust, **no network from bash** (web search/fetch tools existed), outputs go to `/mnt/user-data/outputs`, uploads arrive in `/mnt/user-data/uploads`. All Rust in this project was compiled only on the owner's phone or in GitHub CI.
 
-## 5. Milestone 02 additions (v0.1.4: CI and check APK verified by the owner; repo at commit f7e2f85; Godot folder Documents/platform_m02, package com.example.platformm02; `RUN_M02A_TERMUX.sh` verified by the owner, the rest NOT yet)
+## 5. Milestone 02 additions (v0.1.3; `RUN_M02A_TERMUX.sh` verified by the owner, the rest NOT yet)
 - Owner's repo (from the pasted log): `libplatform_bridge_proto.so` was untracked and `.gitignore` committed (commit 201dceb). Whether M02 files are in the repo is still unconfirmed.
 - New workflow `.github/workflows/ci.yml` (jobs `core`, `android-arm64-so`); `prototype-m01.yml` is now manual (`workflow_dispatch`) only.
 - Android library: release tag `m02-android-so`, file `libplatform_bridge.so` (crate `platform_bridge`, Godot class `PlatformCore`).

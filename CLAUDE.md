@@ -36,3 +36,4 @@ Update `PROJECT_STATE.json`, `PROJECT_LOG.md` (append), `SESSION_HANDOFF.md` (re
 - Godot project: `game/` (copy to `/storage/emulated/0/Documents/platform_m02` — a NEW folder, keep `platform_m01` untouched).
 - 03a core tests on the phone: `sh tools/RUN_M03_TERMUX.sh` (uploads test_out_m03.txt, python_ref_m03.txt). Python references: `python3 tools/ref/platform_ref.py` and `python3 tools/ref/collapse_ref.py`.
 - 03b core tests on the phone: `sh tools/RUN_M03B_TERMUX.sh` (uploads test_out_m03b.txt, python_ref_m03b.txt). Python references: `platform_ref.py`, `collapse_ref.py`, `economy_ref.py` in `tools/ref/`.
+- 03c core tests on the phone: `sh tools/RUN_M03C_TERMUX.sh` (uploads test_out_m03c.txt, python_ref_m03c.txt). Python references now also include `tools/ref/save2_ref.py`.

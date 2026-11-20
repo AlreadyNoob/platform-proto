@@ -60,6 +60,10 @@
 - The owner answered the remaining economy questions (D-034..D-037) and chose the economy core as the next milestone. Claude built it with a Python reference first (placement order, generation, spawning, blocked policy, collapse interplay) and a fixture the Rust must reproduce line by line; the 03a fixture stayed byte-identical. Placeholders are collected in `docs/TUNING_PLACEHOLDERS.md`.
 - Owner ran it on the phone: 44/44 passed on the first compile; all 5 fixtures identical (v0.2.7). Written without a compiler in the sandbox. The owner has still not confirmed pushing v0.2.5 or reported `git status`.
 
+## 2026-11-20 — pushed 03a/03b; Milestone 03c save v2
+- The owner pushed v0.2.7 (commit 8b93e8d, `git status` showed only docs and new files). GitHub Actions refused to start (billing/spending limit message), so no CI result; the phone remains the test environment.
+- 03c: save schema 2 with the whole world, restore that continues exactly, migration 1->2, written with a Python reference first (including an export/restore/continue self-test). Not compiled.
+
 ## Mistakes Claude made and fixed (so a new session avoids them)
 00. (v0.2.1) Shipped an overlay ZIP built from a stale snapshot; it overwrote newer repo files (reverted). Always base a ZIP on the owner's current repo.
 0. (v0.1.2) First governor draft let a failed probe run for ~10 s before reacting; caught by the Python device model, not by hardware. Lesson: model controllers before writing them in Rust.

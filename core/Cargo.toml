@@ -1,6 +1,6 @@
 [package]
 name = "platform_core"
-version = "0.2.6"
+version = "0.2.8"
 edition = "2021"
 description = "Platform simulation core (Milestone 03a: foundations + collapse reference engine): std only, no engine dependency."
 

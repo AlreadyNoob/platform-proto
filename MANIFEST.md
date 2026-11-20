@@ -1,3 +1,3 @@
-# Release notes — Platform_v0.2.7_milestone-03b_core-tested.zip
-Complete project snapshot (v0.2.7) = v0.2.6 (03a collapse core + 03b economy core, based on repo commit 63ee843) + the owner's phone test results for 03b (`core/results/phone_termux_03b/`). Code unchanged since v0.2.6. Overlay with `unzip -qo` then `cp -r <folder>/. <repo>/` and check `git status --short`.
+# Release notes — Platform_v0.2.8_milestone-03c_save-v2.zip
+Complete project snapshot (v0.2.8) = the repo at commit 8b93e8d (v0.2.7: 03a collapse core and 03b economy core, tested on the phone) + Milestone 03c: `core/src/save.rs` (schema 2), `core/src/collapse.rs` (export_state / restore), `core/tests/save_world.rs`, updated `core/tests/save.rs`, `tools/ref/save2_ref.py`, two new golden fixtures, `tools/RUN_M03C_TERMUX.sh`, `ci.yml` change, docs. Run the tests from the unzipped folder first; overlay with `unzip -qo` then `cp -r <folder>/. <repo>/` and check `git status --short`.
 No `.so`, `.apk` or `target/`. Integrity check: `python3 tools/check_handoff.py <folder or zip>`.

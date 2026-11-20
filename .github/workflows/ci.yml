@@ -12,9 +12,12 @@ jobs:
       - run: python3 tools/ref/platform_ref.py
       - run: python3 tools/ref/collapse_ref.py
       - run: python3 tools/ref/economy_ref.py
+      - run: python3 tools/ref/save2_ref.py
       - name: Fixtures must equal what the independent Python reference produces
         run: git diff --exit-code core/tests/fixtures
   android-arm64-so:
+    # saves Actions minutes: the core job above runs on every push; the Android library is built on demand (gh workflow run ci) or on a tag
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

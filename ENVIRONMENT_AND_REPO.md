@@ -67,4 +67,4 @@ Linux sandbox with bash, Python 3 (numpy, scipy), gcc, no Rust, **no network fro
 - Android library: release tag `m02-android-so`, file `libplatform_bridge.so` (crate `platform_bridge`, Godot class `PlatformCore`).
 - Suggested new Godot project folder: `/storage/emulated/0/Documents/platform_m02` (copy `game/*` plus `bin/android_arm64/libplatform_bridge.so`). Package name for the new check APK: choose one different from `com.example.platformm01` so both can be installed.
 - Owner's repo: v0.1.x still UNCONFIRMED as copied in; the new layout (`core/ bridge/ game/ tools/`) should be overlaid the same way as before (`cp -r <new folder>/. <git working copy>/`), after which `git rm --cached` any tracked `.so` files.
-
+- 2026-11-20: GitHub Actions refused to start (billing/spending limit message). `ci.yml` now runs only the `core` job on push; the Android library job runs on request: `gh workflow run ci` (then `gh run watch`). Check GitHub Settings > Billing and plans.

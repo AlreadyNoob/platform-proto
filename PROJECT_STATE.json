@@ -1,9 +1,9 @@
 {
   "project": "Platform",
   "kind": "Android 2D top-down particle/universe simulation game",
-  "handoff_package_version": "0.2.7",
+  "handoff_package_version": "0.2.8",
   "date": "2026-11-19",
-  "latest_zip": "Platform_v0.2.7_milestone-03b_core-tested.zip",
+  "latest_zip": "Platform_v0.2.8_milestone-03c_save-v2.zip",
   "original_proposal_zip": "Platform_Design_and_Claude_Prompt_v0_1.zip",
   "original_sha256": {
     "PLATFORM_GDD.md": "abba819d92f444d12960ca401884c45c6aeaf485480e158863b0ea944b09621e",
@@ -57,6 +57,11 @@
       "status": "core TESTED on the phone (44/44, identical to the Python references); not wired to host/bridge/game; world state not saved (K-48)",
       "zip": "v0.2.6-v0.2.7",
       "what": "economy core: count ledger, free placements, per-type settings (placeholders), generation with spawns, place_typed; reference engine"
+    },
+    "03c": {
+      "status": "implemented, NOT yet compiled or run (Python reference passes)",
+      "zip": "v0.2.8",
+      "what": "save schema 2 with world state, export/restore, migration 1->2; core only, not wired to bridge/game"
     }
   },
   "game_code_exists": false,
@@ -98,7 +103,9 @@
     "D-035": "ACCEPTED (owner, Q-6 follow-up): starting budget = a fixed number of free placements at the start of a run; count pays for placements beyond it",
     "D-036": "ACCEPTED (owner, Q-6 follow-up): upgrades or events can grant more free placements; collapse refunds not decided",
     "D-037": "ACCEPTED (owner): count/grid split, blocked spawns, order of using free placements vs count = per-type settings with placeholder defaults; owner tunes later",
-    "D-038": "PROPOSED by Claude (03b): economy implementation details; all numbers are placeholders (docs/TUNING_PLACEHOLDERS.md)"
+    "D-038": "PROPOSED by Claude (03b): economy implementation details; all numbers are placeholders (docs/TUNING_PLACEHOLDERS.md)",
+    "D-039": "PROPOSED by Claude (03c): save schema 2 = header + world block, canonical sorted integer encoding, exact continuation after restore",
+    "D-040": "PROPOSED by Claude (03c): migration by pure functions, newer schema refused, inconsistent worlds refused"
   },
   "open_owner_decisions": [
     "Q-5 timelines (later)",
@@ -148,7 +155,7 @@
     "whether v0.1.x/M02 files were copied into the repo (the owner's log shows .gitignore added and libplatform_bridge_proto.so untracked)",
     "NDK version used by CI (ci.yml prints it)"
   ],
-  "next_step": "Owner overlays v0.2.7 on the repo (git status --short first), pushes, CI green. Then 03c: save v2 with world state + migration (K-48); then wiring into host/bridge/game (placement UI, wave presentation); event-driven engine later (K-44).",
+  "next_step": "Owner runs tools/RUN_M03C_TERMUX.sh (expect 52 tests, 7 fixtures identical), overlays on the repo (git status --short first), pushes; separately fixes GitHub billing (K-50) so the Android .so can be rebuilt. Then 03d: wire ParticleWorld + save v2 into host/bridge/game (placement UI with economy, wave presentation from the chain log, load/save of the world).",
   "files_to_read_in_order": [
     "START_HERE.md",
     "PROJECT_STATE.json",

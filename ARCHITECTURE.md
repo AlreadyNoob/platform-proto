@@ -69,5 +69,7 @@ docs/
 
 `core/src/collapse.rs` (03a): `ParticleWorld` (sparse grid, orthogonal groups, collapse model D-029, chains D-025/D-030/D-031, chain log `CollapseRecord`), the executable specification of the collapse rules; implements `World`. Not yet wired to the host, bridge or UI. 03b adds the economy to the same type: kinds per cell, `TypeConfig` registry, count ledger, free placements, `place_typed`, generation phase, `full_hash`.
 
+`core/src/save.rs` (03c): schema 2 = header + `WorldState` (model, economy, types, particles); `ParticleWorld::export_state` / `restore`; migration 1 -> 2; `save_slot_game` / `load_slot_game`. The bridge still uses the header-only functions (wiring comes with the game integration).
+
 ## 10. Known architectural risks
 R1 events-vs-ticks equivalence must be proven; R2 millions-of-particles on mid/low Android devices unproven; R3 binding overhead between Core and engine unmeasured; R4 collapse/timeline rules still ambiguous in the GDD.

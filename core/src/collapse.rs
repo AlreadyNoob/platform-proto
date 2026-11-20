@@ -6,8 +6,8 @@
 //! Rules, in short: sparse grid, orthogonal adjacency; every particle of a group of n has risk min(cap, base * 2^(n-1)) per tick (n fixed at
 //! the start of the tick); each tick particles roll in row-major order; a collapse resolves its whole chain at once (breadth first, neighbour
 //! order up/right/down/left); every linked neighbour rolls once per chain at its own group risk; collapsed particles are removed.
-use crate::rng::{RngStreams, STREAM_COLLAPSE, STREAM_GENESIS};
-use crate::save::fnv1a64;
+use crate::rng::{RngStreams, NUM_STREAMS, STREAM_COLLAPSE, STREAM_GENESIS};
+use crate::save::{fnv1a64, WorldState};
 use crate::world::World;
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 
@@ -379,6 +379,57 @@ impl ParticleWorld {
         }
         self.generate();
         self.tick += 1;
+    }
+
+    /// Everything needed to rebuild this world except the tick and the RNG states, which the save header carries (`rng_states()`).
+    pub fn export_state(&self) -> WorldState {
+        WorldState {
+            base_p32: self.model.base_p32,
+            cap_p32: self.model.cap_p32,
+            count: self.count,
+            free: self.free,
+            chains: self.chains,
+            types: self.types.values().copied().collect(),
+            cells: self.kinds.iter().map(|((y, x), t)| (*y, *x, *t)).collect(),
+        }
+    }
+
+    /// Rebuilds a world from a save. Continuing it gives exactly the same future as the original (same RNG states, same state).
+    /// The presentation log and the dropped-record counter are not saved. Fails on inconsistent data instead of guessing.
+    pub fn restore(tick: u64, rng_states: &[[u64; 4]], ws: &WorldState) -> Result<ParticleWorld, String> {
+        if rng_states.len() != NUM_STREAMS {
+            return Err("wrong number of RNG streams".to_string());
+        }
+        let mut types: BTreeMap<u16, TypeConfig> = BTreeMap::new();
+        for t in ws.types.iter() {
+            types.insert(t.id, *t);
+        }
+        types.entry(0u16).or_insert(TypeConfig { id: 0, cost: 0, count_per_tick: 0, spawn_p32: 0, spawn_type: 0, blocked: BlockedPolicy::Skip, free_first: true });
+        let mut cells: BTreeSet<Key> = BTreeSet::new();
+        let mut kinds: BTreeMap<Key, u16> = BTreeMap::new();
+        for (y, x, k) in ws.cells.iter() {
+            if !types.contains_key(k) {
+                return Err("a particle has an undefined type".to_string());
+            }
+            if !cells.insert((*y, *x)) {
+                return Err("duplicate cell".to_string());
+            }
+            kinds.insert((*y, *x), *k);
+        }
+        Ok(ParticleWorld {
+            tick,
+            cells,
+            kinds,
+            types,
+            count: ws.count,
+            free: ws.free,
+            model: CollapseModel { base_p32: ws.base_p32, cap_p32: ws.cap_p32 },
+            rng: RngStreams::from_states(rng_states),
+            log: Vec::new(),
+            log_cap: 100_000,
+            dropped: 0,
+            chains: ws.chains,
+        })
     }
 
     /// Fingerprint of everything: `state_hash` plus count, free placements and every particle's type.

@@ -1,4 +1,4 @@
-# TODO (v0.2.7)
+# TODO (v0.2.8)
 ## Milestones 01 and 01b — DONE (engine and core design validated on the owner's phone; report §11).
 ## Owner decisions needed
 - [x] Final commitment to Godot 4.7.x + engine-independent Rust core — DONE 2026-11-19
@@ -47,4 +47,8 @@
 - [x] Core tested on the phone: 44/44 (v0.2.7)
 - [ ] OWNER: overlay v0.2.7 on the repo, push, CI green
 - [ ] Owner tunes placeholders later (`docs/TUNING_PLACEHOLDERS.md`)
-## 03c (next): save v2 with world state + migration (K-48); wiring into host/bridge/game; chain-wave presentation; event-driven engine later (K-44)
+## Milestone 03c save v2 (WRITTEN v0.2.8)
+- [ ] OWNER: `sh tools/RUN_M03C_TERMUX.sh`; upload `test_out_m03c.txt` + `python_ref_m03c.txt` (expect 52 tests)
+- [ ] OWNER: GitHub Settings > Billing and plans (K-50)
+- [ ] Fix whatever the first compile finds; record results
+## 03d (next): wire ParticleWorld + save v2 into host/bridge/game (placement UI with economy, chain-wave presentation, world save/load); event-driven engine later (K-44)

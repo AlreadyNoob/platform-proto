@@ -1,4 +1,7 @@
 # CHANGELOG
+## v0.2.8 — 2026-11-20 — Milestone 03c: save v2 with world state (WRITTEN, NOT COMPILED)
+Save schema 2 = v1 header + world block (collapse model, count, free placements, chains, particle types, particles); `ParticleWorld::export_state` / `restore`; migration 1 -> 2; `save_slot_game` / `load_slot_game`. `tools/ref/save2_ref.py` + golden fixtures `save_v2_noworld_golden.hex`, `save_v2_world_golden.hex`; `core/tests/save_world.rs` (7 tests); `core/tests/save.rs` updated; `tools/RUN_M03C_TERMUX.sh`. Core crate 0.2.8. `ci.yml`: Android job now on request only (K-50: GitHub refused to start CI because of billing). D-039, D-040. Not wired to bridge/game.
+
 ## v0.2.7 — 2026-11-20 — Milestone 03b core tested on the phone
 Owner ran `tools/RUN_M03B_TERMUX.sh`: first compile succeeded, 44/44 Rust tests passed, all 5 fixtures identical to the Python references. Raw outputs in `core/results/phone_termux_03b/`. Docs only.
 

@@ -36,6 +36,9 @@ Raw outputs: `core/results/phone_termux_03a/`. Not wired to host/bridge/game; no
 | Python references | economy self-tests pass; e1 count 317 / e2 826 particles / e3 24 chains |
 Raw outputs: `core/results/phone_termux_03b/`. Not wired to host/bridge/game; world state is not saved (K-48).
 
+## Milestone 03c (v0.2.8) — WRITTEN, NOT YET RUN
+`core/tests/save_world.rs` (7 tests: world save bytes equal the independent Python encoder's; golden bytes decode to the exact world; restore + 40 more ticks equals never saving, records included; every bit flip and truncation of a world file is rejected; inconsistent worlds refused; header-only files; slot roundtrip with backup) and updated `core/tests/save.rs` (schema 1 golden file still loads = migration test; schema 2 golden; newer schema refused). Python reference passes (export/restore continues exactly). Run: `sh tools/RUN_M03C_TERMUX.sh` — expect 52 Rust tests and 7 fixtures identical. Note: the GitHub CI run for the previous push did not start (billing, K-50); the phone is the test environment.
+
 ## Device test matrix
 | Device | Android | Rust core tests | Bench | Godot app |
 |---|---|---|---|---|

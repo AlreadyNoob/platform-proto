@@ -12,7 +12,7 @@ You are a fresh Claude session continuing the owner's Android game project **Pla
 ## 1. What Platform is (one paragraph)
 A 2D top-down Android simulation game: the player places particles on a huge sparse grid; particles produce more particles each tick; connected groups become riskier (collapse chain reactions); Entropy rises with population/time; Convergence/Divergence timeline events follow; research, special particles, grid warping and endings come later. Speed 1x–10,000x, multiple save slots, millions of particles as a *measured ambition*, extremely polished 2D animation. The owner wants it **slow, impressive and maintainable (6–12 months is fine)**, not a rushed prototype. Design source of truth: `PLATFORM_GDD.md` (v0.1, unmodified).
 
-## 2. Where the project stands (state at v0.2.7, 2026-11-20)
+## 2. Where the project stands (state at v0.2.8, 2026-11-20)
 - **Milestones 00, 01, 01b** complete. **Milestone 02a is VERIFIED ON DEVICE (02b and 02c too, see below):** core 27/27 Rust tests on the phone (identical to Python references); GitHub CI run 44406424568 green (core job + Android `.so`, release `m02-android-so`); the check APK (`com.example.platformm02`) ran on the TECNO CM7: extension loads, 1000x run, pause, overload governor, save/load with backup (see `TESTING.md`, `core/results/phone_godot_app_02a/`). **No game rules exist; do not start particle mechanics.**
 - **Committed technology (owner, 2026-11-19):** Godot 4.7.2 + engine-independent Rust core via gdext 0.5.5 (D-002/D-003).
 - **Open technical items:** governor hunts 899<->1123 under constant overload (K-34) and recovers slowly after load removal (K-32); governor numbers still PROVISIONAL (K-27). Not tested: Android lifecycle, thermal, long steady state.

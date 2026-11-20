@@ -97,3 +97,7 @@ Format: ID · date · decision · alternatives · rationale · consequences · r
 5. The count/grid-spawn split is a placeholder rule (always add count, plus an independent spawn roll); the owner said "both" (D-027) but did not define the split.
 6. World state (cells, particle types, count, free placements) is NOT saved yet; save v1 holds tick, speed, seed, RNG states only (K-48).
 
+## Milestone 03c decisions (2026-11-20)
+**D-039 Save schema 2 carries the whole world (Claude's design; reversible until the game uses it).** The v1 header (seed, tick, requested speed, RNG stream states, label) is followed by a world block: collapse model, count, free placements, chain counter, the particle types and every particle (y, x, type). Everything is stored in canonical sorted order and integers only, so the same world always produces the same bytes (golden bytes from an independent Python encoder). The presentation log is not saved. A restored world continues exactly like the original (tested: restore, then 40 more ticks, equals never saving, including the collapse records).
+**D-040 Migration and failure policy.** Old files are migrated by pure functions (schema 1 -> 2: "no world" is appended); a file with a newer schema is refused with a clear error, never guessed; inconsistent worlds (unsorted or duplicate cells, undefined types, wrong RNG stream count) are refused; the caller decides what a file without a world means (start a new world). Saves still use the atomic write with `.bak` (D-021).
+

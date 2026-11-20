@@ -1,17 +1,23 @@
-//! Save container skeleton (versioned, checksummed, atomic). Layout, all integers little-endian:
+//! Save container (versioned, checksummed, atomic). Layout, all integers little-endian:
 //!   "PLTF" | schema u32 | payload_len u32 | payload | fnv1a64(everything before it) u64
 //!   payload v1: seed u64, tick u64, requested_speed u64, n_streams u32, n * 4 * u64 (rng states), label_len u32, label (utf-8)
-//! Golden bytes produced by the independent Python encoder (tools/ref/platform_ref.py) are checked in core/tests/save.rs.
-//! Migrations are pure functions vN -> vN+1 (none exist yet: schema 1 is the first). Importing/export UI comes later.
+//!   payload v2: the v1 fields, then a world block: u8 present (0/1); if 1: base_p32, cap_p32, count, free, chains (5 x u64),
+//!     n_types u32 + per type (ascending id) [id u16, cost u64, count_per_tick u64, spawn_p32 u64, spawn_type u16, blocked_tag u8, blocked_n u64, free_first u8],
+//!     n_cells u32 + per cell (ascending y then x) [y i32, x i32, kind u16]
+//! Golden bytes from the independent Python encoders (tools/ref/platform_ref.py, tools/ref/save2_ref.py) are checked in core/tests/.
+//! Migration: a schema 1 file is read as schema 2 with no world (the pure function `migrate_payload`). New files are written as schema 2.
+use crate::collapse::{BlockedPolicy, TypeConfig};
 use std::fmt;
 use std::fs;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 
 pub const MAGIC: &[u8; 4] = b"PLTF";
-pub const CURRENT_SCHEMA: u32 = 1;
+pub const CURRENT_SCHEMA: u32 = 2;
 const MAX_STREAMS: u32 = 64;
 const MAX_LABEL: u32 = 4096;
+const MAX_TYPES: u32 = 1024;
+const CELL_BYTES: usize = 10;
 const HEADER_LEN: usize = 12;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -21,6 +27,20 @@ pub struct SaveData {
     pub requested_speed: u64,
     pub rng_states: Vec<[u64; 4]>,
     pub label: String,
+}
+
+/// Everything about the world that is not in the header: the collapse model, the economy, the types and every particle (y, x, kind).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct WorldState {
+    pub base_p32: u64,
+    pub cap_p32: u64,
+    pub count: u64,
+    pub free: u64,
+    pub chains: u64,
+    /// ascending by id
+    pub types: Vec<TypeConfig>,
+    /// ascending by (y, x)
+    pub cells: Vec<(i32, i32, u16)>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -50,7 +70,43 @@ pub fn fnv1a64(data: &[u8]) -> u64 {
     h
 }
 
-pub fn encode(d: &SaveData) -> Vec<u8> {
+fn encode_world(p: &mut Vec<u8>, w: Option<&WorldState>) {
+    let ws = match w {
+        None => {
+            p.push(0);
+            return;
+        }
+        Some(ws) => ws,
+    };
+    p.push(1);
+    for v in [ws.base_p32, ws.cap_p32, ws.count, ws.free, ws.chains] {
+        p.extend_from_slice(&v.to_le_bytes());
+    }
+    p.extend_from_slice(&(ws.types.len() as u32).to_le_bytes());
+    for t in ws.types.iter() {
+        p.extend_from_slice(&t.id.to_le_bytes());
+        p.extend_from_slice(&t.cost.to_le_bytes());
+        p.extend_from_slice(&t.count_per_tick.to_le_bytes());
+        p.extend_from_slice(&t.spawn_p32.to_le_bytes());
+        p.extend_from_slice(&t.spawn_type.to_le_bytes());
+        let (tag, n) = match t.blocked {
+            BlockedPolicy::Skip => (0u8, 0u64),
+            BlockedPolicy::ConvertToCount(n) => (1u8, n),
+        };
+        p.push(tag);
+        p.extend_from_slice(&n.to_le_bytes());
+        p.push(if t.free_first { 1 } else { 0 });
+    }
+    p.extend_from_slice(&(ws.cells.len() as u32).to_le_bytes());
+    for (y, x, k) in ws.cells.iter() {
+        p.extend_from_slice(&y.to_le_bytes());
+        p.extend_from_slice(&x.to_le_bytes());
+        p.extend_from_slice(&k.to_le_bytes());
+    }
+}
+
+/// Encodes the header and, optionally, the whole world (always as the current schema).
+pub fn encode_game(d: &SaveData, w: Option<&WorldState>) -> Vec<u8> {
     let mut p: Vec<u8> = Vec::new();
     p.extend_from_slice(&d.seed.to_le_bytes());
     p.extend_from_slice(&d.tick.to_le_bytes());
@@ -64,6 +120,7 @@ pub fn encode(d: &SaveData) -> Vec<u8> {
     let lb = d.label.as_bytes();
     p.extend_from_slice(&(lb.len() as u32).to_le_bytes());
     p.extend_from_slice(lb);
+    encode_world(&mut p, w);
     let mut out: Vec<u8> = Vec::with_capacity(HEADER_LEN + p.len() + 8);
     out.extend_from_slice(MAGIC);
     out.extend_from_slice(&CURRENT_SCHEMA.to_le_bytes());
@@ -72,6 +129,11 @@ pub fn encode(d: &SaveData) -> Vec<u8> {
     let sum = fnv1a64(&out);
     out.extend_from_slice(&sum.to_le_bytes());
     out
+}
+
+/// Header only (no world).
+pub fn encode(d: &SaveData) -> Vec<u8> {
+    encode_game(d, None)
 }
 
 struct Reader<'a> {
@@ -88,6 +150,17 @@ impl<'a> Reader<'a> {
         self.pos += n;
         Ok(s)
     }
+    fn u8(&mut self) -> Result<u8, SaveError> {
+        Ok(self.take(1)?[0])
+    }
+    fn u16(&mut self) -> Result<u16, SaveError> {
+        let s = self.take(2)?;
+        Ok(u16::from_le_bytes([s[0], s[1]]))
+    }
+    fn i32(&mut self) -> Result<i32, SaveError> {
+        let s = self.take(4)?;
+        Ok(i32::from_le_bytes([s[0], s[1], s[2], s[3]]))
+    }
     fn u32(&mut self) -> Result<u32, SaveError> {
         let s = self.take(4)?;
         Ok(u32::from_le_bytes([s[0], s[1], s[2], s[3]]))
@@ -100,15 +173,82 @@ impl<'a> Reader<'a> {
     }
 }
 
-/// Migration hook: turns a payload of an older schema into the current one. Only schema 1 exists.
+/// Migration: turns a payload of an older schema into the current one (a pure function).
+/// 1 -> 2: schema 1 had no world, so the world block "not present" (one zero byte) is appended.
 fn migrate_payload(schema: u32, payload: &[u8]) -> Result<Vec<u8>, SaveError> {
     match schema {
-        1 => Ok(payload.to_vec()),
+        1 => {
+            let mut v = payload.to_vec();
+            v.push(0);
+            Ok(v)
+        }
+        2 => Ok(payload.to_vec()),
         _ => Err(SaveError::UnknownSchema(schema)),
     }
 }
 
-pub fn decode(bytes: &[u8]) -> Result<SaveData, SaveError> {
+fn read_world(p: &mut Reader) -> Result<WorldState, SaveError> {
+    let base_p32 = p.u64()?;
+    let cap_p32 = p.u64()?;
+    let count = p.u64()?;
+    let free = p.u64()?;
+    let chains = p.u64()?;
+    let nt = p.u32()?;
+    if nt > MAX_TYPES {
+        return Err(SaveError::Malformed("too many types"));
+    }
+    let mut types: Vec<TypeConfig> = Vec::new();
+    for _ in 0..nt {
+        let id = p.u16()?;
+        if let Some(prev) = types.last() {
+            if id <= prev.id {
+                return Err(SaveError::Malformed("types not sorted or not unique"));
+            }
+        }
+        let cost = p.u64()?;
+        let count_per_tick = p.u64()?;
+        let spawn_p32 = p.u64()?;
+        let spawn_type = p.u16()?;
+        let tag = p.u8()?;
+        let bn = p.u64()?;
+        let ff = p.u8()?;
+        let blocked = match tag {
+            0 => {
+                if bn != 0 {
+                    return Err(SaveError::Malformed("blocked policy has a stray value"));
+                }
+                BlockedPolicy::Skip
+            }
+            1 => BlockedPolicy::ConvertToCount(bn),
+            _ => return Err(SaveError::Malformed("unknown blocked policy")),
+        };
+        if ff > 1 {
+            return Err(SaveError::Malformed("bad free_first flag"));
+        }
+        types.push(TypeConfig { id, cost, count_per_tick, spawn_p32, spawn_type, blocked, free_first: ff == 1 });
+    }
+    let nc = p.u32()? as usize;
+    let remaining = p.b.len() - p.pos;
+    if nc.checked_mul(CELL_BYTES).map_or(true, |n| n > remaining) {
+        return Err(SaveError::Truncated);
+    }
+    let mut cells: Vec<(i32, i32, u16)> = Vec::with_capacity(nc);
+    for _ in 0..nc {
+        let y = p.i32()?;
+        let x = p.i32()?;
+        let k = p.u16()?;
+        if let Some((py, px, _)) = cells.last() {
+            if (y, x) <= (*py, *px) {
+                return Err(SaveError::Malformed("cells not sorted or not unique"));
+            }
+        }
+        cells.push((y, x, k));
+    }
+    Ok(WorldState { base_p32, cap_p32, count, free, chains, types, cells })
+}
+
+/// Decodes any supported schema (older ones are migrated). Returns the header and, if the file has one, the world.
+pub fn decode_game(bytes: &[u8]) -> Result<(SaveData, Option<WorldState>), SaveError> {
     if bytes.len() < HEADER_LEN + 8 {
         return Err(SaveError::Truncated);
     }
@@ -154,10 +294,20 @@ pub fn decode(bytes: &[u8]) -> Result<SaveData, SaveError> {
     }
     let lb = p.take(ll as usize)?;
     let label = String::from_utf8(lb.to_vec()).map_err(|_| SaveError::Malformed("label is not utf-8"))?;
+    let world = match p.u8()? {
+        0 => None,
+        1 => Some(read_world(&mut p)?),
+        _ => return Err(SaveError::Malformed("bad world flag")),
+    };
     if p.pos != payload.len() {
         return Err(SaveError::Malformed("trailing bytes in payload"));
     }
-    Ok(SaveData { seed, tick, requested_speed, rng_states, label })
+    Ok((SaveData { seed, tick, requested_speed, rng_states, label }, world))
+}
+
+/// Header only: the world (if any) is ignored.
+pub fn decode(bytes: &[u8]) -> Result<SaveData, SaveError> {
+    decode_game(bytes).map(|(d, _)| d)
 }
 
 fn sibling(path: &Path, ext: &str) -> PathBuf {
@@ -183,6 +333,10 @@ pub fn save_slot(path: &Path, d: &SaveData) -> Result<(), SaveError> {
     write_atomic(path, &encode(d)).map_err(|e| SaveError::Io(e.to_string()))
 }
 
+pub fn save_slot_game(path: &Path, d: &SaveData, w: Option<&WorldState>) -> Result<(), SaveError> {
+    write_atomic(path, &encode_game(d, w)).map_err(|e| SaveError::Io(e.to_string()))
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum LoadSource {
     Main,
@@ -190,14 +344,19 @@ pub enum LoadSource {
     Backup,
 }
 
-/// Tries the main file, then a completed temp file (crash between the two renames), then the backup.
+/// Tries the main file, then a completed temp file (crash between the two renames), then the backup. Header only.
 pub fn load_slot(path: &Path) -> Result<(SaveData, LoadSource), SaveError> {
+    load_slot_game(path).map(|(d, _, src)| (d, src))
+}
+
+/// Same, returning the world too when the file has one.
+pub fn load_slot_game(path: &Path) -> Result<(SaveData, Option<WorldState>, LoadSource), SaveError> {
     let candidates = [(path.to_path_buf(), LoadSource::Main), (sibling(path, "tmp"), LoadSource::Temp), (sibling(path, "bak"), LoadSource::Backup)];
     let mut first_err: Option<SaveError> = None;
     for (p, src) in candidates.iter() {
         match fs::read(p) {
-            Ok(bytes) => match decode(&bytes) {
-                Ok(d) => return Ok((d, *src)),
+            Ok(bytes) => match decode_game(&bytes) {
+                Ok((d, w)) => return Ok((d, w, *src)),
                 Err(e) => {
                     if first_err.is_none() {
                         first_err = Some(e);

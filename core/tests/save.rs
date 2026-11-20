@@ -4,6 +4,7 @@ use std::fs;
 use std::path::PathBuf;
 
 const GOLDEN: &str = include_str!("fixtures/save_v1_golden.hex");
+const GOLDEN_V2_NOWORLD: &str = include_str!("fixtures/save_v2_noworld_golden.hex");
 
 fn unhex(s: &str) -> Vec<u8> {
     let s = s.trim();
@@ -24,12 +25,18 @@ fn tmpdir(name: &str) -> PathBuf {
 
 #[test]
 fn encoder_matches_independent_python_bytes() {
-    assert_eq!(encode(&golden_data()), unhex(GOLDEN));
+    assert_eq!(encode(&golden_data()), unhex(GOLDEN_V2_NOWORLD));
 }
 
 #[test]
-fn golden_bytes_decode_to_the_expected_data() {
+fn schema_1_golden_bytes_are_migrated_to_the_expected_data() {
+    // an old (schema 1) file still loads: it is read as schema 2 with no world
     assert_eq!(decode(&unhex(GOLDEN)).unwrap(), golden_data());
+}
+
+#[test]
+fn schema_2_golden_bytes_decode_to_the_expected_data() {
+    assert_eq!(decode(&unhex(GOLDEN_V2_NOWORLD)).unwrap(), golden_data());
 }
 
 #[test]
@@ -53,8 +60,8 @@ fn every_truncation_is_rejected() {
 #[test]
 fn newer_schema_is_refused_with_a_clear_error() {
     let mut b = unhex(GOLDEN);
-    b[4] = 2; // schema 2 (checksum is now wrong too, but the version check comes first)
-    assert_eq!(decode(&b), Err(SaveError::TooNew(2)));
+    b[4] = 3; // schema 3 (checksum is now wrong too, but the version check comes first)
+    assert_eq!(decode(&b), Err(SaveError::TooNew(3)));
 }
 
 #[test]

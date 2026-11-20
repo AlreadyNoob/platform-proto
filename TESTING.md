@@ -81,7 +81,7 @@ CI run 44406424568: core job (cargo test + Python fixtures equal) and android-ar
 ## Milestone 02c — VERIFIED ON DEVICE by the owner (2026-11-19, TECNO CM7)
 Checklist: CI green (new .so) OK; Menu > Saves shows 4 rows OK; Save slot 1 then Load slot 1 returns to the saved tick OK; Home/other app then return: no tick jump while away (background pause works, no offline progress) OK; Autosave row filled after backgrounding OK; Back closes Saves first OK. Reported in words by the owner; no log file.
 
-## Milestone 03d (v0.2.9) — WRITTEN, NOT YET RUN
+## Milestone 03d (v0.2.9/v0.2.10) — core RAN 65/65 on the phone; app run by the owner: saves, placement, collapse work; remaining checklist items below not yet reported
 Core: `sh tools/RUN_M03D_TERMUX.sh` (expect 65 tests: the 52 of 03c plus 13 in `core/tests/game.rs`; 7 fixtures identical; the Python references are unchanged because 03d adds no rule). The new tests check: place then undo restores the identical world (free and count payment), unpayable/unknown placements change nothing and are reported, occupied cells are never overwritten or charged twice, undo takes whole strokes, collapsed particles are skipped without refund, the cell feed is row-major and its revision moves only on change, save then restore continues identically, a save without a world becomes a new world, the host runs commands and publishes counters/cells/exports.
 Phone checklist (after CI built the new `.so`; copy it and the new game files into the Godot project, export, install):
 1. Start: Count 0, Free 20, Particles 0; hint line shows the tap hint.
@@ -92,3 +92,16 @@ Phone checklist (after CI built the new `.so`; copy it and the new game files in
 6. Let the sim run at 1x-10x for a while: particles collapse sometimes (about 0.1%/tick per lone particle) with a ring animation; at 1k/10k no animation but counters keep working.
 7. Saves: Save to slot 1, place/undo some, Load slot 1: particles, count and free placements return exactly; the sim starts paused; slot rows show particles/count/free. Background the app and return: autosave row shows a world summary.
 8. Report anything that looks wrong with the debug overlay on (Menu): it shows count, free, particles, view revision, drawn cells and wave effects.
+
+9. (v0.2.10) Paint mode: keep one finger down, swipe over cells until some collapse, swipe back over them without lifting: the collapsed cells must fill again, occupied cells must not be charged twice.
+
+## Milestone 03e (v0.2.11): the starter particle
+Core: `sh tools/RUN_M03E_TERMUX.sh` (expect 70 tests: the 65 of 03d plus 5 in `core/tests/game.rs`; 7 fixtures identical; the Python references are unchanged). It also runs the balance simulation and copies `balance_report_m03e.txt` to Downloads (a report, not a test). New tests: the starter's values, the dev game's start (20 free, 120 count), 22 purchases then the reject message, undoing a count purchase refunds 60, a starter world saved and restored continues identically with spawning.
+Owner verified earlier on v0.2.9/v0.2.10: paint fix, undo, ghost colours, collapse ring, high speed. Autosave: written on background but not loaded on start (K-60). Rejection message: not seen so far (K-62).
+Phone checklist (needs the new `.so` from CI):
+1. Start: Count 120, Free 20, Particles 0.
+2. Place 22 particles: Free 0, Count 0. Place a 23rd: message "Not enough free placements or count" (first sighting of it).
+3. Wait at 1x: Count grows about 1 per particle per second; a new particle appears next to a particle now and then (about 1% per second each).
+4. Place a particle when Count reaches 60: it is paid with count.
+5. Undo a count purchase: Count goes back up by 60.
+6. Tell Claude how it feels (too easy, too hard, too slow, too fast); this tunes the placeholders.

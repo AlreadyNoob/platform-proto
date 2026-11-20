@@ -10,6 +10,8 @@ use crate::world::{World, WorldExport, WORLD_STATS};
 pub const BASIC_TYPE: u16 = 1;
 /// Free placements a new dev game starts with. PLACEHOLDER: the real starting number is the owner's to pick (D-035).
 pub const DEV_START_FREE: u64 = 20;
+/// Count a new dev game starts with (03e): enough for two purchases of the starter beyond the free placements. PLACEHOLDER.
+pub const DEV_START_COUNT: u64 = 120;
 /// Result codes of a rejected command (in the snapshot as `reject_code`).
 pub const REJECT_OCCUPIED: i64 = 1;
 pub const REJECT_INSUFFICIENT: i64 = 2;
@@ -61,6 +63,24 @@ impl GameWorld {
         w.grant_free_placements(setup.start_free);
         w.add_count(setup.start_count);
         GameWorld::wrap(w)
+    }
+
+    /// The dev game the app starts (03e): the starter particle (`TypeConfig::starter`), 20 free placements and 120 count. All PLACEHOLDERS.
+    /// `new_game` with a `GameSetup` keeps the old placeholder type (cost 1, no spawning) because the older tests and fixtures rely on it.
+    pub fn new_dev_game(seed: u64) -> GameWorld {
+        let mut w = ParticleWorld::new(seed, CollapseModel::default());
+        w.define_type(TypeConfig::starter(BASIC_TYPE));
+        w.grant_free_placements(DEV_START_FREE);
+        w.add_count(DEV_START_COUNT);
+        GameWorld::wrap(w)
+    }
+
+    /// The dev game standing at `tick` (a save without a world becomes this, D-040).
+    pub fn new_dev_game_at(seed: u64, tick: u64) -> Result<GameWorld, String> {
+        let fresh = GameWorld::new_dev_game(seed);
+        let ws = fresh.inner.export_state();
+        let rng = RngStreams::new(seed).states();
+        ParticleWorld::restore(tick, &rng, &ws).map(GameWorld::wrap)
     }
 
     /// A new game that stands at `tick` (used for saves that have no world, D-040: the caller decides, and the decision is "new world").

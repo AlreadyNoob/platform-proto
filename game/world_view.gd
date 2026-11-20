@@ -19,6 +19,7 @@ const TAP_MAX_MS := 800
 const MOVE_THRESHOLD_UI := 9.0     # finger movement (in ui units) before a touch stops being a tap
 const MAX_LINE_CELLS := 400        # safety cap for one drag segment
 const MAX_EFFECTS := 400
+const REPLACE_AFTER_MS := 250      # paint mode: wait this long before sending a cell of the same drag again
 const WAVE_STEP_S := 0.07          # delay between wave depths
 const WAVE_LIFE_S := 0.55
 
@@ -144,10 +145,16 @@ func _end_stroke() -> void:
         stroke_ended.emit()
     _stroke_cells.clear()
 
+# A cell is sent at most once per REPLACE_AFTER_MS while it is (still) shown as occupied. Once it is empty again (the particle collapsed),
+# the same drag may fill it again. The short delay covers the lag until the published cells show a fresh placement; a duplicate command
+# would be harmless anyway (the core ignores occupied cells and charges nothing).
 func _emit_place(c: Vector2i) -> void:
+    var now: int = Time.get_ticks_msec()
     if _stroke_cells.has(c):
-        return
-    _stroke_cells[c] = true
+        var sent: int = _stroke_cells[c]
+        if occupied.has(c) or now - sent < REPLACE_AFTER_MS:
+            return
+    _stroke_cells[c] = now
     place_requested.emit(c)
 
 # Every cell on the line between two cells (Bresenham), so a fast drag leaves no gaps.

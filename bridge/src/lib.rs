@@ -5,7 +5,7 @@ use godot::prelude::*;
 use platform_core::command::Command;
 use platform_core::host::SimHost;
 use platform_core::rng::RngStreams;
-use platform_core::game::{GameSetup, GameWorld};
+use platform_core::game::GameWorld;
 use platform_core::save::{load_slot, load_slot_game, save_slot, save_slot_game, SaveData};
 use platform_core::snapshot::Snapshot;
 use platform_core::world::BurnWorld;
@@ -67,7 +67,7 @@ impl PlatformCore {
             let world = BurnWorld::new(Arc::clone(&self.burn_ns));
             self.host = Some(SimHost::start(world, 0, speed));
         } else {
-            let world = GameWorld::new_game(&GameSetup::dev_default(self.seed));
+            let world = GameWorld::new_dev_game(self.seed);
             self.host = Some(SimHost::start(world, 0, speed));
         }
     }
@@ -240,7 +240,7 @@ impl PlatformCore {
             Ok((d, ws, src)) => {
                 let restored = match &ws {
                     Some(w) => GameWorld::restore(d.tick, &d.rng_states, w),
-                    None => GameWorld::new_game_at(&GameSetup::dev_default(d.seed), d.tick),
+                    None => GameWorld::new_dev_game_at(d.seed, d.tick),
                 };
                 match restored {
                     Ok(world) => {

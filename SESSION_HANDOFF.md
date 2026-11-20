@@ -1,10 +1,12 @@
-# SESSION_HANDOFF (v0.2.9, 2026-11-20) — rewritten at every milestone/checkpoint, never appended
+# SESSION_HANDOFF (v0.2.11, 2026-11-20) — rewritten at every milestone/checkpoint, never appended
 **Start with `START_HERE.md`.**
 
-**State:** Milestone 02 complete. 03a collapse, 03b economy and 03c save v2 are TESTED on the owner's phone (03c: 52/52). 03a-03b are in the repo (commit 8b93e8d, CI green after the owner made the repo public to get free Actions minutes, K-50 closed). 03c is not yet committed. 03d (v0.2.9) is WRITTEN: placement (tap default, drag-paint mode chosen by the owner, D-041), undo per stroke, counters, change-driven cell feed, collapse-wave feed, world saves through the bridge, game wiring. Python references unchanged; undo has no independent reference (property tests: place then undo gives the identical world). Rust and GDScript of 03d were never compiled or run.
+**State:** 03a-03d are tested and pushed (repo commit 118c842; the repo is public, CI works). Owner verified on the phone: saves, placement, collapse, the paint-mode fix, undo, ghost colours, collapse ring, high speed. Not seen: the "Not enough" message (game was too easy). Autosave is written on background but not loaded on start (K-60, by design so far). **03e (v0.2.11) is WRITTEN, NOT COMPILED:** the starter particle (cost 60, 1 count/tick, 1% spawn/tick, all PLACEHOLDERS) and the dev game start (20 free + 120 count), 5 new tests (70 expected), `tools/ref/balance_ref.py`. Owner answers behind it: the starter makes count and can spawn; it should earn back its cost in about 1 minute at 1x (D-046).
 
-**Waiting for:** the owner to run `sh tools/RUN_M03D_TERMUX.sh` (expect 65 tests, 7 fixtures identical), upload `test_out_m03d.txt` + `python_ref_m03d.txt`; then push (CI builds the Android .so), update the Godot project, and run the 03d checklist in TESTING.md.
+**Waiting for:** the owner to run `sh tools/RUN_M03E_TERMUX.sh` and upload `test_out_m03e.txt`, `python_ref_m03e.txt`, `balance_report_m03e.txt`; then push, wait for CI (the Rust and bridge changed, a new `.so` is needed), update the Godot project and run the 03e checklist (TESTING.md).
 
-**Next action:** record results, fix compile errors; then phone test of the game; then the owner's tuning of placeholders and the per-type design (special entities such as Black Holes need dedicated placement interactions, K-55).
+**Balance finding (K-61):** a player who reinvests everything doubles income about every minute; the collapse rule hardly limits a spread-out player. Do not present this as a decision; the owner tunes after playing.
 
-**Do not:** overlay an older ZIP onto the owner's repo (happened once, reverted in 214d895); claim 03d works before the phone output says so; present placeholders (e.g. the 20 starting free placements) as decisions.
+**Next action:** fix whatever the first compile finds; record results and the owner's feel; tune placeholders with the owner. Open items: tuning of all placeholders, autosave on start (K-60), Black Hole placement (K-55), viewport chunks (K-52), event-driven collapse engine (K-44), entropy, timelines (Q-5), upgrades, events.
+
+**Do not:** overlay an older ZIP onto the owner's repo; present placeholders as decisions; claim 03e compiles or plays well before the owner reports it.

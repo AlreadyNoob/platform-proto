@@ -222,3 +222,70 @@ fn host_without_a_saveable_world_answers_export_with_none() {
     assert_eq!(h.export_blocking(2000), Some(None));
     h.stop();
 }
+
+// ---- Milestone 03e: the starter particle and the dev game's start (all numbers are PLACEHOLDERS) ----
+
+#[test]
+fn the_starter_type_has_the_documented_placeholder_values() {
+    use platform_core::collapse::{p32_from_ppm, BlockedPolicy};
+    let t = TypeConfig::starter(BASIC_TYPE);
+    assert_eq!(t.id, BASIC_TYPE);
+    assert_eq!(t.cost, 60);
+    assert_eq!(t.count_per_tick, 1);
+    assert_eq!(t.spawn_p32, p32_from_ppm(10_000));
+    assert_eq!(t.spawn_type, BASIC_TYPE);
+    assert_eq!(t.blocked, BlockedPolicy::Skip);
+    assert!(t.free_first);
+}
+
+#[test]
+fn the_dev_game_starts_with_20_free_placements_and_120_count() {
+    let w = GameWorld::new_dev_game(5);
+    assert_eq!(stat(&w, FREE) as u64, DEV_START_FREE);
+    assert_eq!(stat(&w, COUNT) as u64, DEV_START_COUNT);
+    assert_eq!(stat(&w, PARTICLES), 0);
+    assert_eq!((DEV_START_FREE, DEV_START_COUNT), (20, 120));
+}
+
+#[test]
+fn the_dev_start_budget_buys_22_starters_and_then_the_message_is_reachable() {
+    let mut w = GameWorld::new_dev_game(5);
+    for i in 0..22 {
+        place(&mut w, i * 2, 0, i as u32 + 1); // spaced cells, no ticks in between
+    }
+    assert_eq!(stat(&w, PARTICLES), 22);
+    assert_eq!(stat(&w, FREE), 0);
+    assert_eq!(stat(&w, COUNT), 0); // 20 free placements, then 2 x 60 count
+    assert_eq!(stat(&w, REJECT_SEQ), 0);
+    place(&mut w, 100, 0, 99);
+    assert_eq!(stat(&w, PARTICLES), 22);
+    assert_eq!(stat(&w, REJECT_SEQ), 1);
+    assert_eq!(stat(&w, REJECT_CODE), REJECT_INSUFFICIENT);
+}
+
+#[test]
+fn undoing_a_count_purchase_of_the_starter_refunds_60() {
+    let mut w = GameWorld::new_dev_game(5);
+    for i in 0..21 {
+        place(&mut w, i * 2, 0, i as u32 + 1);
+    }
+    assert_eq!(stat(&w, COUNT), 60); // the 21st was paid with count
+    w.command(Command::Undo);
+    assert_eq!(stat(&w, COUNT), 120);
+    assert_eq!(stat(&w, PARTICLES), 20);
+}
+
+#[test]
+fn a_starter_world_saved_and_restored_continues_identically_with_spawning() {
+    let mut a = GameWorld::new_dev_game(21);
+    for i in 0..6 {
+        place(&mut a, i * 3, 0, i as u32 + 1);
+    }
+    a.step_to(200);
+    let e = a.export().unwrap();
+    let mut b = GameWorld::restore(e.tick, &e.rng_states, &e.state).unwrap();
+    assert_eq!(b.export().unwrap(), e);
+    a.step_to(400);
+    b.step_to(400);
+    assert_eq!(a.export().unwrap(), b.export().unwrap());
+}

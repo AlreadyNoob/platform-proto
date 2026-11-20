@@ -85,6 +85,12 @@ impl TypeConfig {
     pub fn placeholder(id: u16) -> Self {
         TypeConfig { id, cost: 1, count_per_tick: 1, spawn_p32: 0, spawn_type: id, blocked: BlockedPolicy::Skip, free_first: true }
     }
+
+    /// The starter particle of the dev game (Milestone 03e, D-046). ALL VALUES ARE PLACEHOLDERS (docs/TUNING_PLACEHOLDERS.md): costs 60 count,
+    /// makes 1 count per tick (so it earns back its cost in 60 ticks = 60 s at 1x), 1% chance per tick to spawn one more of its own type next to it.
+    pub fn starter(id: u16) -> Self {
+        TypeConfig { id, cost: 60, count_per_tick: 1, spawn_p32: p32_from_ppm(10_000), spawn_type: id, blocked: BlockedPolicy::Skip, free_first: true }
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

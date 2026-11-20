@@ -1,4 +1,3 @@
-# Release notes — Platform_v0.2.9_milestone-03d_placement.zip
-Complete project snapshot (v0.2.9) = the repo at v0.2.8 (03a/03b/03c, tested on the phone) + Milestone 03d: `core/src/game.rs`, `core/tests/game.rs`, extended `command.rs`, `snapshot.rs`, `world.rs`, `host.rs`, `collapse.rs`, `bridge/src/lib.rs`, `game/shell.gd`, `game/world_view.gd`, `tools/RUN_M03D_TERMUX.sh`, `ci.yml`, docs. NOTHING in 03d has been compiled or run (no Rust or Godot in the authoring sandbox).
-Run the tests from the unzipped folder first (`sh tools/RUN_M03D_TERMUX.sh`); overlay with `unzip -qo` then `cp -r <folder>/. <repo>/` and check `git status --short` (no deletions expected).
-No `.so`, `.apk` or `target/`. Integrity check: `python3 tools/check_handoff.py <folder or zip>`.
+# Release notes — Platform_v0.2.11_milestone-03e_starter.zip
+Complete project snapshot (v0.2.11) = v0.2.10 (03d placement UI, paint fix verified on the phone) + Milestone 03e: the starter particle (cost 60, 1 count/tick, 1% spawn/tick) and the dev game start (20 free + 120 count) in the Rust core and bridge, 5 new tests, a Python balance simulation and docs. The Rust and the bridge changed, so a new Android `.so` is needed (CI builds it on push).
+Overlay with `unzip -qo` then `cp -r <folder>/. <repo>/` and check `git status --short` (no deletions expected). No `.so`, `.apk` or `target/`. Integrity check: `python3 tools/check_handoff.py <folder or zip>`.

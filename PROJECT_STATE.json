@@ -1,9 +1,9 @@
 {
   "project": "Platform",
   "kind": "Android 2D top-down particle/universe simulation game",
-  "handoff_package_version": "0.2.9",
+  "handoff_package_version": "0.2.11",
   "date": "2026-11-20",
-  "latest_zip": "Platform_v0.2.9_milestone-03d_placement.zip",
+  "latest_zip": "Platform_v0.2.11_milestone-03e_starter.zip",
   "original_proposal_zip": "Platform_Design_and_Claude_Prompt_v0_1.zip",
   "original_sha256": {
     "PLATFORM_GDD.md": "abba819d92f444d12960ca401884c45c6aeaf485480e158863b0ea944b09621e",
@@ -64,9 +64,14 @@
       "what": "save schema 2: whole world in the save, export/restore, migration 1->2"
     },
     "03d": {
-      "status": "WRITTEN, NOT COMPILED, NOT RUN (core, bridge and GDScript); needs the phone test (TESTING.md) and a rebuilt Android .so",
-      "zip": "v0.2.9",
-      "what": "placement (tap default, drag-paint mode), undo per stroke, counters, change-driven cell feed, collapse-wave animation feed, world saves through the bridge; host runs the real GameWorld"
+      "status": "core TESTED on the phone (65/65, fixtures identical); CI green incl. Android .so; app run by the owner: saves work, placement works, collapse works. Paint-mode bug (cells that collapsed could not be refilled within the same drag) fixed in v0.2.10 and VERIFIED on the phone. Also verified: undo, ghost colours, collapse ring, high speed. Not seen: rejection message (K-62). Autosave is written but not loaded on start (K-60).",
+      "zip": "v0.2.9-v0.2.10",
+      "what": "placement (tap default, drag-paint mode), undo per stroke, counters, change-driven cell feed, collapse-wave feed, world saves through the bridge; host runs the real GameWorld"
+    },
+    "03e": {
+      "status": "WRITTEN v0.2.11, NOT COMPILED; Python balance simulation run (K-61)",
+      "zip": "v0.2.11",
+      "what": "starter particle (cost 60, 1 count/tick, 1% spawn/tick, PLACEHOLDERS) and dev game start (20 free + 120 count); 5 new tests (70 expected)"
     }
   },
   "game_code_exists": false,
@@ -160,7 +165,7 @@
     "whether v0.1.x/M02 files were copied into the repo (the owner's log shows .gitignore added and libplatform_bridge_proto.so untracked)",
     "NDK version used by CI (ci.yml prints it)"
   ],
-  "next_step": "Owner runs tools/RUN_M03C_TERMUX.sh (expect 52 tests, 7 fixtures identical), overlays on the repo (git status --short first), pushes; separately fixes GitHub billing (K-50) so the Android .so can be rebuilt. Then 03d: wire ParticleWorld + save v2 into host/bridge/game (placement UI with economy, wave presentation from the chain log, load/save of the world).",
+  "next_step": "Owner runs tools/RUN_M03E_TERMUX.sh (expect 70 tests, 7 fixtures identical) and uploads test_out_m03e.txt, python_ref_m03e.txt, balance_report_m03e.txt; pushes; CI builds the .so; owner runs the 03e checklist and says how it feels; then tune the placeholders (K-61).",
   "files_to_read_in_order": [
     "START_HERE.md",
     "PROJECT_STATE.json",

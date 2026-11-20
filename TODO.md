@@ -1,4 +1,4 @@
-# TODO (v0.2.9)
+# TODO (v0.2.10)
 ## Milestones 01 and 01b — DONE (engine and core design validated on the owner's phone; report §11).
 ## Owner decisions needed
 - [x] Final commitment to Godot 4.7.x + engine-independent Rust core — DONE 2026-11-19
@@ -59,3 +59,16 @@
 - [ ] OWNER: run `sh tools/RUN_M03D_TERMUX.sh` (expect 65 tests), upload both result files
 - [ ] OWNER: commit/push, wait for CI (builds the Android .so), update the Godot project, run the 03d checklist in TESTING.md
 - [ ] Later: dedicated placement interactions for special entities such as Black Holes (owner request, K-55); viewport chunks instead of the capped cell list (K-52)
+
+## 03d device result (owner, 2026-11-20, v0.2.9)
+- [x] Saves work, placement works, collapse works (owner's words)
+- [x] Paint-mode bug found and fixed in v0.2.10 (collapsed cells could not be refilled within the same drag) — [ ] OWNER: re-test
+- [ ] Not yet reported: undo (per stroke), ghost colours, rejection message, wave animation, speed >100x without animation, autosave with a world after backgrounding
+
+## Milestone 03e starter particle (WRITTEN v0.2.11, not compiled, not run)
+- [x] Owner verified paint fix, undo, ghost, ring animation, high speed (v0.2.10)
+- [x] Starter type + dev game start + 5 tests + balance simulation written
+- [ ] OWNER: `sh tools/RUN_M03E_TERMUX.sh` (expect 70 tests), upload both result files and `balance_report_m03e.txt`
+- [ ] OWNER: push, CI builds the `.so`, update the Godot project, run the 03e checklist, then tell Claude how it feels (K-61)
+- [ ] Decide: should the app load the autosave on start (K-60)?
+- [ ] Next options: B entropy and timelines (needs Q-5), C viewport chunks (K-52), more particle types

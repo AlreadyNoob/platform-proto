@@ -2,7 +2,7 @@
 
 Android 2D top-down particle-and-universe simulation. Design source of truth: `PLATFORM_GDD.md` (unmodified v0.1; the owner's original concept is its Appendix A).
 
-## Status (v0.2.9, 2026-11-20): Milestones 00, 01, 01b COMPLETE; Milestone 02a core TESTED on the phone
+## Status (v0.2.11, 2026-11-20): Milestones 00, 01, 01b COMPLETE; Milestone 02a core TESTED on the phone
 Engine and language are committed (Godot 4.7.x + engine-independent Rust core). On the owner's phone the new `core/` compiled on the first try and passed 27/27 tests, including the checks against the independent Python references (`core/results/phone_termux_02a/`). `bridge/`, `game/` and `ci.yml` are still never built. **There are still no game rules.** Vocabulary: **designed / planned / implemented / tested / verified on device**.
 
 ## For a new Claude session

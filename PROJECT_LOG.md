@@ -98,3 +98,6 @@ Determinism hashes (model, seeds 1/2/3): `8fe431764a396449`, `05f5d4a4d9e575cf`,
 
 ## 2026-11-19 — 02b closed, 02c written (v0.2.0)
 - Owner confirmed v0.1.9 works (left gap and orientation switch). Claude closed 02b and wrote 02c: bridge save_game/load_game/slot_summary, Saves panel, lifecycle pause + autosave. Not run. Governor recovery (K-32) analysed on paper only.
+
+## 2026-11-20 — v0.2.11, Milestone 03e written
+- Owner confirmed on the phone: the paint fix works; undo, ghost colours, collapse ring and high speed work; the rejection message was never seen (game too easy); backgrounding autosaves but the app starts fresh (K-60). Owner chose option A (particle design): the starter makes count and has a small spawn chance (answer 1), pays itself back in about 1 minute (answer 2). Claude wrote the starter type (cost 60, 1 count/tick, 1% spawn), the dev game start (20 free + 120 count), 5 tests, a Python balance simulation (finding K-61: still very generous) and docs. Not compiled.

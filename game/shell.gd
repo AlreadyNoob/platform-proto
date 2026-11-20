@@ -7,6 +7,10 @@ const SPEEDS: Array[int] = [1, 10, 100, 1000, 10000]
 const SPEED_LABELS: Array[String] = ["1x", "10x", "100x", "1k", "10k"]
 const SETTINGS_PATH := "user://settings.cfg"
 const DEV_SEED := 12345   # PROVISIONAL: placeholder seed until a real world exists
+const BASIC_TYPE := 1     # the only particle type so far (placeholder, matches core GameWorld)
+const WAVE_MAX_SPEED := 100   # above this effective speed the collapse-wave animation is skipped (D-025); the state stays exact
+const HINT_TAP := "Tap a cell to place a particle. Drag to pan, pinch to zoom."
+const HINT_PAINT := "Tap places one. Drag paints a line. Two fingers pan and zoom."
 
 var U := 1.0                 # UI scale (dp-like), from screen DPI
 var dark := false
@@ -43,6 +47,15 @@ var saves_layer: Control
 var saves_title: Label
 var slot_labels := {}
 var bg_paused := false
+var count_label: Label
+var hint_label: Label
+var undo_btn: Button
+var mode_btn: Button
+var paint_mode := false
+var stroke_id := 0
+var cells_rev := -1
+var last_reject_seq := 0
+var toast_left := 0.0
 
 func _ready() -> void:
     get_tree().set_auto_accept_quit(false)
@@ -142,6 +155,7 @@ func _apply_palette() -> void:
     RenderingServer.set_default_clear_color(p["bg"])
     if view != null:
         view.call("set_colors", p["bg"], p["minor"], p["major"])
+        view.call("set_particle_colors", p["accent"], Color("3f9f5f"), Color("c0504d"), p["warn"])
     if debug_label != null:
         debug_label.add_theme_color_override("font_color", p["dim"])
     _refresh_status()
@@ -208,6 +222,37 @@ func _build_ui() -> void:
     debug_label.add_theme_font_size_override("font_size", int(13 * U))
     debug_label.visible = show_debug
     view.add_child(debug_label)
+    view.stroke_started.connect(_on_stroke_started)
+    view.place_requested.connect(_on_place_requested)
+
+    var bottom := PanelContainer.new()
+    col.add_child(bottom)
+    var bottom_box := VBoxContainer.new()
+    bottom_box.add_theme_constant_override("separation", int(4 * U))
+    bottom.add_child(bottom_box)
+    hint_label = Label.new()
+    hint_label.text = HINT_TAP
+    hint_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    bottom_box.add_child(hint_label)
+    var brow := HBoxContainer.new()
+    brow.add_theme_constant_override("separation", int(4 * U))
+    bottom_box.add_child(brow)
+    count_label = Label.new()
+    count_label.text = "Count 0   Free 0   Particles 0"
+    count_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+    count_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+    brow.add_child(count_label)
+    undo_btn = Button.new()
+    undo_btn.text = "Undo"
+    undo_btn.disabled = true
+    undo_btn.custom_minimum_size = Vector2(64 * U, 44 * U)
+    undo_btn.pressed.connect(_on_undo)
+    brow.add_child(undo_btn)
+    mode_btn = Button.new()
+    mode_btn.text = "Mode: Tap"
+    mode_btn.custom_minimum_size = Vector2(104 * U, 44 * U)
+    mode_btn.pressed.connect(_on_mode)
+    brow.add_child(mode_btn)
 
     _build_settings()
     _build_saves()
@@ -312,7 +357,7 @@ func _refresh_slots() -> void:
 
 func _open_saves() -> void:
     _close_settings()
-    saves_title.text = "Saves (tick and speed only; no game world yet)"
+    saves_title.text = "Saves (the whole world: particles, count, free placements, tick, speed)"
     _refresh_slots()
     saves_layer.visible = true
     view.input_enabled = false
@@ -332,6 +377,7 @@ func _load_slot(slot: String) -> void:
         return
     var r: String = str(core.call("load_game", _slot_path(slot)))
     saves_title.text = r
+    _reset_world_view()
     eff_smooth = -1.0
     limited = false
     last_req = -1
@@ -411,6 +457,7 @@ func _start_core() -> void:
     for i in names.size():
         idx[names[i]] = i
     core.call("start", DEV_SEED, 1, 0)
+    _reset_world_view()
     eff_smooth = -1.0
     limited = false
     last_req = -1
@@ -426,6 +473,70 @@ func _s(field: String) -> int:
     if i >= 0 and i < st.size():
         return st[i]
     return 0
+
+# ---------- placement, undo, world feeds (M03d) ----------
+func _reset_world_view() -> void:
+    cells_rev = -1
+    last_reject_seq = 0
+    toast_left = 0.0
+    if view != null:
+        view.call("set_cells", PackedInt32Array())
+        view.call("clear_effects")
+
+func _on_stroke_started() -> void:
+    stroke_id += 1
+
+func _on_place_requested(cell: Vector2i) -> void:
+    if core != null:
+        core.call("place", cell.x, cell.y, BASIC_TYPE, stroke_id)
+
+func _on_undo() -> void:
+    if core != null:
+        core.call("undo")
+
+func _on_mode(_unused: bool = false) -> void:
+    paint_mode = not paint_mode
+    view.mode = view.MODE_PAINT if paint_mode else view.MODE_TAP
+    mode_btn.text = "Mode: Paint" if paint_mode else "Mode: Tap"
+    toast_left = 0.0
+    hint_label.text = HINT_PAINT if paint_mode else HINT_TAP
+    hint_label.add_theme_color_override("font_color", p["text"])
+
+func _reject_text(code: int) -> String:
+    match code:
+        2:
+            return "Not enough free placements or count."
+        3:
+            return "Unknown particle type."
+        4:
+            return "Nothing to undo."
+    return "Not possible."
+
+# Runs every frame: counters and placement feedback must feel immediate.
+func _sync_world(delta: float) -> void:
+    var rev: int = _s("view_rev")
+    if rev != cells_rev:
+        cells_rev = rev
+        view.call("set_cells", core.call("cells"))
+    var ev: PackedInt64Array = core.call("events")
+    if ev.size() > 0:
+        view.call("add_events", ev, _s("effective_speed") <= WAVE_MAX_SPEED)
+    var free_n: int = _s("free_placements")
+    var count_n: int = _s("count")
+    count_label.text = "Count %d   Free %d   Particles %d" % [count_n, free_n, _s("particles")]
+    view.can_afford = free_n > 0 or count_n >= 1
+    undo_btn.disabled = _s("undo_depth") == 0
+    var rs: int = _s("reject_seq")
+    if rs != last_reject_seq:
+        last_reject_seq = rs
+        toast_left = 2.5
+        hint_label.text = _reject_text(_s("reject_code"))
+        hint_label.add_theme_color_override("font_color", p["warn"])
+    elif toast_left > 0.0:
+        toast_left -= delta
+        if toast_left <= 0.0:
+            hint_label.text = HINT_PAINT if paint_mode else HINT_TAP
+            hint_label.add_theme_color_override("font_color", p["text"])
 
 func _on_pause() -> void:
     if core == null:
@@ -494,17 +605,21 @@ func _refresh_debug() -> void:
         lines.append("tick %d  req %d  eff %d  owed %d" % [_s("tick"), _s("requested_speed"), _s("effective_speed"), _s("owed_ticks")])
         lines.append("busy %.1f%%  governor drops %d raises %d" % [_s("busy_permille") / 10.0, _s("governor_drops"), _s("governor_raises")])
         lines.append("smoothed eff %.0f  limited %s" % [eff_smooth, str(limited)])
+        lines.append("count %d free %d particles %d chains %d undo %d" % [_s("count"), _s("free_placements"), _s("particles"), _s("chains"), _s("undo_depth")])
+        lines.append("view rev %d  cells drawn %d  wave effects %d  mode %s" % [_s("view_rev"), view.cells.size() / 3, view.effects.size(), "paint" if paint_mode else "tap"])
         lines.append("rss %d MB" % (int(core.call("rss_kb")) / 1024))
     debug_label.text = "\n".join(lines)
 
 func _process(delta: float) -> void:
+    if core != null:
+        st = core.call("stats")
+        _sync_world(delta)
     poll_t += delta
     if poll_t < 0.25:
         return
     var dt: float = poll_t
     poll_t = 0.0
     if core != null:
-        st = core.call("stats")
         _update_limited(dt)
         _refresh_status()
     _refresh_debug()

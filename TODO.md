@@ -1,4 +1,4 @@
-# TODO (v0.2.8)
+# TODO (v0.2.9)
 ## Milestones 01 and 01b — DONE (engine and core design validated on the owner's phone; report §11).
 ## Owner decisions needed
 - [x] Final commitment to Godot 4.7.x + engine-independent Rust core — DONE 2026-11-19
@@ -47,8 +47,15 @@
 - [x] Core tested on the phone: 44/44 (v0.2.7)
 - [ ] OWNER: overlay v0.2.7 on the repo, push, CI green
 - [ ] Owner tunes placeholders later (`docs/TUNING_PLACEHOLDERS.md`)
-## Milestone 03c save v2 (WRITTEN v0.2.8)
+## Milestone 03c save v2 (core TESTED on the phone 52/52, v0.2.9)
 - [ ] OWNER: `sh tools/RUN_M03C_TERMUX.sh`; upload `test_out_m03c.txt` + `python_ref_m03c.txt` (expect 52 tests)
 - [ ] OWNER: GitHub Settings > Billing and plans (K-50)
 - [ ] Fix whatever the first compile finds; record results
 ## 03d (next): wire ParticleWorld + save v2 into host/bridge/game (placement UI with economy, chain-wave presentation, world save/load); event-driven engine later (K-44)
+
+## Milestone 03d placement UI + world wiring (WRITTEN v0.2.9, not compiled, not run)
+- [x] Core: commands Place/Undo/Export, GameWorld, change-driven cell feed, collapse-record feed, world saves via the bridge (written)
+- [x] Godot: tap placement (default), paint mode (drag), ghost preview, counters, undo, wave animation (written)
+- [ ] OWNER: run `sh tools/RUN_M03D_TERMUX.sh` (expect 65 tests), upload both result files
+- [ ] OWNER: commit/push, wait for CI (builds the Android .so), update the Godot project, run the 03d checklist in TESTING.md
+- [ ] Later: dedicated placement interactions for special entities such as Black Holes (owner request, K-55); viewport chunks instead of the capped cell list (K-52)

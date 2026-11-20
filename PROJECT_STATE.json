@@ -1,9 +1,9 @@
 {
   "project": "Platform",
   "kind": "Android 2D top-down particle/universe simulation game",
-  "handoff_package_version": "0.2.8",
-  "date": "2026-11-19",
-  "latest_zip": "Platform_v0.2.8_milestone-03c_save-v2.zip",
+  "handoff_package_version": "0.2.9",
+  "date": "2026-11-20",
+  "latest_zip": "Platform_v0.2.9_milestone-03d_placement.zip",
   "original_proposal_zip": "Platform_Design_and_Claude_Prompt_v0_1.zip",
   "original_sha256": {
     "PLATFORM_GDD.md": "abba819d92f444d12960ca401884c45c6aeaf485480e158863b0ea944b09621e",
@@ -59,9 +59,14 @@
       "what": "economy core: count ledger, free placements, per-type settings (placeholders), generation with spawns, place_typed; reference engine"
     },
     "03c": {
-      "status": "implemented, NOT yet compiled or run (Python reference passes)",
+      "status": "core TESTED on the phone (52/52, all fixtures identical to the Python references); pushed to the repo as part of v0.2.9",
       "zip": "v0.2.8",
-      "what": "save schema 2 with world state, export/restore, migration 1->2; core only, not wired to bridge/game"
+      "what": "save schema 2: whole world in the save, export/restore, migration 1->2"
+    },
+    "03d": {
+      "status": "WRITTEN, NOT COMPILED, NOT RUN (core, bridge and GDScript); needs the phone test (TESTING.md) and a rebuilt Android .so",
+      "zip": "v0.2.9",
+      "what": "placement (tap default, drag-paint mode), undo per stroke, counters, change-driven cell feed, collapse-wave animation feed, world saves through the bridge; host runs the real GameWorld"
     }
   },
   "game_code_exists": false,

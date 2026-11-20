@@ -31,7 +31,7 @@
 | K-28 | Low | Save v1: RNG states are placeholders until a real world exists; no directory fsync; no migration yet (schema 1 only); not tested on Android storage | Open |
 | K-29 | Medium | `core/tests/host.rs` is timing based; passed once on the phone (3/3 in 1.32 s). A failure needs a re-run before blaming the code | Open |
 | K-30 | Low | Under overload the governor makes game time run slower than the wall clock; the UI must show a clear "limited speed / falling behind" indicator (planned 02b) | Open |
-| K-31 | Info | The bridge uses `BurnWorld` (a CPU-burning test world) because no real world exists | Open until Milestone 03 |
+| K-31 | Info | The bridge used `BurnWorld` because no real world existed | Closed v0.2.9 (written, not run): `start` runs `GameWorld`; BurnWorld only when a burn load is requested (check scene) |
 
 | K-32 | Medium | Governor recovery after load removal is slow: from 899 it reached only 1753 after ~15 s (target 10000; the Python model predicted ~36 s for a full recovery, so not yet a proven deviation). Measured once, one device | Open. Analysis (hypothesis, not measured): observed raise steps were ~6 s apart because the probe wait had backed off; the wait resets after 40 calm intervals (10 s), so full recovery from ~900 to 10000 is expected in roughly 1 minute. Not a bug by design; revisit with a longer on-device run |
 | K-33 | Info | Check-scene harness artifact: pressing button 4 during the button-3 pause check restarts the run, so that line shows a tick drop (40393 -> 293). Not a core bug; avoid overlapping buttons | Open (cosmetic) |
@@ -53,3 +53,11 @@
 | K-49 | Low | The reference engine is per-tick O(N): the spawning scenario reaches 826 particles in 40 ticks (exponential at 50% spawn chance); fine for tests, not for play at scale (extends K-44) | Open |
 | K-50 | Medium | GitHub Actions refused to start CI on 2026-11-20 (billing/spending limit, not a code error). The Android library `.so` can only be rebuilt when this is fixed; `ci.yml` now builds it only on request to save minutes. The core tests run on the phone regardless | Open (owner: GitHub Settings > Billing and plans) |
 
+| K-51 | High | 03d Rust (game.rs, host/bridge changes, tests/game.rs) and GDScript (shell.gd, world_view.gd) were written without a compiler or Godot; first compile and device run pending | Open until the owner runs v0.2.9 |
+| K-52 | Medium | The cell feed to the UI is a flat list of at most 20,000 particles, republished whole every change (at most every 30 ms). Not viewport chunks (D-013); larger worlds are cut | Open |
+| K-53 | Low | Undo is not saved, holds 256 placements, keeps count generated meanwhile, forgets collapsed particles without refund (D-043). Owner may want other rules | Open |
+| K-54 | Low | Placement latency (tap to counter change) is not measured; the command goes through the worker loop (sleeps 0.5 ms when idle), the UI reads stats every frame | Open |
+| K-55 | Medium | Owner request (D-041): special entities such as Black Holes need dedicated placement interactions by size and behaviour. Not designed; no such entities exist yet | Open |
+| K-56 | Medium | Dev economy is unbalanced: 20 free placements, cost 1, +1 count per particle per tick, spawning off, no way to earn free placements yet. Placeholders only (docs/TUNING_PLACEHOLDERS.md) | Open |
+| K-57 | Low | A save taken while the worker is busy with one very large tick can time out (1.5 s) and writes nothing; the autosave on pause would then be skipped (K-39) | Open |
+| K-58 | Info | K-50 (Actions billing block) is resolved: the owner made the repository public (free runner minutes); run 44720659796 passed both jobs (core and Android .so). `ci.yml` builds the Android library on every push again | Closed 2026-11-20 |

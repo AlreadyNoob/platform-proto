@@ -18,7 +18,10 @@ Rule: a value is either **DECIDED** (owner), **Claude's reversible choice** (lis
 | Spawned particle's type | the spawner's own type | PLACEHOLDER | `TypeConfig.spawn_type` |
 | Blocked spawn (no free neighbour) | spawn is lost (`Skip`); alternative `ConvertToCount(n)` | PLACEHOLDER (per type, D-037) | `TypeConfig.blocked` |
 | Payment order | free placement first, then count | PLACEHOLDER (per type, D-037) | `TypeConfig.free_first` |
-| Starting free placements | 0 (the number is the owner's to choose, D-035) | PLACEHOLDER | `ParticleWorld` (set by the game setup) |
+| Starting free placements | core default 0; the DEV GAME starts with 20 so something can be placed (D-035 leaves the number to the owner) | PLACEHOLDER | `game::DEV_START_FREE` |
 | Starting count | 0 | PLACEHOLDER | `ParticleWorld::set_count` |
 | Free placements granted by upgrades/events | mechanism exists (`grant_free_placements`); no upgrades or events yet | DECIDED in principle (D-036) | `ParticleWorld` |
 | Refund when a particle collapses | none | NOT decided | — |
+| Undo history length / rules | 256 placements, per stroke, exact refund, no refund for collapsed particles | Claude's reversible choice (D-043) | `game::UNDO_LIMIT` |
+| Cell feed cap / refresh | 20,000 particles, every 30 ms at most | PLACEHOLDER (until viewport chunks) | `host::MAX_VIEW_CELLS`, `VIEW_MIN_INTERVAL_MS` |
+| Wave animation | skipped above 100x; 0.07 s per depth, 0.55 s life, 400 effects max | PLACEHOLDER (presentation only) | `shell.gd`, `world_view.gd` |

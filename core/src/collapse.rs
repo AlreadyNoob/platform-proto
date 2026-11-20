@@ -117,6 +117,9 @@ pub struct ParticleWorld {
     log_cap: usize,
     dropped: u64,
     chains: u64,
+    /// Bumped whenever the set of particles changes (placement, undo, collapse, spawn). Not saved, not part of any hash: it only
+    /// tells the presentation that its copy of the cells is out of date.
+    rev: u64,
 }
 
 impl ParticleWorld {
@@ -140,6 +143,7 @@ impl ParticleWorld {
             log_cap: 100_000,
             dropped: 0,
             chains: 0,
+            rev: 0,
         }
     }
 
@@ -176,6 +180,7 @@ impl ParticleWorld {
         let key = (y, x);
         if self.cells.insert(key) {
             self.kinds.insert(key, 0);
+            self.rev += 1;
             true
         } else {
             false
@@ -209,6 +214,49 @@ impl ParticleWorld {
 
     pub fn kind_at(&self, x: i32, y: i32) -> Option<u16> {
         self.kinds.get(&(y, x)).copied()
+    }
+
+    /// Changes whenever the particles change (see the field comment). Presentation bookkeeping only.
+    pub fn revision(&self) -> u64 {
+        self.rev
+    }
+
+    /// Count a particle of this type costs when paid with count (None for an undefined type).
+    pub fn type_cost(&self, type_id: u16) -> Option<u64> {
+        self.types.get(&type_id).map(|c| c.cost)
+    }
+
+    /// Exact inverse of a successful `place_typed`: removes the particle at (x, y) if it is of type `type_id` and gives back what was paid
+    /// (one free placement, or `cost` count). Returns false and changes nothing if no such particle is there (e.g. it collapsed).
+    pub fn unplace(&mut self, x: i32, y: i32, type_id: u16, paid: Paid, cost: u64) -> bool {
+        let key = (y, x);
+        if self.kinds.get(&key).copied() != Some(type_id) {
+            return false;
+        }
+        self.cells.remove(&key);
+        self.kinds.remove(&key);
+        match paid {
+            Paid::Free => self.free = self.free.saturating_add(1),
+            Paid::Count => self.count = self.count.saturating_add(cost),
+        }
+        self.rev += 1;
+        true
+    }
+
+    /// Flat list `[x, y, type, x, y, type, ...]` in row-major order, at most `max_cells` particles. The bool is true if the list was cut.
+    pub fn cell_triples(&self, max_cells: usize) -> (Vec<i32>, bool) {
+        let mut v: Vec<i32> = Vec::with_capacity(self.kinds.len().min(max_cells) * 3);
+        let mut cut = false;
+        for ((y, x), t) in self.kinds.iter() {
+            if v.len() / 3 >= max_cells {
+                cut = true;
+                break;
+            }
+            v.push(*x);
+            v.push(*y);
+            v.push(*t as i32);
+        }
+        (v, cut)
     }
 
     /// Economy placement. Checks in this order: unknown type, occupied cell, can-pay. Pays with a free placement or count according to
@@ -245,6 +293,7 @@ impl ParticleWorld {
         }
         self.cells.insert(key);
         self.kinds.insert(key, type_id);
+        self.rev += 1;
         Ok(pay)
     }
 
@@ -305,6 +354,7 @@ impl ParticleWorld {
         while let Some((k, depth)) = queue.pop_front() {
             self.cells.remove(&k);
             self.kinds.remove(&k);
+            self.rev += 1;
             let rec = CollapseRecord { tick: self.tick, x: k.1, y: k.0, chain: chain_id, depth };
             self.push_log(rec);
             for (dy, dx) in NEIGHBOURS.iter() {
@@ -360,6 +410,7 @@ impl ParticleWorld {
                 let n = free_nb[i];
                 self.cells.insert(n);
                 self.kinds.insert(n, cfg.spawn_type);
+                self.rev += 1;
             }
         }
     }
@@ -429,6 +480,7 @@ impl ParticleWorld {
             log_cap: 100_000,
             dropped: 0,
             chains: ws.chains,
+            rev: 0,
         })
     }
 

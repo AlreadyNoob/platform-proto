@@ -53,3 +53,7 @@ Owner's answer: **Yes: upgrades or events can grant more.**
 ### Economy leftovers — how to handle them (answered 2026-11-20)
 Open details: the split between count and grid spawns, what happens when a spawn is blocked, and whether free placements or count are used first. Question asked: decide each now, or build them as adjustable settings?
 Owner's answer: **Build them as per-type settings with placeholders; I'll tune later.**
+
+### Milestone 03d — how should particles be placed? (answered 2026-11-20)
+Question asked: how should you place particles in 03d? Options offered: tap places one particle / tap and drag paints several / your recommendation.
+Owner's answer (verbatim): **Option 3 — Hybrid placement. Support both single-tap placement and tap-and-drag continuous placement. Single tap places one particle. Dragging places particles across eligible grid cells, without duplicating placements or overwriting occupied cells. Provide clear visual previews, immediate particle-counter updates and undo support. Special entities such as Black Holes should have dedicated placement interactions appropriate to their size and behavior. Make tap placement the default, with drag placement available as a selectable mode.**

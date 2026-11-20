@@ -1,10 +1,10 @@
-# SESSION_HANDOFF (v0.2.8, 2026-11-20) — rewritten at every milestone/checkpoint, never appended
+# SESSION_HANDOFF (v0.2.9, 2026-11-20) — rewritten at every milestone/checkpoint, never appended
 **Start with `START_HERE.md`.**
 
-**State:** Milestone 02 complete. 03a (collapse) and 03b (economy) TESTED on the owner's phone and pushed to the repo (commit 8b93e8d). 03c (save schema 2 with the whole world, export/restore, migration 1->2) WRITTEN; Python reference passes; Rust not yet compiled. GitHub Actions did not start for the last push (billing, K-50), so no CI result exists for 8b93e8d. All GDD questions answered or delegated except Q-5 timelines. Nothing is wired to host/bridge/UI yet.
+**State:** Milestone 02 complete. 03a collapse, 03b economy and 03c save v2 are TESTED on the owner's phone (03c: 52/52). 03a-03b are in the repo (commit 8b93e8d, CI green after the owner made the repo public to get free Actions minutes, K-50 closed). 03c is not yet committed. 03d (v0.2.9) is WRITTEN: placement (tap default, drag-paint mode chosen by the owner, D-041), undo per stroke, counters, change-driven cell feed, collapse-wave feed, world saves through the bridge, game wiring. Python references unchanged; undo has no independent reference (property tests: place then undo gives the identical world). Rust and GDScript of 03d were never compiled or run.
 
-**Waiting for:** the owner to run `sh tools/RUN_M03C_TERMUX.sh` (expect 52 tests, 7 fixtures identical) and upload `test_out_m03c.txt` + `python_ref_m03c.txt`; and to look at GitHub billing (K-50).
+**Waiting for:** the owner to run `sh tools/RUN_M03D_TERMUX.sh` (expect 65 tests, 7 fixtures identical), upload `test_out_m03d.txt` + `python_ref_m03d.txt`; then push (CI builds the Android .so), update the Godot project, and run the 03d checklist in TESTING.md.
 
-**Next action:** record results, fix failures; then 03d: wire `ParticleWorld` + save v2 into host/bridge/game (placement UI with the economy, chain-wave presentation, world save/load). The bridge/game need the Android `.so` rebuilt, which needs CI/billing (or another way to build it).
+**Next action:** record results, fix compile errors; then phone test of the game; then the owner's tuning of placeholders and the per-type design (special entities such as Black Holes need dedicated placement interactions, K-55).
 
-**Do not:** overlay an older ZIP onto the owner's repo (happened once, reverted in 214d895); claim 03c works before the phone output says so; present placeholders as decisions.
+**Do not:** overlay an older ZIP onto the owner's repo (happened once, reverted in 214d895); claim 03d works before the phone output says so; present placeholders (e.g. the 20 starting free placements) as decisions.

@@ -36,7 +36,7 @@ Raw outputs: `core/results/phone_termux_03a/`. Not wired to host/bridge/game; no
 | Python references | economy self-tests pass; e1 count 317 / e2 826 particles / e3 24 chains |
 Raw outputs: `core/results/phone_termux_03b/`. Not wired to host/bridge/game; world state is not saved (K-48).
 
-## Milestone 03c (v0.2.8) — WRITTEN, NOT YET RUN
+## Milestone 03c (v0.2.8) — RAN on the phone 2026-11-20: 52/52, 7 fixtures identical (originally written as below)
 `core/tests/save_world.rs` (7 tests: world save bytes equal the independent Python encoder's; golden bytes decode to the exact world; restore + 40 more ticks equals never saving, records included; every bit flip and truncation of a world file is rejected; inconsistent worlds refused; header-only files; slot roundtrip with backup) and updated `core/tests/save.rs` (schema 1 golden file still loads = migration test; schema 2 golden; newer schema refused). Python reference passes (export/restore continues exactly). Run: `sh tools/RUN_M03C_TERMUX.sh` — expect 52 Rust tests and 7 fixtures identical. Note: the GitHub CI run for the previous push did not start (billing, K-50); the phone is the test environment.
 
 ## Device test matrix
@@ -80,3 +80,15 @@ CI run 44406424568: core job (cargo test + Python fixtures equal) and android-ar
 
 ## Milestone 02c — VERIFIED ON DEVICE by the owner (2026-11-19, TECNO CM7)
 Checklist: CI green (new .so) OK; Menu > Saves shows 4 rows OK; Save slot 1 then Load slot 1 returns to the saved tick OK; Home/other app then return: no tick jump while away (background pause works, no offline progress) OK; Autosave row filled after backgrounding OK; Back closes Saves first OK. Reported in words by the owner; no log file.
+
+## Milestone 03d (v0.2.9) — WRITTEN, NOT YET RUN
+Core: `sh tools/RUN_M03D_TERMUX.sh` (expect 65 tests: the 52 of 03c plus 13 in `core/tests/game.rs`; 7 fixtures identical; the Python references are unchanged because 03d adds no rule). The new tests check: place then undo restores the identical world (free and count payment), unpayable/unknown placements change nothing and are reported, occupied cells are never overwritten or charged twice, undo takes whole strokes, collapsed particles are skipped without refund, the cell feed is row-major and its revision moves only on change, save then restore continues identically, a save without a world becomes a new world, the host runs commands and publishes counters/cells/exports.
+Phone checklist (after CI built the new `.so`; copy it and the new game files into the Godot project, export, install):
+1. Start: Count 0, Free 20, Particles 0; hint line shows the tap hint.
+2. Tap a cell: a ghost (green) shows while the finger is down; on release one particle appears, Free 19, Particles 1.
+3. Tap the same cell again: nothing changes (no message). Place 20 particles: Free 0, Count grows by 1 per particle per tick; place more until Count runs out: message "Not enough free placements or count." and nothing is placed.
+4. Mode button -> Paint: drag one finger across cells: a continuous line, no gaps, no double placement; the ghost follows the finger; two fingers pan/zoom.
+5. Undo after a tap removes that particle and refunds; Undo after a drag removes the whole drag.
+6. Let the sim run at 1x-10x for a while: particles collapse sometimes (about 0.1%/tick per lone particle) with a ring animation; at 1k/10k no animation but counters keep working.
+7. Saves: Save to slot 1, place/undo some, Load slot 1: particles, count and free placements return exactly; the sim starts paused; slot rows show particles/count/free. Background the app and return: autosave row shows a world summary.
+8. Report anything that looks wrong with the debug overlay on (Menu): it shows count, free, particles, view revision, drawn cells and wave effects.

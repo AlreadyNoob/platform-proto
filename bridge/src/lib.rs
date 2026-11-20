@@ -1,11 +1,12 @@
 //! Thin Godot binding for platform_core. Contains NO game rules. Coarse-grained API (D-013).
-//! STATUS (M02a): written in a sandbox without a Rust toolchain; compiled only by CI / on the owner's phone.
+//! STATUS (M03d): written in a sandbox without a Rust toolchain; compiled only by CI / on the owner's phone.
 //! Only API shapes already proven to compile in Milestone 01/01b are used (GString, i64, f64, bool, Packed*Array::from(slice)).
 use godot::prelude::*;
 use platform_core::command::Command;
 use platform_core::host::SimHost;
 use platform_core::rng::RngStreams;
-use platform_core::save::{load_slot, save_slot, SaveData};
+use platform_core::game::{GameSetup, GameWorld};
+use platform_core::save::{load_slot, load_slot_game, save_slot, save_slot_game, SaveData};
 use platform_core::snapshot::Snapshot;
 use platform_core::world::BurnWorld;
 use platform_core::CORE_VERSION;
@@ -60,8 +61,15 @@ impl PlatformCore {
         }
         self.seed = seed as u64;
         self.burn_ns.store(burn_ns.max(0) as u64, Ordering::Relaxed);
-        let world = BurnWorld::new(Arc::clone(&self.burn_ns));
-        self.host = Some(SimHost::start(world, 0, speed.max(1) as u64));
+        let speed = speed.max(1) as u64;
+        if burn_ns > 0 {
+            // governor test tool (check scene): every tick burns CPU, no game rules
+            let world = BurnWorld::new(Arc::clone(&self.burn_ns));
+            self.host = Some(SimHost::start(world, 0, speed));
+        } else {
+            let world = GameWorld::new_game(&GameSetup::dev_default(self.seed));
+            self.host = Some(SimHost::start(world, 0, speed));
+        }
     }
 
     #[func]
@@ -149,29 +157,105 @@ impl PlatformCore {
         }
     }
 
-    /// Real save (v0.2.0): same container as save_check. Saved state is tick, requested speed and seed only
-    /// (RNG states are placeholders until a real world exists, K-28).
+    /// Places one particle (type `type_id`) at a grid cell. Paid by the economy; a failure changes nothing (see reject_seq / reject_code in
+    /// the stats). `stroke` groups the placements of one tap or one drag for undo.
     #[func]
-    fn save_game(&self, path: GString, label: GString) -> GString {
-        self.save_check(path, label)
+    fn place(&self, x: i64, y: i64, type_id: i64, stroke: i64) {
+        if let Some(h) = &self.host {
+            h.send(Command::Place { x: x as i32, y: y as i32, type_id: type_id.clamp(0, 65535) as u16, stroke: stroke as u32 });
+        }
     }
 
-    /// Real load (v0.2.0): replaces the running simulation with one that continues from the saved tick and
-    /// requested speed. It starts PAUSED so the player decides when to continue.
+    /// Takes back the most recent stroke.
+    #[func]
+    fn undo(&self) {
+        if let Some(h) = &self.host {
+            h.send(Command::Undo);
+        }
+    }
+
+    /// The latest published particles as [x, y, type, x, y, type, ...]. Fetch it when the `view_rev` stat changes.
+    #[func]
+    fn cells(&self) -> PackedInt32Array {
+        let v: Vec<i32> = match &self.host {
+            Some(h) => h.view().1,
+            None => Vec::new(),
+        };
+        PackedInt32Array::from(v.as_slice())
+    }
+
+    /// Collapse records since the last call as [tick, x, y, chain, depth, ...] (the feed for the wave animation).
+    #[func]
+    fn events(&self) -> PackedInt64Array {
+        let v: Vec<i64> = match &self.host {
+            Some(h) => h.take_events(),
+            None => Vec::new(),
+        };
+        PackedInt64Array::from(v.as_slice())
+    }
+
+    /// Real save (M03d): header plus the whole world (particles, types, count, free placements, collapse settings).
+    /// If the simulation does not answer in time nothing is written, so a good save is never replaced by a worse one.
+    #[func]
+    fn save_game(&self, path: GString, label: GString) -> GString {
+        let h = match &self.host {
+            Some(h) => h,
+            None => return gs("save: simulation not running".to_string()),
+        };
+        let snap = h.snapshot();
+        let (d, world) = match h.export_blocking(1500) {
+            None => return gs("save FAILED: the simulation did not answer in time, nothing was written".to_string()),
+            Some(Some(e)) => (
+                SaveData { seed: self.seed, tick: e.tick, requested_speed: snap.requested_speed, rng_states: e.rng_states, label: label.to_string() },
+                Some(e.state),
+            ),
+            Some(None) => (
+                SaveData {
+                    seed: self.seed,
+                    tick: snap.tick,
+                    requested_speed: snap.requested_speed,
+                    rng_states: RngStreams::new(self.seed).states(),
+                    label: label.to_string(),
+                },
+                None,
+            ),
+        };
+        let particles = match &world {
+            Some(w) => w.cells.len(),
+            None => 0,
+        };
+        let p = path.to_string();
+        match save_slot_game(Path::new(&p), &d, world.as_ref()) {
+            Ok(()) => gs(format!("save ok: tick={} speed={} particles={} -> {}", d.tick, d.requested_speed, particles, p)),
+            Err(e) => gs(format!("save FAILED: {}", e)),
+        }
+    }
+
+    /// Real load (M03d): replaces the running simulation with the saved world. It starts PAUSED so the player decides when to continue.
+    /// A file without a world (older saves) becomes a new world at the saved tick (D-040).
     #[func]
     fn load_game(&mut self, path: GString) -> GString {
         let p = path.to_string();
-        match load_slot(Path::new(&p)) {
-            Ok((d, src)) => {
-                if let Some(mut h) = self.host.take() {
-                    h.stop();
+        match load_slot_game(Path::new(&p)) {
+            Ok((d, ws, src)) => {
+                let restored = match &ws {
+                    Some(w) => GameWorld::restore(d.tick, &d.rng_states, w),
+                    None => GameWorld::new_game_at(&GameSetup::dev_default(d.seed), d.tick),
+                };
+                match restored {
+                    Ok(world) => {
+                        if let Some(mut h) = self.host.take() {
+                            h.stop();
+                        }
+                        self.seed = d.seed;
+                        let host = SimHost::start(world, d.tick, d.requested_speed.max(1));
+                        host.send(Command::SetPaused(true));
+                        self.host = Some(host);
+                        let kind = if ws.is_some() { "with world" } else { "no world in file, new world" };
+                        gs(format!("loaded from {:?}: tick={} speed={} ({}, paused)", src, d.tick, d.requested_speed, kind))
+                    }
+                    Err(e) => gs(format!("load FAILED: {}", e)),
                 }
-                self.seed = d.seed;
-                let world = BurnWorld::new(Arc::clone(&self.burn_ns));
-                let host = SimHost::start(world, d.tick, d.requested_speed.max(1));
-                host.send(Command::SetPaused(true));
-                self.host = Some(host);
-                gs(format!("loaded from {:?}: tick={} speed={} (paused)", src, d.tick, d.requested_speed))
             }
             Err(e) => gs(format!("load FAILED: {}", e)),
         }
@@ -181,8 +265,9 @@ impl PlatformCore {
     #[func]
     fn slot_summary(&self, path: GString) -> GString {
         let p = path.to_string();
-        match load_slot(Path::new(&p)) {
-            Ok((d, _)) => gs(format!("tick {}, speed {}x", d.tick, d.requested_speed)),
+        match load_slot_game(Path::new(&p)) {
+            Ok((d, Some(w), _)) => gs(format!("tick {}, {} particles, count {}, free {}", d.tick, w.cells.len(), w.count, w.free)),
+            Ok((d, None, _)) => gs(format!("tick {}, speed {}x (no world)", d.tick, d.requested_speed)),
             Err(_) => gs("empty".to_string()),
         }
     }

@@ -20,6 +20,22 @@
 | Python references | wheel vs model 214,126 events OK; governor properties OK |
 Raw outputs: `core/results/phone_termux_02a/`. Not yet built/run: `bridge/`, `game/` check scene, `.github/workflows/ci.yml`, Android `.so`, anything on-device in Godot.
 
+## Milestone 03a — run on the owner's phone, Termux, 2026-11-20 (v0.2.5)
+| Test | Result |
+|---|---|
+| `cargo test --release -p platform_core` (first compile of `collapse.rs`) | **36/36 passed** (clock 5, collapse 9, governor 3, host 3 in 1.33 s, rng 4, save 10, wheel 2); cargo exit code 0 |
+| Rust vs independent Python references | RNG vectors, governor traces, save golden bytes and the 3 collapse scenarios (61 records, state hashes): **identical** |
+| Python reference | collapse self-tests pass; max chain size 3-4 even with inflated probabilities |
+Raw outputs: `core/results/phone_termux_03a/`. Not wired to host/bridge/game; no on-device Godot test of collapse yet.
+
+## Milestone 03b — run on the owner's phone, Termux, 2026-11-20 (v0.2.7)
+| Test | Result |
+|---|---|
+| `cargo test --release -p platform_core` (first compile of the economy) | **44/44 passed** (clock 5, collapse 9, economy 8, governor 3, host 3 in 1.33 s, rng 4, save 10, wheel 2); cargo exit code 0 |
+| Rust vs independent Python references | all 5 fixtures **identical**: RNG vectors, governor traces, save golden bytes, collapse scenarios (unchanged since 03a), economy scenarios (3 scenarios, replayed line by line) |
+| Python references | economy self-tests pass; e1 count 317 / e2 826 particles / e3 24 chains |
+Raw outputs: `core/results/phone_termux_03b/`. Not wired to host/bridge/game; world state is not saved (K-48).
+
 ## Device test matrix
 | Device | Android | Rust core tests | Bench | Godot app |
 |---|---|---|---|---|
@@ -59,4 +75,5 @@ CI run 44406424568: core job (cargo test + Python fixtures equal) and android-ar
 
 ## Milestone 02b shell (v0.1.5) — NOT RUN. Owner checklist: app starts; top bar fits portrait and landscape; speed buttons change "Running at"; Pause/Play works; one-finger pan, two-finger pinch zoom; Menu > Dark theme and Debug overlay persist after restart; Developer checks opens and Close returns; Android Back closes Menu then quits.
 
-## Milestone 02c (v0.2.0) — NOT RUN. Owner checklist: CI green (new .so); Menu > Saves shows 4 rows; Save slot 1 then Load slot 1 returns to the saved tick (paused); Home button/other app then return: simulation was paused in background and resumes (unless you had paused); Autosave row shows a tick after backgrounding; Back closes Saves first.
+## Milestone 02c — VERIFIED ON DEVICE by the owner (2026-11-19, TECNO CM7)
+Checklist: CI green (new .so) OK; Menu > Saves shows 4 rows OK; Save slot 1 then Load slot 1 returns to the saved tick OK; Home/other app then return: no tick jump while away (background pause works, no offline progress) OK; Autosave row filled after backgrounding OK; Back closes Saves first OK. Reported in words by the owner; no log file.

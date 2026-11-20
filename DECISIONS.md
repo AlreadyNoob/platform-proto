@@ -8,7 +8,7 @@ Format: ID · date · decision · alternatives · rationale · consequences · r
 | D-003 | 2026-11-16 | APPROVED for investigation (owner); **VALIDATED (v0.1.0)**: Rust core ran 10 minutes inside the app with rendering; alternatives stay documented, none triggered |
 | D-009..D-011 | 2026-11-17 | ACCEPTED (Milestone 01) |
 | D-004..D-008 | 2026-11-16 | ACCEPTED as design rules (follow GDD/master prompt) |
-| A-1 | 2026-11-16 | PROVISIONAL assumption |
+| A-1 | 2026-11-16 | CONFIRMED 2026-11-19 (Q-4) |
 
 **D-001 Work order.** Architecture and engine validation first; no particle mechanics until the validated skeleton exists (owner instruction, 2026-11-16: prefer 6–12 months and a maintainable simulation over a rushed prototype). Alternatives: feature-first prototype. Consequence: slower visible progress, lower rewrite risk. Reversible.
 
@@ -21,7 +21,7 @@ Format: ID · date · decision · alternatives · rationale · consequences · r
 **D-006 Timeline identity is a stable id separate from the 2-decimal display value.**
 **D-007 Orthogonal adjacency by default.**
 **D-008 Save format is versioned with migrations and atomic writes from the first save feature.**
-**A-1 PROVISIONAL: 1 tick = 1 sim-second at 1× speed.** Configurable constant; to be confirmed (Q-4).
+**A-1 CONFIRMED by the owner 2026-11-19 (Q-4): 1 tick = 1 sim-second at 1× speed.** Configurable constant; 10,000× = 10,000 ticks/s (the workload validated in Milestone 01b).
 
 **D-009 Deterministic math in the core.** Event scheduling must not depend on platform libm: use `detmath::ln` (IEEE basic ops only) and integer-only RNG. Evidence: finding F-3 in MILESTONE_01_REPORT.md. Status: designed and written, UNCOMPILED. Reversible: yes.
 **D-010 Prototype isolation.** All validation code lives in `prototype/`; the game core is re-implemented, not copied. Reversible: yes.
@@ -44,3 +44,56 @@ Format: ID · date · decision · alternatives · rationale · consequences · r
 **D-021 Save container v1 (PROVISIONAL).** `PLTF | schema u32 | payload_len u32 | payload | FNV-1a64`, little endian; payload = seed, tick, requested speed, RNG stream states, label. Atomic write: `.tmp` -> fsync -> old file to `.bak` -> rename; load order main, `.tmp`, `.bak`. Newer schemas are refused, never guessed. Real world state (chunks, timelines) will extend the payload with a schema bump and a migration.
 **D-022 Snapshot header field order is append-only** (`Snapshot::FIELDS`); the bridge returns it as a PackedInt64Array. Larger data (viewport chunks) will use a different, batched call (D-013).
 **D-023 Real time lost while the sim thread is suspended is not owed** (frame delta capped at 250 ms): no offline progress.
+
+## Owner decisions 2026-11-19 (GDD Q-4, Q-2)
+**D-024 Tick duration (Q-4).** 1 tick = 1 simulation second at 1x; speeds up to 10,000x multiply it. Simulation time is accumulated and processed efficiently (event-driven, as validated in 01b); rendering frame rate never drives it. Implemented already in `core/src/clock.rs`.
+**D-025 Collapse chains are instant within one tick (Q-2).** A collapse and everything it triggers resolve completely inside the same tick, with each particle processed at most once per chain event and guaranteed termination. Consequences for the design (to be implemented in the rules milestone, not now):
+1. Deterministic order: the chain is walked with a queue in a stable key order (e.g. cell coordinates), so identical inputs give identical results on every device.
+2. The core records each chain as an ordered log (particle, cell, wave depth). The presentation layer turns the log into an animated wave; it never feeds anything back into the simulation. At high speed the presentation may thin or skip the animation; the log and the state stay exact.
+3. A chain cannot be split across the host's work chunks (a tick is atomic), so one very large chain is a single slice of CPU time. Bounded by the size of the connected structure; to be measured with the real rules (K-39).
+4. Still open (asked under Q-3): whether every connected neighbour always collapses or rolls a chance, and what "connected" means exactly for triggering.
+
+## Owner decision 2026-11-19 (GDD Q-7)
+**D-026 Device targets (Q-7).** Mid-range Android phones of the last 4-5 years; minimum Android 11 (API 30). Optimize for a range of hardware, not flagships. Particle capacity, rendering quality and visual effects scale with device capability (capability tiers, measured at runtime/first start and adjustable in settings). Millions of particles is a long-term ambition, not a per-device minimum. Consequences: (1) the speed governor (D-019) and debug overlay stay central; (2) all benchmark claims so far come from one phone (TECNO CM7, Dimensity-class, upper mid-range), so a weaker test profile is needed (K-41); (3) export settings must be checked against Android 11 and the renderer choice (K-42); (4) a save made on a strong device must remain loadable on a weaker one (K-43).
+
+## Owner decision 2026-11-19 (GDD Q-1, partial)
+**D-027 Generation produces both a count and grid particles (Q-1, partial).** Each tick a particle's generation yields a count (a resource), and some of it also spawns as particles on the grid. Data-model consequence: the world needs BOTH a resource ledger and sparse-grid spawning. Spawn placement, the split rule and blocked-spawn behaviour are undecided; every random choice must use a named RNG stream (STREAM_GENESIS exists) so replays stay deterministic. Do not implement until Q-6 and the sub-questions are answered.
+
+## Owner decision 2026-11-19 (GDD Q-6, partial)
+**D-028 Placement costs count; a separate starting budget also exists (Q-6, partial).** The generated count (D-027) is spent to place particles, and the game also has a separate starting budget. The relationship between the two (what the starting budget is, whether it replenishes, how a placement is paid when both exist) is undecided. Do not implement the economy until these sub-questions are answered; the world model must keep the ledger (count) and the starting budget as separate fields.
+
+## Owner decision 2026-11-19 (GDD Q-3, first part)
+**D-029 Default collapse-risk model (Q-3).** Per-tick risk for a particle in a linked group of n particles = min(cap, base x 2^(n-1)) with base 0.1% and cap 10% as DEFAULTS (every particle of the group carries the group's risk, as in the GDD example). All values live in a documented, configurable probability model (GDD section 5 requirements: base, size/link modifier, cap, modifiers from type/upgrades/events/timeline, check unit, how randomness is generated and saved). Numerics: per-tick probability, never per-frame; use an exact or numerically stable method (the validated M01 approach: event-driven sampling equal to per-tick rolling). Still open: whether chain propagation always affects every connected neighbour or rolls a chance (D-025 sub-question), and the exact check unit if per-particle and per-group differ in outcomes.
+
+**D-030 In a chain, each linked neighbour rolls its own chance (Q-3 second part).** A collapse does not automatically take its neighbours with it: every linked, not-yet-processed neighbour makes its own random roll (own RNG draw from the collapse stream, deterministic order per D-025), and only a successful roll continues the chain. Each particle is processed at most once per chain event (D-025). Which probability the roll uses (the neighbour's normal group risk, or a separate propagation chance) is still open. Implementation note (Claude's proposal, not an owner decision): evaluate group sizes at the start of the tick so the result does not depend on the order in which particles are visited.
+
+**D-031 A neighbour in a chain rolls its normal group risk (Q-3 third part).** Same formula as D-029; no separate propagation probability. Adjacency stays orthogonal by default (D-007). Design observation recorded for the owner (arithmetic, not a decision): with orthogonal neighbours and the 10% cap, a collapsing particle has at most 3 untouched neighbours, so it spreads to 0.3 particles on average; the expected chain size is therefore small (about 1.4 to 1.6 particles in total at the cap, less when risk is lower). Chains only become large if events or upgrades raise the cap well above about 33%. The collapse rules are now fully specified (D-025, D-029, D-030, D-031) and can be implemented without the economy.
+
+## Milestone 03a decisions (2026-11-19/20)
+**D-032 Collapse core as an executable specification (03a; Claude's implementation choices, reversible, NOT owner decisions).** Where the owner's answers (D-025, D-029, D-030, D-031) leave details open, 03a fixes them as follows, identically in `core/src/collapse.rs` and `tools/ref/collapse_ref.py`:
+1. Group size n is fixed at the START of each tick; collapses during the tick do not change anyone's risk until the next tick.
+2. Particles roll in row-major order (y, then x), one draw each from the collapse RNG stream; a success resolves its entire chain before the next particle rolls. Chain order: breadth first, neighbours up, right, down, left.
+3. **A linked neighbour gets ONE roll per chain** (a visited set), not one roll per collapsing neighbour. This lowers spread compared with one roll per exposure. CONFIRMED by the owner 2026-11-20 (D-033).
+4. Collapsed particles are removed at once; no side effects yet (no refunds, entropy or events).
+5. Probabilities are integer fixed point p32 = probability x 2^32; a roll succeeds when the top 32 bits of a 64-bit draw are below p32. Defaults come from ppm: base 1000 ppm (0.1%), cap 100000 ppm (10%).
+6. This is the per-tick reference engine (rebuilds groups each tick). The scalable event-driven engine must reproduce its behaviour (compared statistically, as in 01b) and is a later step (K-44).
+
+**D-033 One roll per neighbour per chain (owner, 2026-11-20; K-45).** A linked neighbour rolls at most once in a chain, however many collapsing neighbours it touches. This is the behaviour already implemented and tested in the 03a collapse core.
+
+**D-034 Spawn placement is a per-particle-type property (owner, 2026-11-20; Q-1 follow-up).** The data model must let each particle type define where its generated particles appear (a placement rule per type); no global default is decided. Remaining Q-1 sub-questions: the split rule between count and grid spawns, and what happens when a spawn is blocked (no free cell).
+
+**D-035 The starting budget is a number of free placements (owner, 2026-11-20; Q-6 follow-up).** At the start of a run the player has a fixed number of free placements (the number is a configurable balancing value, not decided). Placements beyond that cost count (D-028). The world model keeps this as its own field next to the count ledger. Still open: whether free placements are ever replenished, and the order in which they and count are used.
+
+**D-036 Free placements can be granted by upgrades or events (owner, 2026-11-20; Q-6 follow-up).** Upgrades and events may add free placements to the starting budget (D-035). No refund on collapse is decided. Not yet decided: the order in which free placements and count are consumed (Claude's proposal when it matters: free placements first, then count).
+
+**D-037 Remaining economy details are per-type settings with placeholder values (owner, 2026-11-20).** The count/grid-spawn split, blocked-spawn behaviour and the order of using free placements vs count are implemented as documented, per-particle-type configuration with clearly marked PLACEHOLDER defaults (not balancing decisions); the owner tunes them later. Every placeholder must be listed in one place (a tuning table in the docs and the config) so none is mistaken for a decision.
+
+## Milestone 03b decisions (2026-11-20)
+**D-038 Economy core as an executable specification (03b; Claude's implementation choices on top of the owner's D-027, D-028, D-034..D-037; reversible; all numbers are PLACEHOLDERS, see `docs/TUNING_PLACEHOLDERS.md`).**
+1. Tick order: collapse phase first, then generation phase, then the tick counter advances.
+2. Generation: every surviving particle (row-major, as of the start of the generation phase) adds `count_per_tick` to the count ledger; if its type has `spawn_p32 > 0` it also rolls that chance on the genesis RNG stream (no draw when the chance is 0). A success spawns one particle of `spawn_type` in a random free orthogonal neighbour (draw below(k) over the free neighbours, order up/right/down/left). New particles start generating the next tick.
+3. Blocked spawn (no free neighbour): per-type policy `Skip` (lost) or `ConvertToCount(n)`. A spawn type that is not defined is skipped.
+4. Placement (`place_typed`): checks unknown type, occupied cell, then can-pay; pays one free placement or the type's cost in count, ordered by the type's `free_first` setting; nothing changes on failure. `place` (type 0, free) stays as the debug placement used by the collapse tests.
+5. The count/grid-spawn split is a placeholder rule (always add count, plus an independent spawn roll); the owner said "both" (D-027) but did not define the split.
+6. World state (cells, particle types, count, free placements) is NOT saved yet; save v1 holds tick, speed, seed, RNG states only (K-48).
+

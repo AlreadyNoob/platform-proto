@@ -1,9 +1,9 @@
 {
   "project": "Platform",
   "kind": "Android 2D top-down particle/universe simulation game",
-  "handoff_package_version": "0.2.0",
+  "handoff_package_version": "0.2.7",
   "date": "2026-11-19",
-  "latest_zip": "Platform_v0.2.0_milestone-02c_saves-lifecycle-written.zip",
+  "latest_zip": "Platform_v0.2.7_milestone-03b_core-tested.zip",
   "original_proposal_zip": "Platform_Design_and_Claude_Prompt_v0_1.zip",
   "original_sha256": {
     "PLATFORM_GDD.md": "abba819d92f444d12960ca401884c45c6aeaf485480e158863b0ea944b09621e",
@@ -28,8 +28,8 @@
       "what": "scheduler (wheel + hot list), clock, worker thread, 10-minute soak, overload test"
     },
     "02": {
-      "status": "in progress",
-      "what": "Phase 1 skeleton, NO mechanics. 02a core skeleton (this ZIP), 02b Godot game shell, 02c save/lifecycle wiring + speed-governor UI"
+      "status": "COMPLETE (02a, 02b, 02c verified on the owner's phone)",
+      "what": "Phase 1 skeleton, no mechanics: core, bridge, game shell, saves + lifecycle"
     },
     "02a": {
       "status": "VERIFIED ON DEVICE: core 27/27; CI green (core + Android .so); check APK ran on the phone: extension loads, run/pause/overload-governor/save-load work. Governor tuning (hunting, slow recovery) open.",
@@ -41,8 +41,22 @@
       "what": "game/shell.gd, world_view.gd: top bar (pause, 1x-10k), smoothed limited-speed indicator, pan/zoom grid, white/dark theme, settings, debug overlay, safe area, back button, audio buses; dev checks moved to dev_check.gd"
     },
     "02c": {
-      "status": "WRITTEN, NOT RUN (v0.2.0)",
-      "what": "bridge save_game/load_game/slot_summary (Rust, never compiled; CI will), Saves panel with Autosave + 3 slots, Android lifecycle (background -> autosave + pause; resume -> continue unless the player had paused), autosave on quit"
+      "status": "verified on device",
+      "zip": "v0.2.2"
+    },
+    "03a": {
+      "status": "core TESTED on the phone (36/36, identical to the Python reference); not wired to host/bridge/game",
+      "zip": "v0.2.4-v0.2.5",
+      "what": "collapse core: sparse grid, orthogonal groups, collapse model D-029, chains D-025/D-030/D-031, chain log; reference engine, no economy"
+    },
+    "03": {
+      "status": "in progress",
+      "what": "core rules; 03a collapse core written; economy (generation, placement budget) waits for Q-1/Q-6 sub-answers"
+    },
+    "03b": {
+      "status": "core TESTED on the phone (44/44, identical to the Python references); not wired to host/bridge/game; world state not saved (K-48)",
+      "zip": "v0.2.6-v0.2.7",
+      "what": "economy core: count ledger, free placements, per-type settings (placeholders), generation with spawns, place_typed; reference engine"
     }
   },
   "game_code_exists": false,
@@ -69,12 +83,26 @@
     "D-019": "IMPLEMENTED in core (PROVISIONAL numbers; unrun on device): governor drops effective speed on lag > 1 s, probes up x1.25, reverts failed probes, backoff",
     "D-002/D-003": "COMMITTED by the owner 2026-11-19 (delegated to Claude's recommendation)",
     "D-020": "ACCEPTED repo layout core/ bridge/ game/ tools/ docs/ (prototype/ kept, excluded from the workspace)",
-    "D-021": "PROPOSED save container v1 (PLTF, schema u32, FNV-1a64, .tmp/.bak atomic) - PROVISIONAL until real world state exists"
+    "D-021": "PROPOSED save container v1 (PLTF, schema u32, FNV-1a64, .tmp/.bak atomic) - PROVISIONAL until real world state exists",
+    "D-024": "ACCEPTED (owner, Q-4): 1 tick = 1 sim-second at 1x; speeds up to 10,000x",
+    "D-025": "ACCEPTED (owner, Q-2): collapse chains resolve fully within the same tick; animated waves are presentation only and never decide outcomes",
+    "D-026": "ACCEPTED (owner, Q-7): mid-range phones of the last 4-5 years, Android 11 minimum, scale capacity/quality to device; millions of particles = long-term ambition",
+    "D-027": "ACCEPTED partly (owner, Q-1): generation yields both a count and grid-spawned particles; split rule/placement of spawns still open",
+    "D-028": "ACCEPTED partly (owner, Q-6): placing costs count; a separate starting budget also exists; their interaction still open",
+    "D-029": "ACCEPTED (owner, Q-3 first part): default risk = min(cap, base*2^(n-1)), base 0.1%, cap 10%, configurable model",
+    "D-030": "ACCEPTED (owner, Q-3 second part): each linked neighbour rolls its own chance in a chain; which probability still open",
+    "D-031": "ACCEPTED (owner, Q-3 third part): neighbour in a chain rolls its normal group risk; collapse rules fully specified (D-025, D-029, D-030, D-031)",
+    "D-032": "Claude's implementation details of the collapse core; item 3 (one roll per neighbour per chain) CONFIRMED by the owner (D-033); the rest remain Claude's reversible choices",
+    "D-033": "ACCEPTED (owner, K-45): a linked neighbour rolls at most once per chain",
+    "D-034": "ACCEPTED (owner, Q-1 follow-up): where generated particles spawn is a per-particle-type property, decided per type later",
+    "D-035": "ACCEPTED (owner, Q-6 follow-up): starting budget = a fixed number of free placements at the start of a run; count pays for placements beyond it",
+    "D-036": "ACCEPTED (owner, Q-6 follow-up): upgrades or events can grant more free placements; collapse refunds not decided",
+    "D-037": "ACCEPTED (owner): count/grid split, blocked spawns, order of using free placements vs count = per-type settings with placeholder defaults; owner tunes later",
+    "D-038": "PROPOSED by Claude (03b): economy implementation details; all numbers are placeholders (docs/TUNING_PLACEHOLDERS.md)"
   },
   "open_owner_decisions": [
-    "GDD Q-4 tick length at 1x (before core rules)",
-    "GDD Q-2 collapse propagation (before core rules)",
-    "GDD Q-1, Q-3, Q-5, Q-6, Q-7 (see PROJECT_UNDERSTANDING.md)"
+    "Q-5 timelines (later)",
+    "Placeholder values to tune (docs/TUNING_PLACEHOLDERS.md) once the owner sees the game running"
   ],
   "provisional_assumptions": {
     "A-1": "1 tick = 1 sim-second at 1x speed (so 10,000x = 10,000 ticks/s)"
@@ -120,7 +148,7 @@
     "whether v0.1.x/M02 files were copied into the repo (the owner's log shows .gitignore added and libplatform_bridge_proto.so untracked)",
     "NDK version used by CI (ci.yml prints it)"
   ],
-  "next_step": "Owner overlays the project into the git working copy, pushes, CI builds core + Android .so (release m02-android-so); then build the check APK from game/ and run buttons 1-5 (governor overload, save/load). Fix whatever CI finds. Then 02b.",
+  "next_step": "Owner overlays v0.2.7 on the repo (git status --short first), pushes, CI green. Then 03c: save v2 with world state + migration (K-48); then wiring into host/bridge/game (placement UI, wave presentation); event-driven engine later (K-44).",
   "files_to_read_in_order": [
     "START_HERE.md",
     "PROJECT_STATE.json",
@@ -131,6 +159,7 @@
     "docs/CLAUDE_MASTER_PROMPT.md",
     "PLATFORM_GDD.md",
     "DECISIONS.md",
+    "OWNER_DECISIONS.md",
     "MILESTONE_01_REPORT.md",
     "ARCHITECTURE.md",
     "TODO.md",

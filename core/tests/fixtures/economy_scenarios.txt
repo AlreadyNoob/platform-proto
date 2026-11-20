@@ -1,0 +1,71 @@
+scenario e1_costs_and_payment_order
+op 0 0 0 1 free
+op 0 1 0 1 free
+op 0 2 0 1 count
+op 0 0 0 1 occupied
+op 0 3 0 9 unknown
+op 1 4 0 4 count
+op 2 5 0 5 insufficient
+op 3 6 0 4 count
+chk 10 77 0 5 23d7fe3b65a55712
+chk 20 157 0 5 39f37a360d16e1a6
+chk 30 237 0 5 026a35d605c4aa9e
+chk 40 317 0 5 f96d76efc7f6f631
+end full=f96d76efc7f6f631 count=317 free=0 tick=40 cells=5 chains=0
+scenario e2_spawning_and_blocked_policy
+op 0 0 0 2 count
+op 0 10 10 3 count
+chk 10 124 0 34 e81d540895c2211b
+chk 20 946 0 172 d672f1fff95c6417
+chk 30 3695 0 424 68317d27b570e92d
+chk 40 9667 0 826 2ca24bad09c043af
+end full=2ca24bad09c043af count=9667 free=0 tick=40 cells=826 chains=0
+scenario e3_collapse_with_economy
+op 0 0 0 6 count
+op 0 1 0 6 count
+op 0 2 0 6 count
+op 0 3 0 6 count
+op 0 0 1 6 count
+op 0 1 1 6 count
+op 0 2 1 6 count
+op 0 3 1 6 count
+op 0 0 2 6 count
+op 0 1 2 6 count
+op 0 2 2 6 count
+op 0 3 2 6 count
+rec 0 2 0 0 0
+rec 1 1 1 1 0
+rec 1 2 1 1 1
+rec 1 2 2 1 2
+rec 1 3 2 2 0
+rec 3 0 2 3 0
+rec 3 1 2 4 0
+rec 5 0 1 5 0
+chk 10 59 0 5 95fed6cdd1218802
+rec 12 3 0 6 0
+rec 13 -1 1 7 0
+rec 13 1 1 8 0
+rec 14 -1 0 9 0
+rec 15 1 0 10 0
+rec 15 1 -1 10 1
+rec 15 0 0 10 1
+chk 20 102 0 4 0c53134e541e16b6
+rec 23 3 1 11 0
+rec 25 1 1 12 0
+chk 30 144 0 6 c6fee87e27c8db0a
+rec 30 3 0 13 0
+rec 31 0 2 14 0
+rec 31 0 3 14 1
+rec 37 -2 1 15 0
+rec 37 -1 1 16 0
+chk 40 187 0 6 21de3888993552b1
+rec 42 -1 0 17 0
+rec 43 0 0 18 0
+rec 43 2 0 19 0
+rec 43 0 2 20 0
+rec 44 -2 0 21 0
+chk 50 245 0 5 932b832260182606
+rec 54 0 1 22 0
+rec 59 1 0 23 0
+chk 60 310 0 8 54db3905ff8194d7
+end full=54db3905ff8194d7 count=310 free=0 tick=60 cells=8 chains=24

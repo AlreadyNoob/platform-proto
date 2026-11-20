@@ -1,5 +1,5 @@
 //! Simulation clock: pause, requested speed, effective (governed) speed, exact integer time accounting.
-//! 1 tick = 1 sim-second at 1x (PROVISIONAL assumption A-1; GDD question Q-4).
+//! 1 tick = 1 sim-second at 1x (CONFIRMED by the owner 2026-11-19: GDD Q-4, DECISIONS D-024).
 //! `requested` is what the player asked for; `effective` is what the speed governor currently allows.
 //! Mirrors the Python reference in tools/ref/platform_ref.py (class Clock).
 

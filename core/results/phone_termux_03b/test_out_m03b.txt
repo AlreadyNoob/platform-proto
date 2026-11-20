@@ -1,0 +1,101 @@
+   Compiling platform_core v0.2.6 (/data/data/com.termux/files/home/platform/m03b_work/core)
+    Finished `release` profile [optimized] target(s) in 9.21s
+     Running unittests src/lib.rs (target/release/deps/platform_core-036723d898920797)
+
+running 5 tests
+test clock::tests::frame_splitting_does_not_change_total ... ok
+test clock::tests::pause_stops_ticks_and_resume_has_no_burst ... ok
+test clock::tests::requested_and_effective_interact_correctly ... ok
+test clock::tests::lag_is_kept_until_forgiven ... ok
+test clock::tests::restore_keeps_tick_and_owes_nothing ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/collapse.rs (target/release/deps/collapse-122292c9d8c8d1b7)
+
+running 9 tests
+test a_collapsed_particle_is_removed_and_isolated_ones_collapse_alone ... ok
+test an_empty_world_consumes_no_randomness ... ok
+test groups_are_orthogonal_and_share_one_risk ... ok
+test placing_on_an_occupied_cell_changes_nothing ... ok
+test risk_function_follows_the_default_model ... ok
+test step_to_equals_repeated_step_tick ... ok
+test same_seed_same_result_and_different_seed_differs ... ok
+test chain_log_properties_hold ... ok
+test matches_python_reference_scenarios ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/economy.rs (target/release/deps/economy-c1d9ef1ef4306499)
+
+running 8 tests
+test blocked_spawn_converts_and_unknown_spawn_type_is_skipped ... ok
+test collapsed_particles_stop_producing_and_lose_their_type ... ok
+test generation_adds_count_and_uses_no_genesis_randomness_without_spawns ... ok
+test placement_pays_in_the_configured_order_and_fails_cleanly ... ok
+test spawned_particles_start_generating_next_tick ... ok
+test placeholder_defaults_are_the_documented_ones ... ok
+test step_to_still_works_with_the_economy ... ok
+test matches_python_reference_scenarios ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/governor.rs (target/release/deps/governor-d199fe32e6e306a3)
+
+running 3 tests
+test does_not_engage_when_device_keeps_up ... ok
+test matches_python_reference_traces ... ok
+test never_exceeds_request_and_never_drops_below_one ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/host.rs (target/release/deps/host-d7545d41daff4e5c)
+
+running 3 tests
+test restore_continues_from_the_saved_tick ... ok
+test runs_pauses_and_resumes_without_a_burst ... ok
+test governor_lowers_speed_when_the_device_cannot_keep_up ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.33s
+
+     Running tests/rng.rs (target/release/deps/rng-0e395b8bfe5c47f8)
+
+running 4 tests
+test below_stays_in_range_and_hits_all_values ... ok
+test matches_python_reference_vectors ... ok
+test state_roundtrip_continues_the_same_sequence ... ok
+test streams_are_independent ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/save.rs (target/release/deps/save-b92cd2a8fd7e2201)
+
+running 10 tests
+test bad_magic_is_refused ... ok
+test every_single_byte_flip_is_rejected ... ok
+test every_truncation_is_rejected ... ok
+test golden_bytes_decode_to_the_expected_data ... ok
+test encoder_matches_independent_python_bytes ... ok
+test newer_schema_is_refused_with_a_clear_error ... ok
+test nothing_to_load_is_an_error ... ok
+test crash_between_renames_is_recovered_from_the_temp_file ... ok
+test save_then_load_roundtrip_and_backup_generation ... ok
+test corrupt_main_falls_back_to_backup ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+     Running tests/wheel.rs (target/release/deps/wheel-bd82d5075f37209c)
+
+running 2 tests
+test past_ticks_run_now_and_len_tracks ... ok
+test matches_a_simple_model_exactly ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+   Doc-tests platform_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+cargo exit code: 0

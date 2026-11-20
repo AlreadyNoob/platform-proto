@@ -16,7 +16,7 @@ Simulation Core (no engine dependency)  ── Save System ── Diagnostics
 ## 2. Simulation Core modules
 | Module | Responsibility | Notes |
 |---|---|---|
-| clock | fixed-step `SimTick` (u64), speed, pause | 1 tick = fixed sim-time quantum (ASSUMPTION A-1, see PROJECT_UNDERSTANDING). Speed = ticks per real second budget, never "1 frame = 1 tick". |
+| clock | fixed-step `SimTick` (u64), speed, pause | 1 tick = 1 sim-second at 1x (CONFIRMED, Q-4 / D-024). Speed = ticks per real second budget, never "1 frame = 1 tick". |
 | rng | seeded deterministic generator, state saved | Separate named streams (collapse, events, genesis) so adding a feature does not reshuffle others. |
 | world | sparse chunked grid, per timeline | Key = `(TimelineId, chunk_x, chunk_y)`; chunk = fixed array (e.g. 32×32 cells). Logical coords are i32/i64; screen coords never stored. |
 | particles | data-oriented storage | Structure-of-arrays per chunk (type, age, state, component ref). No object-per-particle. Stable `ParticleRef` for saves/log only, never shown to players. |
@@ -41,8 +41,8 @@ Per component (slot) hazard q per tick. **Cold** slots (q below a threshold `q_s
 ### 3b. Clock and worker thread
 `Clock` (integer microseconds x speed) decides how many ticks are owed; the simulation runs on a worker thread in small chunks and publishes counters through atomics. The renderer never touches simulation state; it will read snapshots (not yet built, cost measured by button 4).
 
-## 4. Collapse and chains (semantics to be fixed before implementing — see open question Q-2)
-Whatever rule is chosen must: process each particle at most once per event, use a deterministic order (sorted by stable key), terminate, update occupancy/components/formations/entropy consistently, and write a log entry.
+## 4. Collapse and chains (DECIDED 2026-11-19, Q-2 / D-025: instant within one tick; waves are presentation only)
+A chain resolves completely inside the tick that started it. The core writes an ordered chain log (particle, cell, wave depth) for the presentation layer; animation never changes the outcome and may be thinned or skipped at high speed. The rule must also: process each particle at most once per event, use a deterministic order (sorted by stable key), terminate, update occupancy/components/formations/entropy consistently, and write a log entry.
 
 ## 5. Timelines
 Occupancy key `(TimelineId, x, y)`. Transfer on Divergence, conflict outcome, and Convergence resolution are specified and tested **before** the visuals (Phase 6). Event durations are in ticks.
@@ -66,6 +66,8 @@ docs/
 ```
 ### 9a. Milestone 02a modules (written, not yet compiled)
 `core/src`: rng (xoshiro256** + named streams), clock (requested vs effective speed), governor (D-019), wheel (timing wheel), command, snapshot (header; field order append-only), world (World trait, NullWorld, BurnWorld test world), host (worker thread, command channel, snapshot under a short lock), save (container v1). `bridge/src/lib.rs`: Godot class `PlatformCore`, coarse API only. `game/`: 02b shell (`shell.gd`, `world_view.gd`, written not run) and developer checks (`dev_check.gd`).
+
+`core/src/collapse.rs` (03a): `ParticleWorld` (sparse grid, orthogonal groups, collapse model D-029, chains D-025/D-030/D-031, chain log `CollapseRecord`), the executable specification of the collapse rules; implements `World`. Not yet wired to the host, bridge or UI. 03b adds the economy to the same type: kinds per cell, `TypeConfig` registry, count ledger, free placements, `place_typed`, generation phase, `full_hash`.
 
 ## 10. Known architectural risks
 R1 events-vs-ticks equivalence must be proven; R2 millions-of-particles on mid/low Android devices unproven; R3 binding overhead between Core and engine unmeasured; R4 collapse/timeline rules still ambiguous in the GDD.

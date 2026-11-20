@@ -1,7 +1,9 @@
 //! Platform simulation core. std only; knows nothing about Godot, Android or rendering.
-//! STATUS (Milestone 02a): skeleton. There are NO game rules here, only the foundations:
-//! rng, clock, speed governor, timing wheel, snapshot/command interface, save container, simulation host.
+//! STATUS (Milestone 03a): foundations (rng, clock, speed governor, timing wheel, snapshot/command interface, save container, simulation host)
+//! plus the collapse rules and the economy as a reference engine (`collapse`: count ledger, free placements, per-type settings, generation).
+//! No entropy, timelines, upgrades or events yet. Every economy number is a placeholder (docs/TUNING_PLACEHOLDERS.md).
 pub mod clock;
+pub mod collapse;
 pub mod command;
 pub mod governor;
 pub mod host;
@@ -11,4 +13,4 @@ pub mod snapshot;
 pub mod wheel;
 pub mod world;
 
-pub const CORE_VERSION: &str = "0.1.2";
+pub const CORE_VERSION: &str = "0.2.6";

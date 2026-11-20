@@ -1,8 +1,8 @@
 [package]
 name = "platform_core"
-version = "0.1.2"
+version = "0.2.6"
 edition = "2021"
-description = "Platform simulation core (Milestone 02a skeleton): std only, no engine dependency."
+description = "Platform simulation core (Milestone 03a: foundations + collapse reference engine): std only, no engine dependency."
 
 [dependencies]
 # intentionally none

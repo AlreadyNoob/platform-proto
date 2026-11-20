@@ -10,6 +10,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo test --release -p platform_core -- --nocapture
       - run: python3 tools/ref/platform_ref.py
+      - run: python3 tools/ref/collapse_ref.py
+      - run: python3 tools/ref/economy_ref.py
       - name: Fixtures must equal what the independent Python reference produces
         run: git diff --exit-code core/tests/fixtures
   android-arm64-so:

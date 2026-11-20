@@ -1,0 +1,19 @@
+wheel selftest ok, 214126 events checked
+all reference checks passed; fixtures written to /data/data/com.termux/files/home/platform/m03b_out/fixtures_check
+s1_const_1000_req10000 min/max/last effective: 900 10000 900
+s2_unlimited_req10000 min/max/last effective: 10000 10000 10000
+s3_step_5000_500_8000_req10000 min/max/last effective: 450 10000 8158
+s4_req100_cap50_then_1000 min/max/last effective: 43 100 100
+s1_block_inflated records: 37 chains: 25 left: 4 max chain size: 3
+s2_default_model_small_groups records: 11 chains: 11 left: 0 max chain size: 1
+s3_placements_over_time records: 13 chains: 8 left: 1 max chain size: 4
+collapse reference checks passed; 61 records written to /data/data/com.termux/files/home/platform/m03b_out/fixtures_check
+e1_costs_and_payment_order count: 317 free: 0 particles: 5 chains: 0
+e2_spawning_and_blocked_policy count: 9667 free: 0 particles: 826 chains: 0
+e3_collapse_with_economy count: 310 free: 0 particles: 8 chains: 24
+economy reference checks passed; 71 lines written to /data/data/com.termux/files/home/platform/m03b_out/fixtures_check
+fixture identical: rng_vectors.txt
+fixture identical: governor_traces.txt
+fixture identical: save_v1_golden.hex
+fixture identical: collapse_scenarios.txt
+fixture identical: economy_scenarios.txt

@@ -1,4 +1,25 @@
 # CHANGELOG
+## v0.2.7 — 2026-11-20 — Milestone 03b core tested on the phone
+Owner ran `tools/RUN_M03B_TERMUX.sh`: first compile succeeded, 44/44 Rust tests passed, all 5 fixtures identical to the Python references. Raw outputs in `core/results/phone_termux_03b/`. Docs only.
+
+## v0.2.6 — 2026-11-20 — Milestone 03b: economy core (WRITTEN, NOT COMPILED) + owner answers
+New: economy in `core/src/collapse.rs` (count ledger, free placements, per-type `TypeConfig`, `place_typed`, generation phase with spawns, `full_hash`), `tools/ref/economy_ref.py` + fixture `economy_scenarios.txt`, `core/tests/economy.rs` (8 tests), `tools/RUN_M03B_TERMUX.sh`, CI step, `docs/TUNING_PLACEHOLDERS.md`, D-038, K-47..K-49. The 03a collapse fixture is unchanged. Core crate 0.2.6. Owner answers recorded since v0.2.5 (docs): Owner confirmed K-45: one roll per neighbour per chain (D-033). K-45 closed. Q-1 follow-up answered: spawn placement is a per-particle-type property (D-034). Q-6 follow-up answered: the starting budget is a fixed number of free placements (D-035); free placements can be granted by upgrades or events (D-036). The remaining economy details become per-type settings with placeholder values (D-037).
+
+## v0.2.5 — 2026-11-20 — Milestone 03a core tested on the phone
+Owner ran `tools/RUN_M03_TERMUX.sh`: first compile succeeded, 36/36 Rust tests passed, collapse scenarios and all other fixtures identical to the Python references. Raw outputs in `core/results/phone_termux_03a/`. K-46 closed. Docs only.
+
+## v0.2.4 — 2026-11-20 — Milestone 03a: collapse core (WRITTEN, NOT COMPILED)
+Added `core/src/collapse.rs`: sparse grid, orthogonal groups, collapse model D-029 (fixed-point, configurable), chains D-025/D-030/D-031, chain log for the presentation; a per-tick reference engine, no economy. Added `tools/ref/collapse_ref.py` (independent Python reference, golden fixture `core/tests/fixtures/collapse_scenarios.txt`), `core/tests/collapse.rs` (9 tests), `tools/RUN_M03_TERMUX.sh`, CI step. Core crate version 0.2.4. Python reference passes; Rust uncompiled. New: D-032 (Claude's implementation details), K-44..K-46. Not wired to host/bridge/game.
+
+## v0.2.3 — 2026-11-19 — Owner design answers recorded (docs only)
+Owner answered GDD Q-7: D-026 device targets (mid-range phones of the last 4-5 years, Android 11 minimum, scale capacity/quality to the device). Q-1 partly answered (D-027: generation yields both a count and grid particles). Q-6 partly answered (D-028: placing costs count; a separate starting budget also exists). Q-3 first part answered (D-029: default risk doubles per linked particle, base 0.1%, cap 10%). Q-3 second part answered (D-030: each linked neighbour rolls its own chance in a chain). Q-3 third part answered (D-031: it rolls its normal group risk). The collapse rules are now fully specified and can be built without the economy. New known issues K-41 (single test phone), K-42 (Android 11 / renderer not checked), K-43 (save portability across device capacity).
+
+## v0.2.2 — 2026-11-19 — Milestone 02 complete
+Owner verified 02c on the phone: new `.so` from CI, Saves panel with 4 rows, save/load slot 1 returns to the saved tick, Home and return shows no tick jump (background pause, no offline progress), Autosave filled after backgrounding, Back closes Saves first. K-38 closed. Docs only; no code changes.
+
+## v0.2.1 — 2026-11-19 — Owner decisions Q-4 and Q-2 recorded (docs + one comment)
+Q-4: 1 tick = 1 sim-second at 1x (D-024, A-1 confirmed). Q-2: collapse chains resolve completely within the same tick; animated waves are presentation only and never decide outcomes (D-025; consequences: deterministic chain order, ordered chain log for the presentation, atomic-tick cost K-39, snapshot chain log K-40). Verbatim answers recorded in `OWNER_DECISIONS.md` (the GDD itself stays unchanged). Only code change: a comment in `core/src/clock.rs`. Based on repo state v0.2.0 (commit 63ee843).
+
 ## v0.2.0 — 2026-11-19 — 02b verified; 02c saves + lifecycle WRITTEN, NOT RUN
 02b closed: owner verified v0.1.9 on the phone (see PROJECT_STATE). 02c: `bridge/` gets `save_game`, `load_game` (restarts the host from the saved tick and requested speed, starts PAUSED) and `slot_summary` (Rust, not yet compiled: CI builds it; a new `.so` is needed). `game/shell.gd`: Menu > Saves (Autosave read-only + Slot 1-3 with Save/Load), autosave when the app goes to the background and on quit, background pauses the simulation and resume continues it unless the player had paused (no offline progress, D-023). Saved state is tick, requested speed and seed only; there is no game world yet (K-28).
 

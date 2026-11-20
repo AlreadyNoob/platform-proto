@@ -1,10 +1,10 @@
-# SESSION_HANDOFF (v0.2.0, 2026-11-19) — rewritten at every milestone/checkpoint, never appended
+# SESSION_HANDOFF (v0.2.7, 2026-11-20) — rewritten at every milestone/checkpoint, never appended
 **Start with `START_HERE.md`.**
 
-**State:** 02a and 02b VERIFIED ON DEVICE. 02c (real save/load through the bridge, Saves panel, Android lifecycle) WRITTEN, NOT RUN. The bridge Rust changed: a new `.so` from CI is needed.
+**State:** Milestone 02 complete. Milestones 03a (collapse core) and 03b (economy core: count ledger, free placements, per-type settings, generation with spawns) TESTED on the owner's phone: 44/44 tests, all fixtures identical to the independent Python references. All GDD questions answered or delegated except Q-5 timelines. Economy numbers are placeholders (`docs/TUNING_PLACEHOLDERS.md`). Nothing is wired to host/bridge/UI; world state is not saved (K-48).
 
-**Waiting for:** owner pushes v0.2.0, CI result (fix compile errors if any), downloads `m02-android-so`, updates `Documents/platform_m02`, runs the 02c checklist (TESTING.md).
+**Waiting for:** the owner to overlay v0.2.7 on the repo (run `git status --short` first and paste it; the repo may still be at commit 63ee843/214d895) and push; CI should be green.
 
-**Next action:** fix whatever CI / the phone report; close 02c as v0.2.x. Then ask the owner for GDD Q-4 (tick length at 1x) and Q-2 (collapse propagation) before Milestone 03 (core rules).
+**Next action:** plan 03c: save v2 with world state + migration (K-48: cells, particle types, count, free placements, RNG states), then wiring `ParticleWorld` into host/bridge/game (placement UI with economy, wave presentation from the chain log); event-driven engine later (K-44); K-41/K-42/K-43 device-target follow-ups.
 
-**Do not:** start mechanics before the GDD answers; claim 02c works before output says so.
+**Do not:** overlay an older ZIP onto the owner's repo (happened once, reverted in 214d895); present placeholders as decisions; start Q-5 timelines work before asking.

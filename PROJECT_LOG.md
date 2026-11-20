@@ -40,7 +40,28 @@
 - Written, NOT compiled: `core/`, `bridge/`, `game/`, `.github/workflows/ci.yml`, `tools/RUN_M02A_TERMUX.sh`. Only static brace/paren balance checks were possible.
 - Result: ZIP v0.1.2; then the owner ran `RUN_M02A_TERMUX.sh` (v0.1.3 records it): the Rust core compiled on the first try and passed 27/27 tests (clock 5, governor 3, host 3, rng 4, save 10, wheel 2); RNG vectors, governor traces and save golden bytes identical to the Python references. Raw files: `core/results/phone_termux_02a/`.
 
+## 2026-11-19 (evening) — Q-4/Q-2 decided; ZIP/repo mix-up
+- Claude shipped a v0.1.3 ZIP without knowing the repo was already at M02c (another session had built 02b/02c). The owner overlaid it and pushed (b0f081e, 157 deletions); Claude spotted older CI run titles, the owner cancelled that CI run and `git revert` restored main (214d895); CI rebuilt green (44506926285). Lesson: before shipping an overlay ZIP, ask for / read the repo snapshot first (`git archive`).
+- The owner answered GDD Q-4 and Q-2 (recorded as D-024, D-025). 02c checklist result still pending.
+
+## 2026-11-19 (night) — Milestone 02 complete
+- Owner ran the 02c checklist: all items passed; step 3 was first misread (the sim is expected to be running again after returning); a 1x tick-jump test settled it. Milestone 02 closed.
+
+## 2026-11-19 (night) — design answers
+- Owner answered, via tappable questions asked one at a time: Q-7 device targets, Q-1 (both a count and grid spawns), Q-6 (placing costs count + a separate starting budget), Q-3 (GDD-example curve as default, each neighbour rolls its own chance at its normal group risk). Recorded as D-026..D-031 and verbatim in `OWNER_DECISIONS.md`.
+- Observation shared with the owner: with orthogonal adjacency and the 10% cap, chains are small on average (arithmetic in D-031).
+
+## 2026-11-20 — Milestone 03a collapse core
+- Owner said "continue" after the design answers; Claude treated it as the go for the fully specified part (collapse rules) and built only that: reference engine + Python reference + golden fixture + tests. No economy, no wiring.
+- Python reference result: chains are small even with inflated probabilities (max 3-4 particles), matching the arithmetic in D-031.
+- Owner ran it on the phone: 36/36 passed on the first compile; fixtures identical (v0.2.5). (Written without a compiler in the sandbox.) Claude-chosen details are listed in D-032; K-45 (one roll per neighbour per chain) needs the owner's confirmation.
+
+## 2026-11-20 — Milestone 03b economy core
+- The owner answered the remaining economy questions (D-034..D-037) and chose the economy core as the next milestone. Claude built it with a Python reference first (placement order, generation, spawning, blocked policy, collapse interplay) and a fixture the Rust must reproduce line by line; the 03a fixture stayed byte-identical. Placeholders are collected in `docs/TUNING_PLACEHOLDERS.md`.
+- Owner ran it on the phone: 44/44 passed on the first compile; all 5 fixtures identical (v0.2.7). Written without a compiler in the sandbox. The owner has still not confirmed pushing v0.2.5 or reported `git status`.
+
 ## Mistakes Claude made and fixed (so a new session avoids them)
+00. (v0.2.1) Shipped an overlay ZIP built from a stale snapshot; it overwrote newer repo files (reverted). Always base a ZIP on the owner's current repo.
 0. (v0.1.2) First governor draft let a failed probe run for ~10 s before reacting; caught by the Python device model, not by hardware. Lesson: model controllers before writing them in Rust.
 1. Wrote `mkdir` with brace expansion in a `/bin/sh` script (no expansion) — use explicit paths or bash.
 2. Benchmark loops without `black_box` were optimised away (F-5).

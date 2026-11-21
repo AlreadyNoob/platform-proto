@@ -6,12 +6,13 @@ import sys, os, random, statistics
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from collapse_ref import World, Model, TypeConfig, p32_from_ppm, NEIGH
 
-STARTER = dict(cost=60, count_per_tick=1, spawn_ppm=10_000)   # 60 count, 1 count/tick, 1% spawn per tick (PLACEHOLDERS)
+STARTER = dict(cost=60, count_per_tick=1, spawn_ppm=10_000, cost_div=10)   # 60 count, 1 count/tick, 1% spawn per tick (PLACEHOLDERS)
 START_FREE, START_COUNT = 20, 120
 
 def make(seed):
     w = World(seed, Model())   # default collapse model: 0.1% base, doubling per linked particle, 10% cap (owner, D-029)
     w.define_type(TypeConfig(1, cost=STARTER["cost"], count_per_tick=STARTER["count_per_tick"], spawn_p32=p32_from_ppm(STARTER["spawn_ppm"])))
+    w.cost_div = STARTER["cost_div"]   # rising cost: cost + cost * particles // 10 (D-047)
     w.grant_free_placements(START_FREE); w.add_count(START_COUNT)
     return w
 
@@ -47,12 +48,12 @@ def biggest_group(w):
 def run(policy, seed, ticks):
     w = make(seed); rnd = random.Random(seed * 7919 + 1); rows = []; extinct_at = None; placed = 0; refused = 0
     for t in range(ticks):
-        while w.free > 0 or w.count >= STARTER["cost"]:   # the player spends everything they can, every tick
+        while w.free > 0 or w.count >= w.effective_cost(w.types[1]):   # the player spends everything they can, every tick
             r = policy(w, rnd)
             if r in ("free", "count"): placed += 1
             else: break
         w.step_tick(); w.log = []
-        if not w.cells and extinct_at is None and w.free == 0 and w.count < STARTER["cost"]: extinct_at = t
+        if not w.cells and extinct_at is None and w.free == 0 and w.count < w.effective_cost(w.types[1]): extinct_at = t
         if (t + 1) % (ticks // 6) == 0: rows.append((t + 1, len(w.cells), w.count, biggest_group(w)))
     return dict(rows=rows, extinct=extinct_at, placed=placed, chains=w.chains, final=len(w.cells), count=w.count)
 
@@ -71,7 +72,7 @@ def report(name, policy, seeds, ticks):
 if __name__ == "__main__":
     seeds = int(sys.argv[1]) if len(sys.argv) > 1 else 12
     ticks = int(sys.argv[2]) if len(sys.argv) > 2 else 3600
-    lines = [f"Balance report M03e: starter cost {STARTER['cost']}, {STARTER['count_per_tick']} count/tick, spawn {STARTER['spawn_ppm']/10000}%/tick, start {START_FREE} free + {START_COUNT} count (ALL PLACEHOLDERS)"]
+    lines = [f"Balance report M03e: starter cost {STARTER['cost']}, {STARTER['count_per_tick']} count/tick, spawn {STARTER['spawn_ppm']/10000}%/tick, cost rises: cost + cost*particles/{STARTER['cost_div']}, start {START_FREE} free + {START_COUNT} count (ALL PLACEHOLDERS)"]
     lines += report("spread (keep particles apart)", place_spread, seeds, ticks)
     lines += report("pack (always next to another particle)", place_pack, seeds, ticks)
     print("\n".join(lines))

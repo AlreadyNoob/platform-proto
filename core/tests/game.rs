@@ -22,13 +22,14 @@ const PARTICLES: usize = 2;
 const REJECT_SEQ: usize = 5;
 const REJECT_CODE: usize = 6;
 const UNDO_DEPTH: usize = 7;
+const NEXT_COST: usize = 8;
 
 #[test]
 fn snapshot_field_names_match_the_array() {
     assert_eq!(Snapshot::FIELDS.len(), Snapshot::LEN);
     assert_eq!(Snapshot::default().to_array().len(), Snapshot::LEN);
     assert_eq!(Snapshot::FIELDS[9], "count");
-    assert_eq!(Snapshot::FIELDS[Snapshot::LEN - 1], "undo_depth");
+    assert_eq!(Snapshot::FIELDS[Snapshot::LEN - 1], "next_cost");
 }
 
 #[test]
@@ -248,31 +249,50 @@ fn the_dev_game_starts_with_20_free_placements_and_120_count() {
 }
 
 #[test]
-fn the_dev_start_budget_buys_22_starters_and_then_the_message_is_reachable() {
+fn the_dev_start_budget_is_20_free_placements_and_the_21st_needs_180_count() {
     let mut w = GameWorld::new_dev_game(5);
-    for i in 0..22 {
+    for i in 0..20 {
         place(&mut w, i * 2, 0, i as u32 + 1); // spaced cells, no ticks in between
     }
-    assert_eq!(stat(&w, PARTICLES), 22);
+    assert_eq!(stat(&w, PARTICLES), 20);
     assert_eq!(stat(&w, FREE), 0);
-    assert_eq!(stat(&w, COUNT), 0); // 20 free placements, then 2 x 60 count
+    assert_eq!(stat(&w, COUNT), 120);
+    assert_eq!(stat(&w, NEXT_COST), 180); // 60 + 60 * 20 / 10
     assert_eq!(stat(&w, REJECT_SEQ), 0);
     place(&mut w, 100, 0, 99);
-    assert_eq!(stat(&w, PARTICLES), 22);
+    assert_eq!(stat(&w, PARTICLES), 20);
     assert_eq!(stat(&w, REJECT_SEQ), 1);
     assert_eq!(stat(&w, REJECT_CODE), REJECT_INSUFFICIENT);
 }
 
 #[test]
-fn undoing_a_count_purchase_of_the_starter_refunds_60() {
+fn the_cost_rises_with_the_number_of_particles() {
     let mut w = GameWorld::new_dev_game(5);
-    for i in 0..21 {
+    assert_eq!(stat(&w, NEXT_COST), 60);
+    place(&mut w, 0, 0, 1);
+    assert_eq!(stat(&w, NEXT_COST), 66); // 60 + 60 * 1 / 10
+    for i in 1..10 {
         place(&mut w, i * 2, 0, i as u32 + 1);
     }
-    assert_eq!(stat(&w, COUNT), 60); // the 21st was paid with count
+    assert_eq!(stat(&w, PARTICLES), 10);
+    assert_eq!(stat(&w, NEXT_COST), 120); // 60 + 60 * 10 / 10
+}
+
+#[test]
+fn undoing_a_count_purchase_refunds_what_was_paid_at_that_time() {
+    let mut w = GameWorld::new_dev_game(5);
+    for i in 0..20 {
+        place(&mut w, i * 2, 0, i as u32 + 1);
+    }
+    w.inner_mut().add_count(100); // count is now 220
+    place(&mut w, 100, 0, 21); // costs 180
+    assert_eq!(stat(&w, PARTICLES), 21);
+    assert_eq!(stat(&w, COUNT), 40);
+    assert_eq!(stat(&w, NEXT_COST), 186); // 60 + 60 * 21 / 10
     w.command(Command::Undo);
-    assert_eq!(stat(&w, COUNT), 120);
+    assert_eq!(stat(&w, COUNT), 220);
     assert_eq!(stat(&w, PARTICLES), 20);
+    assert_eq!(stat(&w, NEXT_COST), 180);
 }
 
 #[test]

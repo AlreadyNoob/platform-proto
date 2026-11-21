@@ -126,6 +126,9 @@ pub struct ParticleWorld {
     /// Bumped whenever the set of particles changes (placement, undo, collapse, spawn). Not saved, not part of any hash: it only
     /// tells the presentation that its copy of the cells is out of date.
     rev: u64,
+    /// Rising cost (03e, D-047): 0 = flat cost; D > 0 = a particle costs `cost + cost * particles / D` (integer division). A rule constant set by
+    /// the game, NOT saved and not part of any hash.
+    cost_div: u64,
 }
 
 impl ParticleWorld {
@@ -150,6 +153,7 @@ impl ParticleWorld {
             dropped: 0,
             chains: 0,
             rev: 0,
+            cost_div: 0,
         }
     }
 
@@ -227,9 +231,22 @@ impl ParticleWorld {
         self.rev
     }
 
-    /// Count a particle of this type costs when paid with count (None for an undefined type).
+    /// Sets the rising-cost divisor (0 = flat cost). See `cost_div`.
+    pub fn set_cost_growth_divisor(&mut self, d: u64) {
+        self.cost_div = d;
+    }
+
+    fn effective_cost(&self, cfg: &TypeConfig) -> u64 {
+        if self.cost_div == 0 {
+            cfg.cost
+        } else {
+            cfg.cost.saturating_add(cfg.cost.saturating_mul(self.cells.len() as u64) / self.cost_div)
+        }
+    }
+
+    /// Count the NEXT particle of this type costs when paid with count, with the rising cost included (None for an undefined type).
     pub fn type_cost(&self, type_id: u16) -> Option<u64> {
-        self.types.get(&type_id).map(|c| c.cost)
+        self.types.get(&type_id).map(|c| self.effective_cost(c))
     }
 
     /// Exact inverse of a successful `place_typed`: removes the particle at (x, y) if it is of type `type_id` and gives back what was paid
@@ -276,7 +293,8 @@ impl ParticleWorld {
         if self.cells.contains(&key) {
             return Err(PlaceError::Occupied);
         }
-        let can_count = self.count >= cfg.cost;
+        let cost = self.effective_cost(&cfg);
+        let can_count = self.count >= cost;
         let can_free = self.free > 0;
         let pay = if cfg.free_first {
             if can_free {
@@ -295,7 +313,7 @@ impl ParticleWorld {
         };
         match pay {
             Paid::Free => self.free -= 1,
-            Paid::Count => self.count -= cfg.cost,
+            Paid::Count => self.count -= cost,
         }
         self.cells.insert(key);
         self.kinds.insert(key, type_id);
@@ -487,6 +505,7 @@ impl ParticleWorld {
             dropped: 0,
             chains: ws.chains,
             rev: 0,
+            cost_div: 0,
         })
     }
 

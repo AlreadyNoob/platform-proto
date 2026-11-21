@@ -8,7 +8,7 @@ use std::time::{Duration, Instant};
 
 /// Number of world counters in a snapshot: count, free placements, particles, chains, view revision (set by the host),
 /// count of rejected commands (matters to the player), code of the latest rejection, undo depth.
-pub const WORLD_STATS: usize = 8;
+pub const WORLD_STATS: usize = 9;
 
 /// Everything that must be saved besides the save header: the clock tick the world stands at, the RNG states and the world state.
 #[derive(Clone, Debug, PartialEq, Eq)]

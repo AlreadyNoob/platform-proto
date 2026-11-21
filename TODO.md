@@ -65,10 +65,11 @@
 - [x] Paint-mode bug found and fixed in v0.2.10 (collapsed cells could not be refilled within the same drag) — [ ] OWNER: re-test
 - [ ] Not yet reported: undo (per stroke), ghost colours, rejection message, wave animation, speed >100x without animation, autosave with a world after backgrounding
 
-## Milestone 03e starter particle (WRITTEN v0.2.11, not compiled, not run)
-- [x] Owner verified paint fix, undo, ghost, ring animation, high speed (v0.2.10)
-- [x] Starter type + dev game start + 5 tests + balance simulation written
-- [ ] OWNER: `sh tools/RUN_M03E_TERMUX.sh` (expect 70 tests), upload both result files and `balance_report_m03e.txt`
-- [ ] OWNER: push, CI builds the `.so`, update the Godot project, run the 03e checklist, then tell Claude how it feels (K-61)
+## Milestone 03e starter particle with rising cost (WRITTEN v0.2.12, not compiled, not run)
+- [x] v0.2.11: starter type, dev start, tests; core tested 70/70 on the phone; owner: impossible to lose
+- [x] v0.2.12: rising cost (D-047), `next_cost` stat, Cost label, ghost fix, 6 tests, simulation written
+- [ ] OWNER: `sh tools/RUN_M03E_TERMUX.sh` (expect 71 tests), upload both result files and `balance_report_m03e.txt`
+- [ ] OWNER: push, CI builds the `.so`, copy the `.so` AND `game/shell.gd` into the Godot folder, run the 03e checklist, say how it feels (K-61)
 - [ ] Decide: should the app load the autosave on start (K-60)?
+- [ ] Other balance levers if still too easy: falling income per particle, harsher collapse (owner's D-029 numbers)
 - [ ] Next options: B entropy and timelines (needs Q-5), C viewport chunks (K-52), more particle types

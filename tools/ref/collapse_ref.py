@@ -45,17 +45,19 @@ class World:
     def define_type(self, cfg): self.types[cfg.id] = cfg
     def add_count(self, n): self.count = min(self.count + n, M64)
     def grant_free_placements(self, n): self.free = min(self.free + n, M64)
+    cost_div = 0   # 03e: 0 = flat cost; S > 0 = cost + cost * particles // S (rising cost, D-047). A rule constant, not saved.
+    def effective_cost(self, cfg): return cfg.cost if self.cost_div == 0 else cfg.cost + cfg.cost * len(self.cells) // self.cost_div
     def place_typed(self, x, y, type_id):
         cfg = self.types.get(type_id)
         if cfg is None: return "unknown"
         k = (y, x)
         if k in self.cells: return "occupied"
-        can_count = self.count >= cfg.cost; can_free = self.free > 0
+        cost = self.effective_cost(cfg); can_count = self.count >= cost; can_free = self.free > 0
         if cfg.free_first: pay = "free" if can_free else ("count" if can_count else None)
         else: pay = "count" if can_count else ("free" if can_free else None)
         if pay is None: return "insufficient"
         if pay == "free": self.free -= 1
-        else: self.count -= cfg.cost
+        else: self.count -= cost
         self.cells.add(k); self.kinds[k] = type_id
         return pay
     def genesis_roll(self, p): return (self.rng[STREAM_GENESIS].next() >> 32) < p

@@ -95,13 +95,13 @@ Phone checklist (after CI built the new `.so`; copy it and the new game files in
 
 9. (v0.2.10) Paint mode: keep one finger down, swipe over cells until some collapse, swipe back over them without lifting: the collapsed cells must fill again, occupied cells must not be charged twice.
 
-## Milestone 03e (v0.2.11): the starter particle
-Core: `sh tools/RUN_M03E_TERMUX.sh` (expect 70 tests: the 65 of 03d plus 5 in `core/tests/game.rs`; 7 fixtures identical; the Python references are unchanged). It also runs the balance simulation and copies `balance_report_m03e.txt` to Downloads (a report, not a test). New tests: the starter's values, the dev game's start (20 free, 120 count), 22 purchases then the reject message, undoing a count purchase refunds 60, a starter world saved and restored continues identically with spawning.
-Owner verified earlier on v0.2.9/v0.2.10: paint fix, undo, ghost colours, collapse ring, high speed. Autosave: written on background but not loaded on start (K-60). Rejection message: not seen so far (K-62).
-Phone checklist (needs the new `.so` from CI):
-1. Start: Count 120, Free 20, Particles 0.
-2. Place 22 particles: Free 0, Count 0. Place a 23rd: message "Not enough free placements or count" (first sighting of it).
-3. Wait at 1x: Count grows about 1 per particle per second; a new particle appears next to a particle now and then (about 1% per second each).
-4. Place a particle when Count reaches 60: it is paid with count.
-5. Undo a count purchase: Count goes back up by 60.
-6. Tell Claude how it feels (too easy, too hard, too slow, too fast); this tunes the placeholders.
+## Milestone 03e (v0.2.12): starter particle with rising cost
+Core: `sh tools/RUN_M03E_TERMUX.sh` (expect 71 tests: the 65 of 03d plus 6 in `core/tests/game.rs`; 7 fixtures identical; the Python references are unchanged). It also runs the balance simulation and copies `balance_report_m03e.txt` to Downloads (a report, not a test). New tests: the starter's values, the dev game's start (20 free, 120 count), the 21st placement needs 180 count and a refused one gives the message, the cost rises 60/66/120 with 0/1/10 particles, undoing a count purchase refunds what was paid, a starter world saved and restored continues identically with spawning.
+Owner verified earlier on v0.2.9/v0.2.10/v0.2.11: paint fix, undo, ghost colours, collapse ring, high speed; v0.2.11 core 70/70. Autosave: written on background but not loaded on start (K-60).
+Phone checklist (needs the new `.so` from CI AND the new `game/shell.gd`):
+1. Start: Count 120, Free 20, Particles 0, Cost 60.
+2. Place particles: Cost rises with every particle (66, 72, ... 260 at 20 particles).
+3. After the 20 free placements the ghost is red until Count reaches the Cost shown; place a 21st when you can pay it; Count drops by the Cost shown.
+4. Place one while you cannot afford it: the message "Not enough free placements or count" (first sighting).
+5. Undo a count purchase: Count rises by what you paid; Cost goes back down.
+6. Play 10 minutes: does growth slow down? Can you get stuck or lose particles faster than you can buy? Tell Claude how it feels.

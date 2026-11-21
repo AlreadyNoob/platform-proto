@@ -1,3 +1,3 @@
-# Release notes — Platform_v0.2.11_milestone-03e_starter.zip
-Complete project snapshot (v0.2.11) = v0.2.10 (03d placement UI, paint fix verified on the phone) + Milestone 03e: the starter particle (cost 60, 1 count/tick, 1% spawn/tick) and the dev game start (20 free + 120 count) in the Rust core and bridge, 5 new tests, a Python balance simulation and docs. The Rust and the bridge changed, so a new Android `.so` is needed (CI builds it on push).
+# Release notes — Platform_v0.2.12_milestone-03e_starter.zip
+Complete project snapshot (v0.2.12) = v0.2.11 (03e starter particle) + rising placement cost (a particle costs cost + cost * particles / 10), the `next_cost` stat, the Cost label and the corrected ghost colour, 6 tests in total for 03e, and the updated balance simulation. The Rust and the bridge changed, so a new Android `.so` is needed (CI builds it on push); the GDScript changed too (`game/shell.gd`).
 Overlay with `unzip -qo` then `cp -r <folder>/. <repo>/` and check `git status --short` (no deletions expected). No `.so`, `.apk` or `target/`. Integrity check: `python3 tools/check_handoff.py <folder or zip>`.

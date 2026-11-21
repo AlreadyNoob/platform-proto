@@ -12,6 +12,8 @@ pub const BASIC_TYPE: u16 = 1;
 pub const DEV_START_FREE: u64 = 20;
 /// Count a new dev game starts with (03e): enough for two purchases of the starter beyond the free placements. PLACEHOLDER.
 pub const DEV_START_COUNT: u64 = 120;
+/// Rising cost divisor of the dev game (03e, D-047): a particle costs `cost + cost * particles / 10`. PLACEHOLDER.
+pub const DEV_COST_DIV: u64 = 10;
 /// Result codes of a rejected command (in the snapshot as `reject_code`).
 pub const REJECT_OCCUPIED: i64 = 1;
 pub const REJECT_INSUFFICIENT: i64 = 2;
@@ -72,6 +74,7 @@ impl GameWorld {
         w.define_type(TypeConfig::starter(BASIC_TYPE));
         w.grant_free_placements(DEV_START_FREE);
         w.add_count(DEV_START_COUNT);
+        w.set_cost_growth_divisor(DEV_COST_DIV);
         GameWorld::wrap(w)
     }
 
@@ -80,7 +83,10 @@ impl GameWorld {
         let fresh = GameWorld::new_dev_game(seed);
         let ws = fresh.inner.export_state();
         let rng = RngStreams::new(seed).states();
-        ParticleWorld::restore(tick, &rng, &ws).map(GameWorld::wrap)
+        ParticleWorld::restore(tick, &rng, &ws).map(|mut p| {
+            p.set_cost_growth_divisor(DEV_COST_DIV);
+            GameWorld::wrap(p)
+        })
     }
 
     /// A new game that stands at `tick` (used for saves that have no world, D-040: the caller decides, and the decision is "new world").
@@ -183,6 +189,7 @@ impl World for GameWorld {
             self.reject_seq as i64,
             self.reject_code,
             self.undo.len() as i64,
+            self.inner.type_cost(BASIC_TYPE).unwrap_or(0) as i64, // what the next placement of the basic type costs in count
         ]
     }
 

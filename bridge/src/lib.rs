@@ -5,7 +5,7 @@ use godot::prelude::*;
 use platform_core::command::Command;
 use platform_core::host::SimHost;
 use platform_core::rng::RngStreams;
-use platform_core::game::GameWorld;
+use platform_core::game::{GameWorld, DEV_COST_DIV};
 use platform_core::save::{load_slot, load_slot_game, save_slot, save_slot_game, SaveData};
 use platform_core::snapshot::Snapshot;
 use platform_core::world::BurnWorld;
@@ -239,7 +239,10 @@ impl PlatformCore {
         match load_slot_game(Path::new(&p)) {
             Ok((d, ws, src)) => {
                 let restored = match &ws {
-                    Some(w) => GameWorld::restore(d.tick, &d.rng_states, w),
+                    Some(w) => GameWorld::restore(d.tick, &d.rng_states, w).map(|mut g| {
+                        g.inner_mut().set_cost_growth_divisor(DEV_COST_DIV);
+                        g
+                    }),
                     None => GameWorld::new_dev_game_at(d.seed, d.tick),
                 };
                 match restored {

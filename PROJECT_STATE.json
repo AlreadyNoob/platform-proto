@@ -1,9 +1,9 @@
 {
   "project": "Platform",
   "kind": "Android 2D top-down particle/universe simulation game",
-  "handoff_package_version": "0.2.11",
+  "handoff_package_version": "0.2.12",
   "date": "2026-11-20",
-  "latest_zip": "Platform_v0.2.11_milestone-03e_starter.zip",
+  "latest_zip": "Platform_v0.2.12_milestone-03e_starter.zip",
   "original_proposal_zip": "Platform_Design_and_Claude_Prompt_v0_1.zip",
   "original_sha256": {
     "PLATFORM_GDD.md": "abba819d92f444d12960ca401884c45c6aeaf485480e158863b0ea944b09621e",
@@ -69,9 +69,9 @@
       "what": "placement (tap default, drag-paint mode), undo per stroke, counters, change-driven cell feed, collapse-wave feed, world saves through the bridge; host runs the real GameWorld"
     },
     "03e": {
-      "status": "WRITTEN v0.2.11, NOT COMPILED; Python balance simulation run (K-61)",
-      "zip": "v0.2.11",
-      "what": "starter particle (cost 60, 1 count/tick, 1% spawn/tick, PLACEHOLDERS) and dev game start (20 free + 120 count); 5 new tests (70 expected)"
+      "status": "WRITTEN v0.2.12, NOT COMPILED; Python balance simulation run (K-61)",
+      "zip": "v0.2.12",
+      "what": "starter particle (cost 60, 1 count/tick, 1% spawn/tick) with rising cost (cost + cost*particles/10, D-047), dev game start (20 free + 120 count), next_cost stat, 6 tests (71 expected); all PLACEHOLDERS"
     }
   },
   "game_code_exists": false,
@@ -165,7 +165,7 @@
     "whether v0.1.x/M02 files were copied into the repo (the owner's log shows .gitignore added and libplatform_bridge_proto.so untracked)",
     "NDK version used by CI (ci.yml prints it)"
   ],
-  "next_step": "Owner runs tools/RUN_M03E_TERMUX.sh (expect 70 tests, 7 fixtures identical) and uploads test_out_m03e.txt, python_ref_m03e.txt, balance_report_m03e.txt; pushes; CI builds the .so; owner runs the 03e checklist and says how it feels; then tune the placeholders (K-61).",
+  "next_step": "Owner runs tools/RUN_M03E_TERMUX.sh (expect 71 tests, 7 fixtures identical) and uploads test_out_m03e.txt, python_ref_m03e.txt, balance_report_m03e.txt; pushes; CI builds the .so; owner runs the 03e checklist and says how it feels; then tune the placeholders (K-61).",
   "files_to_read_in_order": [
     "START_HERE.md",
     "PROJECT_STATE.json",

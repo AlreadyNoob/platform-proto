@@ -523,8 +523,9 @@ func _sync_world(delta: float) -> void:
         view.call("add_events", ev, _s("effective_speed") <= WAVE_MAX_SPEED)
     var free_n: int = _s("free_placements")
     var count_n: int = _s("count")
-    count_label.text = "Count %d   Free %d   Particles %d" % [count_n, free_n, _s("particles")]
-    view.can_afford = free_n > 0 or count_n >= 1
+    var next_cost: int = _s("next_cost")
+    count_label.text = "Count %d   Free %d   Particles %d   Cost %d" % [count_n, free_n, _s("particles"), next_cost]
+    view.can_afford = free_n > 0 or count_n >= next_cost
     undo_btn.disabled = _s("undo_depth") == 0
     var rs: int = _s("reject_seq")
     if rs != last_reject_seq:

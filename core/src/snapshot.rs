@@ -46,6 +46,7 @@ impl Snapshot {
         "reject_seq",
         "reject_code",
         "undo_depth",
+        "next_cost",
     ];
 
     pub fn to_array(&self) -> [i64; Snapshot::LEN] {

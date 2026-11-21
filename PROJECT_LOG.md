@@ -101,3 +101,6 @@ Determinism hashes (model, seeds 1/2/3): `8fe431764a396449`, `05f5d4a4d9e575cf`,
 
 ## 2026-11-20 — v0.2.11, Milestone 03e written
 - Owner confirmed on the phone: the paint fix works; undo, ghost colours, collapse ring and high speed work; the rejection message was never seen (game too easy); backgrounding autosaves but the app starts fresh (K-60). Owner chose option A (particle design): the starter makes count and has a small spawn chance (answer 1), pays itself back in about 1 minute (answer 2). Claude wrote the starter type (cost 60, 1 count/tick, 1% spawn), the dev game start (20 free + 120 count), 5 tests, a Python balance simulation (finding K-61: still very generous) and docs. Not compiled.
+
+## 2026-11-20 — v0.2.12, rising cost written
+- Core 70/70 passed on the phone for v0.2.11. Owner played it: impossible to lose, particles multiply far faster than count runs out. Claude's simulation: lowering spawn does not help, the count loop is the cause. Owner chose the rising-cost lever. Claude wrote it (D-047, divisor 10), the `next_cost` stat, the Cost label, the ghost fix and tests; simulation: spread player about 1,190 particles per hour, packed about 140, nobody extinct. Not compiled.

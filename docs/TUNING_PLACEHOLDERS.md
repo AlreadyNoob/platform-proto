@@ -25,3 +25,4 @@ Rule: a value is either **DECIDED** (owner), **Claude's reversible choice** (lis
 | Undo history length / rules | 256 placements, per stroke, exact refund, no refund for collapsed particles | Claude's reversible choice (D-043) | `game::UNDO_LIMIT` |
 | Cell feed cap / refresh | 20,000 particles, every 30 ms at most | PLACEHOLDER (until viewport chunks) | `host::MAX_VIEW_CELLS`, `VIEW_MIN_INTERVAL_MS` |
 | Wave animation | skipped above 100x; 0.07 s per depth, 0.55 s life, 400 effects max | PLACEHOLDER (presentation only) | `shell.gd`, `world_view.gd` |
+| Rising cost divisor (03e, D-047) | 10: cost + cost * particles / 10 (`game::DEV_COST_DIV`, not saved) | PLACEHOLDER (owner chose the rising-cost rule) | `ParticleWorld::set_cost_growth_divisor` |
